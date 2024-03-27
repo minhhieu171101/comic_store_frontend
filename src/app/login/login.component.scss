@@ -1,0 +1,44 @@
+.login-container {
+    .login-content-wrapper {
+        padding-top: 64px;
+        .form-container {
+            padding: 36px 0;
+            border-width: 0;
+            border-top: solid rgb(192 189 189 / 10%);
+
+            .navbar-container {
+                margin-bottom: 24px;
+                
+                .nav-button {
+                    cursor: pointer;
+                }
+            }
+
+            .login-form {
+                .text-center {
+                    .submit {
+                        background: rgb(241 92 34 / var(--tw-text-opacity));
+                    }
+                    .submit:hover {
+                        opacity: 0.8;
+                    }
+                }
+            }
+
+            .register-form {
+                .text-center {
+                    .submit {
+                        background: rgb(241 92 34 / var(--tw-text-opacity));
+                    }
+                    .submit:hover {
+                        opacity: 0.8;
+                    }
+                }
+            }
+        }
+    }
+
+    .requirement {
+        color: red;
+    }
+}
