@@ -1,5 +1,10 @@
 .header-container {
+  padding: 16px 36px 16px 16px;
   .web-name {
     cursor: pointer;
+
+    .logo {
+      height: 32px;
+    }
   }
 }

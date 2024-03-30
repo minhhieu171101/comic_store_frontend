@@ -4,6 +4,7 @@ import {
   faHeadset,
   faCartShopping,
 } from '@fortawesome/free-solid-svg-icons';
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -14,6 +15,22 @@ export class HeaderComponent implements OnInit{
   faHeadset = faHeadset;
   faCartShopping = faCartShopping;
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  constructor(
+      private router: Router
+  ) {}
+
+
+  routerHome(): void {
+    this.router.navigateByUrl("/home");
+  }
+
+  routerLogin(): void {
+    this.router.navigateByUrl("/login");
+  }
+
+  routerCart() {
+    this.router.navigateByUrl("/cart");
   }
 }
