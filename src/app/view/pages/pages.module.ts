@@ -11,6 +11,7 @@ import {MoreProductComponent} from "./more-product/more-product.component";
 import {LoginComponent} from "./login/login.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {LoginService} from "../../core/service/login.service";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
     declarations: [
@@ -26,7 +27,7 @@ import {LoginService} from "../../core/service/login.service";
     imports: [
         CommonModule,
         FormsModule,
-        FontAwesomeModule,
+        FontAwesomeModule
     ],
     providers: [
         LoginService

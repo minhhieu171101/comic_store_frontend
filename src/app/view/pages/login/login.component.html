@@ -32,7 +32,8 @@
                            text-gray-900 text-sm rounded-lg p-2.5
                            w-full focus:ring-0 focus:outline-none"
                            placeholder="Nhập tên tài khoản"
-                           [(ngModel)]="loginObject.username"/>
+                           [(ngModel)]="loginObject.username"
+                           [ngModelOptions]="{standalone: true}"/>
 
                     <span class="err" *ngIf="!loginFormValid.validUsernameLength">
                         Tên tài khoản không được quá 30 ký tự!
@@ -56,7 +57,8 @@
                            text-gray-900 text-sm rounded-lg p-2.5
                            w-full focus:ring-0 focus:outline-none"
                            placeholder="Nhập mật khẩu"
-                           [(ngModel)]="loginObject.password"/>
+                           [(ngModel)]="loginObject.password"
+                           [ngModelOptions]="{standalone: true}"/>
 
                     <span class="err" *ngIf="!loginFormValid.validPassLength">
                         Mật khẩu không nhỏ hơn 8 ký tự!
@@ -92,7 +94,8 @@
                            text-gray-900 text-sm rounded-lg p-2.5
                            w-full focus:ring-0 focus:outline-none"
                            placeholder="Nhập tên tài khoản"
-                           [(ngModel)]="registerObject.username"/>
+                           [(ngModel)]="registerObject.username"
+                           [ngModelOptions]="{standalone: true}"/>
 
                     <span class="err" *ngIf="!registerFormValid.validUsernameLength">
                         Tên tài khoản không được quá 30 ký tự!
@@ -113,7 +116,8 @@
                            text-gray-900 text-sm rounded-lg p-2.5
                            w-full focus:ring-0 focus:outline-none"
                            placeholder="Nhập email"
-                           [(ngModel)]="registerObject.email"/>
+                           [(ngModel)]="registerObject.email"
+                           [ngModelOptions]="{standalone: true}"/>
 
                     <span class="err" *ngIf="!registerFormValid.validEmailFormat">
                         Email không đúng định dạng!
@@ -131,7 +135,8 @@
                            text-gray-900 text-sm rounded-lg p-2.5
                            w-full focus:ring-0 focus:outline-none"
                            placeholder="Nhập số điện thoại"
-                           [(ngModel)]="registerObject.phone"/>
+                           [(ngModel)]="registerObject.phone"
+                           [ngModelOptions]="{standalone: true}"/>
 
                     <span class="err" *ngIf="!registerFormValid.validPhoneFormat">
                         Số điện thoại không đúng định dạng!
@@ -150,7 +155,8 @@
                            text-gray-900 text-sm rounded-lg p-2.5
                            w-full focus:ring-0 focus:outline-none"
                            placeholder="Nhập mật khẩu"
-                           [(ngModel)]="registerObject.password"/>
+                           [(ngModel)]="registerObject.password"
+                           [ngModelOptions]="{standalone: true}"/>
                     <span class="err" *ngIf="!registerFormValid.validPassLength">
                         Mật khẩu không nhỏ hơn 8 ký tự!
                     </span>
@@ -171,7 +177,8 @@
                            text-gray-900 text-sm rounded-lg p-2.5
                            w-full focus:ring-0 focus:outline-none"
                            placeholder="Nhập lại mật khẩu"
-                           [(ngModel)]="rePassword"/>
+                           [(ngModel)]="rePassword"
+                           [ngModelOptions]="{standalone: true}"/>
 
                     <span class="err" *ngIf="!registerFormValid.validRePassFormat">
                         Mật khẩu nhập lại không đúng mật khẩu ban đầu!
@@ -194,24 +201,67 @@
     </div>
 </div>
 
-<ng-template #validPopup>
+<ng-template #validPopup class="valid-popup">
     <div class="popup-container">
         <div class="popup-header">
             <h2 class="popup-title">
-                Xác nhận email
+                Mã xác nhận
             </h2>
+            <p class="description">Mã xác nhận đã được gửi vào email. Vui lòng kiểm tra email và thực hiện xác minh!</p>
         </div>
         <div class="popup-body">
-            <div class="code-input"></div>
-            <div class="code-input"></div>
-            <div class="code-input"></div>
-            <div class="code-input"></div>
-            <div class="code-input"></div>
-            <div class="code-input"></div>
+            <input class="code-input"
+                   maxLength="1"
+                   id="code0"
+                   [(ngModel)]="code[0]"
+                   [pattern]="numericPattern"
+                   (input)="onInputChange($event)"
+                   (keyup)="focusNext($event)"
+                   (keydown)="handleKeydown($event)">
+            <input class="code-input"
+                   maxLength="1"
+                   id="code1"
+                   [(ngModel)]="code[1]"
+                   [pattern]="numericPattern"
+                   (keyup)="focusNext($event)"
+                   (input)="onInputChange($event)"
+                   (keydown)="handleKeydown($event)">
+            <input class="code-input"
+                   maxLength="1"
+                   id="code2"
+                   [(ngModel)]="code[2]"
+                   [pattern]="numericPattern"
+                   (keyup)="focusNext($event)"
+                   (input)="onInputChange($event)"
+                   (keydown)="handleKeydown($event)">
+            <input class="code-input"
+                   maxLength="1"
+                   id="code3"
+                   [(ngModel)]="code[3]"
+                   [pattern]="numericPattern"
+                   (keyup)="focusNext($event)"
+                   (input)="onInputChange($event)"
+                   (keydown)="handleKeydown($event)">
+            <input class="code-input"
+                   maxLength="1"
+                   id="code4"
+                   [(ngModel)]="code[4]"
+                   [pattern]="numericPattern"
+                   (keyup)="focusNext($event)"
+                   (input)="onInputChange($event)"
+                   (keydown)="handleKeydown($event)">
+            <input class="code-input"
+                   maxLength="1"
+                   id="code5"
+                   [(ngModel)]="code[5]"
+                   [pattern]="numericPattern"
+                   (keyup)="focusNext($event)"
+                   (input)="onInputChange($event)"
+                   (keydown)="handleKeydown($event)">
         </div>
         <div class="popup-footer">
-            <button class="btn-cancel"></button>
-            <button class="btn-confirm"></button>
+            <button class="btn-cancel" (click)="closeDialog()">Hủy</button>
+            <button class="btn-confirm" (click)="submitCode()">Xác nhận</button>
         </div>
     </div>
 </ng-template>

@@ -1,9 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {RegisterModel} from "../../../models/RegisterModel";
 import {LoginModel} from "../../../models/LoginModel";
 import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-login',
@@ -38,13 +37,19 @@ export class LoginComponent implements OnInit{
   loginObject: LoginModel = new LoginModel();
   rePassword: string = '';
 
-  @ViewChild("validPopup") valid: HTMLTemplateElement = new HTMLTemplateElement();
+  code: string[] = [];
+  currentIndexCode: number = 0;
+
+  @ViewChild("validPopup") validTemplate !: TemplateRef<any>;
+  validTemplatePopup: MatDialogRef<TemplateRef<any>> | undefined;
+
+  numericPattern: string = '^[0-9]*$';
 
   ngOnInit(): void {}
 
   constructor(
       private router: Router,
-      private toaStr: ToastrService,
+      // private toaStr: ToastrService,
       private dialog: MatDialog
   ) {
   }
@@ -53,7 +58,7 @@ export class LoginComponent implements OnInit{
   //   if ()
   // }
   onRegister(): void {
-    this.validateRegisterForm();
+    this.openValidPopup();
   }
 
   onLogin(): void {
@@ -138,5 +143,57 @@ export class LoginComponent implements OnInit{
     } else {
       this.resetLoginValidForm();
     }
+  }
+
+  openValidPopup(): void {
+    this.validTemplatePopup = this.dialog.open(this.validTemplate, {
+      width: '400px',
+      height: '248px',
+      panelClass: 'validPopup',
+    });
+  }
+
+  focusNext(event: KeyboardEvent): void {
+    // kiểm tra nếu giá trị nhập là số thì thực hiện tự động dịch chuyển ô focus
+    if (this.currentIndexCode < 5
+        && event.keyCode >= 29
+        && event.keyCode <= 57) {
+
+      let nextInput: HTMLElement | null = document.getElementById("code" + (this.currentIndexCode + 1).toString());
+      if(nextInput) {
+        nextInput.focus();
+      }
+      this.currentIndexCode++;
+    }
+  }
+
+  // Function to focus on the previous input
+  handleKeydown(event: KeyboardEvent): void {
+    if (this.currentIndexCode > 0 && event.key === "Backspace") {
+      // Không cho phép xóa dữ liệu do sự kiện backspace
+      event.preventDefault();
+      // Tự xóa dữ liệu
+      this.code[this.currentIndexCode] = "";
+      // Dịch chuyển vị trí ô input focus
+      let previousInput: HTMLElement | null = document.getElementById("code" + (this.currentIndexCode -1).toString());
+      if(previousInput) {
+        previousInput.focus();
+      }
+      this.currentIndexCode--;
+    }
+  }
+
+  closeDialog(): void {
+    this.dialog.closeAll();
+  }
+
+  submitCode():void {
+    this.validTemplatePopup?.close();
+  }
+
+  // Định dạng dữ liệu nhập vào cho ô valid
+  onInputChange(event: any): void {
+    const input = event.target;
+    input.value = input.value.replace(/\D/g, '');
   }
 }
