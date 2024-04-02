@@ -11,7 +11,8 @@ import {MoreProductComponent} from "./more-product/more-product.component";
 import {LoginComponent} from "./login/login.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {LoginService} from "../../core/service/login.service";
-import {MatDialogModule} from "@angular/material/dialog";
+import {NavbarComponent} from "../../components/navbar/navbar.component";
+import {SlickCarouselModule} from "ngx-slick-carousel";
 
 @NgModule({
     declarations: [
@@ -22,12 +23,14 @@ import {MatDialogModule} from "@angular/material/dialog";
         ProductDetailComponent,
         UserComponent,
         MoreProductComponent,
-        LoginComponent
+        LoginComponent,
+        NavbarComponent,
   ],
     imports: [
         CommonModule,
         FormsModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        SlickCarouselModule
     ],
     providers: [
         LoginService

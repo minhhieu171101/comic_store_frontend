@@ -18,7 +18,7 @@ import {HttpClientModule} from "@angular/common/http";
     declarations: [
         HeaderComponent,
         FooterComponent,
-        AppComponent
+        AppComponent,
     ],
     imports: [
         CommonModule,
@@ -33,7 +33,7 @@ import {HttpClientModule} from "@angular/common/http";
         // khai báo module cho toastr
         BrowserAnimationsModule,
         ToastrModule.forRoot({
-            positionClass :'toast-bottom-right',
+            positionClass: 'toast-bottom-right',
             timeOut: 4000
         }),
     ],
