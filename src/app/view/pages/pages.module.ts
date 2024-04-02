@@ -11,6 +11,8 @@ import {MoreProductComponent} from "./more-product/more-product.component";
 import {LoginComponent} from "./login/login.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {LoginService} from "../../core/service/login.service";
+import {NavbarComponent} from "../../components/navbar/navbar.component";
+import {SlickCarouselModule} from "ngx-slick-carousel";
 
 @NgModule({
     declarations: [
@@ -21,12 +23,14 @@ import {LoginService} from "../../core/service/login.service";
         ProductDetailComponent,
         UserComponent,
         MoreProductComponent,
-        LoginComponent
+        LoginComponent,
+        NavbarComponent,
   ],
     imports: [
         CommonModule,
         FormsModule,
         FontAwesomeModule,
+        SlickCarouselModule
     ],
     providers: [
         LoginService
