@@ -5,6 +5,8 @@ import {
   faBookOpen,
   faAngleRight, IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
+import {NavbarService} from "../../core/service/navbar.service";
+import {TypeComic} from "../../models/TypeComic";
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -14,7 +16,6 @@ export class NavbarComponent implements OnInit{
   faBars: IconDefinition = faBars;
   faCaretDown: IconDefinition = faCaretDown;
   faBookOpen: IconDefinition = faBookOpen;
-  faAngleRight: IconDefinition = faAngleRight;
   slideConfig = {
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -24,7 +25,29 @@ export class NavbarComponent implements OnInit{
     autoplaySpeed: 2000,
   };
 
-  ngOnInit() {
+  typeComics: TypeComic[] | undefined;
+
+  listImageSlide: string[] = [
+    "../../assets/images/slide-1.jpg",
+    "../../assets/images/slide-1.jpg",
+    "../../assets/images/slide-1.jpg"
+  ]
+
+  listImageQC: string[] = [
+    "../../assets/images/qc-1.jpg",
+    "../../assets/images/qc-1.jpg",
+    "../../assets/images/qc-1.jpg"
+  ]
+
+  ngOnInit(): void {
+    this.navbarService.getListTypeComic().subscribe((res: TypeComic[]) => {
+      this.typeComics = res;
+    })
+  }
+
+  constructor(
+      private navbarService: NavbarService
+  ) {
   }
 
   slickInit(event: any): void {
