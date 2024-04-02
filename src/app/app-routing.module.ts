@@ -7,6 +7,10 @@ import {MoreProductComponent} from "./view/pages/more-product/more-product.compo
 import {AdminHomeComponent} from "./admin-home/admin-home.component";
 import {UserComponent} from "./view/pages/user/user.component";
 import {PayComponent} from "./view/pages/pay/pay.component";
+import {AdminUserComponent} from "./admin-home/admin-user/admin-user.component";
+import {AdminComicComponent} from "./admin-home/admin-comic/admin-comic.component";
+import {AdminCommentComponent} from "./admin-home/admin-comment/admin-comment.component";
+import {AdminShopComponent} from "./admin-home/admin-shop/admin-shop.component";
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -24,7 +28,10 @@ export const routes: Routes = [
   {path: 'admin-home', component: AdminHomeComponent},
   {path: 'user', component: UserComponent},
   {path: 'pay', component: PayComponent},
-
+  {path: 'admin-user', component: AdminUserComponent},
+  {path: 'admin-comic', component: AdminComicComponent},
+  {path: 'admin-comment', component: AdminCommentComponent},
+  {path: 'admin-shop', component: AdminShopComponent},
 ];
 
 @NgModule({
