@@ -19,9 +19,7 @@
             <div class="py-4 pl-2 flex items-center">
                 <span>Đăng nhập</span>
             </div>
-
         </div>
-
     </div>
 
 </div>
@@ -30,41 +28,26 @@
     <div class="grid grid-cols-4 gap-4 bg-white">
         <div class="">
             <ul>
-                <li class="py-3 px-2">
+                <li class="py-3 px-2" *ngFor="let typeComic of typeComics, let index = index">
                     <fa-icon [icon]="faBookOpen" class="text-xl mr-3"></fa-icon>
-                    <span>Truyện Tranh</span>
-
+                    <span>{{typeComic.typeName}}</span>
                 </li>
             </ul>
         </div>
         <div class="col-span-3 p-3">
             <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"
                                 (init)="slickInit($event)" (breakpoint)="breakpoint($event)">
-                <div ngxSlickItem class="slide">
-                    <img src="../../assets/images/slide-1.jpg" alt="" width="100%">
-                </div>
-                <div ngxSlickItem class="slide">
-                    <img src="../../assets/images/slide-1.jpg" alt="" width="100%">
-                </div>
-                <div ngxSlickItem class="slide">
-                    <img src="../../assets/images/slide-1.jpg" alt="" width="100%">
+                <div ngxSlickItem class="slide" *ngFor="let fileImage of listImageSlide, let index = index">
+                    <img [src]="fileImage" alt="" width="100%">
                 </div>
                 <!-- Add more images here if needed -->
             </ngx-slick-carousel>
-
-
         </div>
 
     </div>
     <div class="grid grid-cols-3 gap-4 my-3">
-        <div>
-            <img src="../../assets/images/qc-1.jpg" alt="">
-        </div>
-        <div>
-            <img src="../../assets/images/qc-1.jpg" alt="">
-        </div>
-        <div>
-            <img src="../../assets/images/qc-1.jpg" alt="">
+        <div *ngFor="let imageQC of listImageQC, let index = index">
+            <img [src]="imageQC" alt="">
         </div>
     </div>
 </div>
