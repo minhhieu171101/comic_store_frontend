@@ -9,6 +9,9 @@ import {FooterComponent} from "./components/footer/footer.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {BrowserModule} from "@angular/platform-browser";
 import {PagesModule} from "./view/pages/pages.module";
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -24,7 +27,15 @@ import {PagesModule} from "./view/pages/pages.module";
         RouterModule,
         AppRoutingModule,
         BrowserModule,
-        PagesModule
+        PagesModule,
+        HttpClientModule,
+
+        // khai báo module cho toastr
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            positionClass :'toast-bottom-right',
+            timeOut: 4000
+        }),
     ],
     providers: [],
     bootstrap: [AppComponent]

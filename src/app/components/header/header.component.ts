@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {
   faMagnifyingGlass,
   faHeadset,
-  faCartShopping,
+  faCartShopping, IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import {Router} from "@angular/router";
 @Component({
@@ -11,9 +11,9 @@ import {Router} from "@angular/router";
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit{
-  faMagnifyingGlass = faMagnifyingGlass;
-  faHeadset = faHeadset;
-  faCartShopping = faCartShopping;
+  faMagnifyingGlass: IconDefinition = faMagnifyingGlass;
+  faHeadset: IconDefinition = faHeadset;
+  faCartShopping: IconDefinition = faCartShopping;
 
   ngOnInit(): void {}
 
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit{
     this.router.navigateByUrl("/login");
   }
 
-  routerCart() {
+  routerCart(): void {
     this.router.navigateByUrl("/cart");
   }
 }

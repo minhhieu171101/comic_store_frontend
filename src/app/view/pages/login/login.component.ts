@@ -1,8 +1,14 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {RegisterModel} from "../../../models/RegisterModel";
 import {LoginModel} from "../../../models/LoginModel";
-import {Router} from "@angular/router";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {ToastrService} from "ngx-toastr";
+import {LoginService} from "../../../core/service/login.service";
+import {MailModel} from "../../../models/MailModel";
+import {ResponseStringModel} from "../../../models/ResponseStringModel";
+import {RegisterFormValidModel} from "../../../models/RegisterFormValidModel";
+import {LoginFormValidModel} from "../../../models/LoginFormValidModel";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -15,54 +21,53 @@ export class LoginComponent implements OnInit{
   isLoginForm: boolean  = true;
 
   // Đối tượng cho việc validate form input của đăng nhập
-  loginFormValid = {
-    validUsernameLength: true,
-    validUsernameFormat: true,
-    validPassLength: true,
-    validPassFormat: true
-  }
+  loginFormValid: LoginFormValidModel = new LoginFormValidModel();
 
   // Đối tượng cho việc validate form input của đăng ký
-  registerFormValid = {
-    validUsernameLength: true,
-    validUsernameFormat: true,
-    validEmailFormat: true,
-    validPhoneFormat: true,
-    validPassFormat: true,
-    validPassLength: true,
-    validRePassFormat: true,
-  }
+  registerFormValid: RegisterFormValidModel = new RegisterFormValidModel();
 
   registerObject: RegisterModel = new RegisterModel();
   loginObject: LoginModel = new LoginModel();
-  rePassword: string = '';
 
+  rePassword: string = '';
   code: string[] = [];
   currentIndexCode: number = 0;
 
   @ViewChild("validPopup") validTemplate !: TemplateRef<any>;
   validTemplatePopup: MatDialogRef<TemplateRef<any>> | undefined;
-
   numericPattern: string = '^[0-9]*$';
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log("hello")
+  }
 
   constructor(
-      private router: Router,
-      // private toaStr: ToastrService,
-      private dialog: MatDialog
+      private toaStr: ToastrService,
+      private dialog: MatDialog,
+      private loginService: LoginService,
+      private router: Router
   ) {
   }
 
-  // validRegisterForm() {
-  //   if ()
-  // }
+  // Thực hiện gửi mail khi nhấn đăng ký
   onRegister(): void {
-    this.openValidPopup();
+    if (this.validateRegisterForm()) {
+      const emailDTO: MailModel = new MailModel();
+      emailDTO.mail = this.registerObject.email;
+      this.loginService.sendEmail(emailDTO).subscribe();
+      this.openValidPopup();
+    }
   }
 
   onLogin(): void {
-    this.validateLoginForm();
+    if (this.validateLoginForm()) {
+      this.loginService.login(this.loginObject).subscribe((res: ResponseStringModel) => {
+        if (res.status === "OK") {
+          this.toaStr.success(res.message);
+          this.router.navigateByUrl("/home");
+        }
+      })
+    }
   }
 
   // Kiểm tra giá trị trong login form
@@ -119,32 +124,17 @@ export class LoginComponent implements OnInit{
     return isPassValidate;
   }
 
-  resetRegisterValidForm(): void {
-    this.registerFormValid.validUsernameFormat = true;
-    this.registerFormValid.validUsernameLength = true;
-    this.registerFormValid.validEmailFormat = true;
-    this.registerFormValid.validPhoneFormat = true;
-    this.registerFormValid.validPassFormat = true;
-    this.registerFormValid.validPassLength = true;
-    this.registerFormValid.validRePassFormat = true;
-  }
-
-  resetLoginValidForm(): void {
-    this.loginFormValid.validUsernameFormat = true;
-    this.loginFormValid.validUsernameLength = true;
-    this.loginFormValid.validPassFormat = true;
-    this.loginFormValid.validPassLength = true;
-  }
-
+  // Thực hiện chuyển giữa màn đăng nhập và đăng ký
   toLoginForm(toLoginForm: boolean): void {
     this.isLoginForm = toLoginForm;
     if (toLoginForm) {
-      this.resetRegisterValidForm();
+      this.registerFormValid = new RegisterFormValidModel();
     } else {
-      this.resetLoginValidForm();
+      this.loginFormValid = new LoginFormValidModel();
     }
   }
 
+  // Thực hiện bật popup validate code
   openValidPopup(): void {
     this.validTemplatePopup = this.dialog.open(this.validTemplate, {
       width: '400px',
@@ -167,11 +157,12 @@ export class LoginComponent implements OnInit{
     }
   }
 
-  // Function to focus on the previous input
+  // Thực hiện di chuyển ô input khi xóa giá trị trong popup valid code
   handleKeydown(event: KeyboardEvent): void {
     if (this.currentIndexCode > 0 && event.key === "Backspace") {
       // Không cho phép xóa dữ liệu do sự kiện backspace
       event.preventDefault();
+
       // Tự xóa dữ liệu
       this.code[this.currentIndexCode] = "";
       // Dịch chuyển vị trí ô input focus
@@ -183,12 +174,26 @@ export class LoginComponent implements OnInit{
     }
   }
 
+  // Thực hiện đóng popup khi ấn hủy
   closeDialog(): void {
     this.dialog.closeAll();
   }
 
+  // Thực hiện xác thực mã email
   submitCode():void {
-    this.validTemplatePopup?.close();
+    this.registerObject.code = this.code.join("");
+    this.loginService.register(this.registerObject).subscribe((res: ResponseStringModel): void => {
+
+      if (res.status === "OK") {
+        this.toaStr.success(res.message);
+        this.registerFormValid = new RegisterFormValidModel();
+        this.validTemplatePopup?.close();
+        this.toLoginForm(true);
+
+      } else if (res.status === "BAD_REQUEST") {
+        this.toaStr.error(res.message);
+      }
+    })
   }
 
   // Định dạng dữ liệu nhập vào cho ô valid
