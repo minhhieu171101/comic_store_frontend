@@ -8,12 +8,14 @@ import {AdminHomeComponent} from "./admin-home/admin-home.component";
 import {UserComponent} from "./view/pages/user/user.component";
 import {PayComponent} from "./view/pages/pay/pay.component";
 import {CartComponent} from "./view/pages/cart/cart.component";
+import {AuthGuardService} from "./core/service/auth-guard.service";
+import {NoAuthGuardService} from "./core/service/no-auth-guard.service";
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [NoAuthGuardService]},
   {
-    path: 'more-products',
+    path: 'more-products/:name',
     children: [
       {
         path: 'detail/:id',
@@ -23,14 +25,15 @@ export const routes: Routes = [
     ],
   },
   {path: 'admin-home', component: AdminHomeComponent},
-  {path: 'user', component: UserComponent},
-  {path: 'pay', component: PayComponent},
-  {path: 'cart', component: CartComponent},
+  {path: 'user', component: UserComponent, canActivate: [AuthGuardService]},
+  {path: 'pay', component: PayComponent, canActivate: [AuthGuardService]},
+  {path: 'cart', component: CartComponent, canActivate: [AuthGuardService]},
 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuardService, NoAuthGuardService]
 })
 export class AppRoutingModule { }

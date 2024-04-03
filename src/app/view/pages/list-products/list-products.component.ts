@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {faAnglesRight, IconDefinition} from '@fortawesome/free-solid-svg-icons';
-import {ListProductService} from "../../../core/service/list-product.service";
+import {ComicService} from "../../../core/service/comic.service";
 import {ComicModel} from "../../../models/ComicModel";
-import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
+import {NavigationExtras, Router} from "@angular/router";
+import {calculatePrice} from "../../../helpers/constants";
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
@@ -15,7 +16,7 @@ export class ListProductsComponent implements OnInit{
   comics: ComicModel[] | undefined;
 
   constructor(
-      private listProductService: ListProductService,
+      private listProductService: ComicService,
       private router: Router
   ) {}
 
@@ -31,14 +32,7 @@ export class ListProductsComponent implements OnInit{
     })
   }
 
-  calculatePrice(price: number | null, sale: number | null): number | null {
-    if (price !== null && sale !== null) {
-      return price * (100 - sale) / 100;
-    }
-    return price;
-  }
-
-  viewMore() {
+  viewMore(): void {
     const navigationExtras: NavigationExtras = {
       state: {
         data: null
@@ -46,4 +40,14 @@ export class ListProductsComponent implements OnInit{
     };
     this.router.navigate(["/more-products"], navigationExtras);
   }
+
+  goToDetail(id: number | null): void {const navigationExtras: NavigationExtras = {
+    state: {
+      idComic: id
+    }
+  };
+    this.router.navigate(["/more-products/detail/" + id], navigationExtras);
+  }
+
+  protected readonly calculatePrice = calculatePrice;
 }

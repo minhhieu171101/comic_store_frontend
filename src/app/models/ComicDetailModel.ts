@@ -1,4 +1,4 @@
-export class ComicModel {
+export class ComicDetailModel {
     id: number | null;
     comicName: string | null;
     authorName: string | null;
@@ -7,10 +7,9 @@ export class ComicModel {
     sale: number | null;
     residualQuantity: number | null;
     imgComic: string | null;
-    page: number;
-    pageSize: number;
+    status: number | null;
     typeComicId: number | null;
-    
+
     constructor() {
         this.id = null;
         this.comicName = null;
@@ -20,8 +19,7 @@ export class ComicModel {
         this.sale = null;
         this.residualQuantity = null;
         this.imgComic = null;
-        this.page = 0;
-        this.pageSize = 10;
+        this.status = null;
         this.typeComicId = null;
     }
 }

@@ -11,7 +11,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import {PagesModule} from "./view/pages/pages.module";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {TokenInterceptor} from "./helpers/token.interceptor";
 
 
 @NgModule({
@@ -37,7 +38,7 @@ import {HttpClientModule} from "@angular/common/http";
             timeOut: 4000
         }),
     ],
-    providers: [],
+    providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

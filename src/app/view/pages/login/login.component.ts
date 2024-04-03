@@ -9,6 +9,7 @@ import {ResponseStringModel} from "../../../models/ResponseStringModel";
 import {RegisterFormValidModel} from "../../../models/RegisterFormValidModel";
 import {LoginFormValidModel} from "../../../models/LoginFormValidModel";
 import {Router} from "@angular/router";
+import {ResponseAuthModel} from "../../../models/ResponseAuthModel";
 
 @Component({
   selector: 'app-login',
@@ -37,9 +38,7 @@ export class LoginComponent implements OnInit{
   validTemplatePopup: MatDialogRef<TemplateRef<any>> | undefined;
   numericPattern: string = '^[0-9]*$';
 
-  ngOnInit(): void {
-    console.log("hello")
-  }
+  ngOnInit(): void {}
 
   constructor(
       private toaStr: ToastrService,
@@ -61,9 +60,11 @@ export class LoginComponent implements OnInit{
 
   onLogin(): void {
     if (this.validateLoginForm()) {
-      this.loginService.login(this.loginObject).subscribe((res: ResponseStringModel) => {
+      this.loginService.login(this.loginObject).subscribe((res: ResponseAuthModel): void => {
         if (res.status === "OK") {
           this.toaStr.success(res.message);
+          localStorage.clear();
+          localStorage.setItem(res.data.tokenName, res.data.accessToken);
           this.router.navigateByUrl("/home");
         }
       })
