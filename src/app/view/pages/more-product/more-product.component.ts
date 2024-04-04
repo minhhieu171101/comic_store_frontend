@@ -27,7 +27,10 @@ export class MoreProductComponent implements OnInit{
   comicObject: ComicModel = new ComicModel();
 
   ngOnInit(): void {
-    this.getComics();
+    this.activatedRouter.queryParams.subscribe((param: Params): void => {
+      this.comicObject.typeComicId = param["typeComicId"];
+      this.getComics();
+    })
   }
 
   getComics() {
