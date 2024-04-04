@@ -1,11 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {
   faMagnifyingGlass,
   faHeadset,
   faCartShopping, IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
-import {Router} from "@angular/router";
+import {NavigationEnd, Router} from "@angular/router";
 import {LoginService} from "../../core/service/login.service";
+import {UserModel} from "../../models/UserModel";
+import {UserService} from "../../core/service/user.service";
+import {ResponseUserModel} from "../../models/response/ResponseUserModel";
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -15,19 +18,40 @@ export class HeaderComponent implements OnInit{
   faMagnifyingGlass: IconDefinition = faMagnifyingGlass;
   faHeadset: IconDefinition = faHeadset;
   faCartShopping: IconDefinition = faCartShopping;
-
-  isLogin: boolean = this.loginService.isLoggedIn();
-
-  ngOnInit(): void {}
+  isLogin: boolean | undefined;
+  userObject: UserModel = new UserModel();
 
   constructor(
       private router: Router,
-      private loginService: LoginService
+      private loginService: LoginService,
+      private userService: UserService,
+      private cdr: ChangeDetectorRef
   ) {}
+
+  ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isLogin = this.loginService.isLoggedIn();
+        if (this.isLogin) {
+          this.getUserInfo();
+        }
+        this.cdr.detectChanges();
+      }
+    })
+  }
 
 
   routerHome(): void {
     this.router.navigate(["/home"]);
+  }
+
+  getUserInfo(): void {
+    const decodeTokenValue = this.loginService.decodeToken();
+    this.userObject.username = decodeTokenValue?.sub;
+    this.userService.getInfoUser(this.userObject).subscribe((res: ResponseUserModel): void => {
+      this.userObject = res.data;
+      this.cdr.detectChanges();
+    })
   }
 
   routerLogin(): void {
@@ -50,5 +74,6 @@ export class HeaderComponent implements OnInit{
 
   setLogin(isLogin: boolean): void {
     this.isLogin = isLogin;
+    this.cdr.detectChanges();
   }
 }

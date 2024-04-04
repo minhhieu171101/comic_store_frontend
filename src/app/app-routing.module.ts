@@ -15,7 +15,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuardService]},
   {
-    path: 'more-products/:name',
+    path: 'more-products',
     children: [
       {
         path: 'detail/:id',

@@ -66,12 +66,11 @@ export class NavbarComponent implements OnInit{
     console.log('Slick initialized');
   }
 
-  findForType(id: number | null, name: string | null): void {
-    const navigationExtras: NavigationExtras = {
-      state: {
+  findForType(id: number | null): void {
+    this.router.navigate(["/more-products/"], {
+      queryParams: {
         typeComicId: id
       }
-    };
-    this.router.navigate(["/more-products/" + name], navigationExtras);
+    });
   }
 }

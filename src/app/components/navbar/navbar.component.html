@@ -27,7 +27,7 @@
                 <li class="py-3 px-2"
                     style="cursor: pointer"
                     *ngFor="let typeComic of typeComics, let index = index"
-                    (click)="findForType(typeComic.id, typeComic.typeName)">
+                    (click)="findForType(typeComic.id)">
                     <fa-icon [icon]="faBookOpen" class="text-xl mr-3"></fa-icon>
                     <span>{{typeComic.typeName}}</span>
                 </li>

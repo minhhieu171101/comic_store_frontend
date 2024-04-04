@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {faAnglesRight, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 import {ComicService} from "../../../core/service/comic.service";
 import {ComicModel} from "../../../models/ComicModel";
@@ -17,7 +17,8 @@ export class ListProductsComponent implements OnInit{
 
   constructor(
       private listProductService: ComicService,
-      private router: Router
+      private router: Router,
+      private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -29,16 +30,16 @@ export class ListProductsComponent implements OnInit{
         .getListComicLandingPage(this.page, this.pageSize)
         .subscribe((res: ComicModel[]): void => {
       this.comics = res;
+      this.cdr.detectChanges();
     })
   }
 
   viewMore(): void {
-    const navigationExtras: NavigationExtras = {
-      state: {
+    this.router.navigate(["/more-products"], {
+      queryParams: {
         data: null
       }
-    };
-    this.router.navigate(["/more-products"], navigationExtras);
+    });
   }
 
   goToDetail(id: number | null): void {const navigationExtras: NavigationExtras = {

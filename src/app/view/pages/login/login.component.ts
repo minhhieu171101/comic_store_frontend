@@ -1,15 +1,16 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {RegisterModel} from "../../../models/RegisterModel";
 import {LoginModel} from "../../../models/LoginModel";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ToastrService} from "ngx-toastr";
 import {LoginService} from "../../../core/service/login.service";
 import {MailModel} from "../../../models/MailModel";
-import {ResponseStringModel} from "../../../models/ResponseStringModel";
-import {RegisterFormValidModel} from "../../../models/RegisterFormValidModel";
-import {LoginFormValidModel} from "../../../models/LoginFormValidModel";
+import {ResponseStringModel} from "../../../models/response/ResponseStringModel";
+import {RegisterFormValidModel} from "../../../models/validation/RegisterFormValidModel";
+import {LoginFormValidModel} from "../../../models/validation/LoginFormValidModel";
 import {Router} from "@angular/router";
-import {ResponseAuthModel} from "../../../models/ResponseAuthModel";
+import {ResponseAuthModel} from "../../../models/response/ResponseAuthModel";
+import {HeaderComponent} from "../../../components/header/header.component";
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,8 @@ export class LoginComponent implements OnInit{
       private toaStr: ToastrService,
       private dialog: MatDialog,
       private loginService: LoginService,
-      private router: Router
+      private router: Router,
+      private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -65,6 +67,7 @@ export class LoginComponent implements OnInit{
           this.toaStr.success(res.message);
           localStorage.clear();
           localStorage.setItem(res.data.tokenName, res.data.accessToken);
+          this.cdr.detectChanges();
           this.router.navigateByUrl("/home");
         }
       })

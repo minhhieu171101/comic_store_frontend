@@ -4,8 +4,8 @@ import {MailModel} from "../../models/MailModel";
 import {RegisterModel} from "../../models/RegisterModel";
 import {LoginModel} from "../../models/LoginModel";
 import {Observable} from "rxjs";
-import {ResponseStringModel} from "../../models/ResponseStringModel";
-import {ResponseAuthModel} from "../../models/ResponseAuthModel";
+import {ResponseStringModel} from "../../models/response/ResponseStringModel";
+import {ResponseAuthModel} from "../../models/response/ResponseAuthModel";
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +42,17 @@ export class LoginService {
   public isLoggedIn(): boolean {
     let token: string | null = localStorage.getItem(this.tokenName);
     return token != null && token.length > 0;
+  }
+
+  public decodeToken() {
+    const token: string | null = localStorage.getItem(this.tokenName);
+    try {
+      if (token !== null) {
+        return JSON.parse(atob(token.split('.')[1]));
+      }
+      return null;
+    } catch (error) {
+      return null;
+    }
   }
 }

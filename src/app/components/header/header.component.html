@@ -34,7 +34,7 @@
 
             <div class="user-header-info" *ngIf="isLogin"
                 (click)="routerLogin()">
-                User
+                {{ userObject.username }}
             </div>
             <div class="user-header-info" *ngIf="isLogin"
                  (click)="signOut()">

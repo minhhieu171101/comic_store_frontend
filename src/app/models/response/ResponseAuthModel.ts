@@ -1,4 +1,4 @@
-import {AuthModel} from "./AuthModel";
+import {AuthModel} from "../AuthModel";
 
 export class ResponseAuthModel {
     status: string | null;
