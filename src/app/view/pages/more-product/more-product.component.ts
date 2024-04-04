@@ -18,7 +18,7 @@ export class MoreProductComponent implements OnInit{
       private activatedRouter: ActivatedRoute,
       private cdr: ChangeDetectorRef
   ) {
-    this.activatedRouter.queryParams.subscribe((param: Params) => {
+    this.activatedRouter.queryParams.subscribe((param: Params): void => {
       this.comicObject.typeComicId = param["typeComicId"];
     })
   }

@@ -24,8 +24,8 @@ export class ComicService {
       private httpClient: HttpClient
   ) { }
   
-  getListComicLandingPage(page: number, pageSize: number): Observable<ComicModel[]> {
-    return this.httpClient.get<ComicModel[]>(`${this.API}comic/list-comic/${page}/${pageSize}`);
+  getListComicLandingPage(comic: ComicModel): Observable<ComicModel[]> {
+    return this.httpClient.post<ComicModel[]>(`${this.API}comic/list-comic`, comic, this.httpOptions);
   }
   
   getDetailComic(id: number | undefined): Observable<ComicDetailModel> {
@@ -33,6 +33,6 @@ export class ComicService {
   }
 
   getListComicByType(comic: ComicModel): Observable<PageComic> {
-    return this.httpClient.post<PageComic>(`${this.API}comic/list-comic`, comic, this.httpOptions);
+    return this.httpClient.post<PageComic>(`${this.API}comic/page-comic`, comic, this.httpOptions);
   }
 }

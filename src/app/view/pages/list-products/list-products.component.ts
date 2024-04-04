@@ -14,6 +14,7 @@ export class ListProductsComponent implements OnInit{
   page: number = 0;
   pageSize: number = 9;
   comics: ComicModel[] | undefined;
+  comic: ComicModel = new ComicModel();
 
   constructor(
       private listProductService: ComicService,
@@ -26,8 +27,10 @@ export class ListProductsComponent implements OnInit{
   }
 
   getListComic(): void {
+    this.comic.page = this.page;
+    this.comic.pageSize = this.pageSize;
     this.listProductService
-        .getListComicLandingPage(this.page, this.pageSize)
+        .getListComicLandingPage(this.comic)
         .subscribe((res: ComicModel[]): void => {
       this.comics = res;
       this.cdr.detectChanges();
@@ -37,17 +40,17 @@ export class ListProductsComponent implements OnInit{
   viewMore(): void {
     this.router.navigate(["/more-products"], {
       queryParams: {
-        data: null
+        typeComicId: null
       }
     });
   }
 
-  goToDetail(id: number | null): void {const navigationExtras: NavigationExtras = {
-    state: {
-      idComic: id
-    }
-  };
-    this.router.navigate(["/more-products/detail/" + id], navigationExtras);
+  goToDetail(id: number | null): void {
+    this.router.navigate(["/more-products/detail/" + id], {
+      queryParams: {
+        id
+      }
+    });
   }
 
   protected readonly calculatePrice = calculatePrice;
