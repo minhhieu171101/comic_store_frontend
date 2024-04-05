@@ -3,9 +3,9 @@ export class ComicDetailModel {
     comicName: string | null;
     authorName: string | null;
     contents: string | null;
-    price: number | null;
-    sale: number | null;
-    residualQuantity: number | null;
+    price: number;
+    sale: number;
+    residualQuantity: number;
     imgComic: string | null;
     status: number | null;
     typeComicId: number | null;
@@ -15,9 +15,9 @@ export class ComicDetailModel {
         this.comicName = null;
         this.authorName = null;
         this.contents = null;
-        this.price = null;
-        this.sale = null;
-        this.residualQuantity = null;
+        this.price = 0;
+        this.sale = 0;
+        this.residualQuantity = 0;
         this.imgComic = null;
         this.status = null;
         this.typeComicId = null;

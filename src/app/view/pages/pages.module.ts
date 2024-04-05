@@ -10,10 +10,9 @@ import {FormsModule} from "@angular/forms";
 import {MoreProductComponent} from "./more-product/more-product.component";
 import {LoginComponent} from "./login/login.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {LoginService} from "../../core/service/login.service";
+import {AuthService} from "../../core/service/auth.service";
 import {NavbarComponent} from "../../components/navbar/navbar.component";
 import {SlickCarouselModule} from "ngx-slick-carousel";
-import {HeaderComponent} from "../../components/header/header.component";
 
 @NgModule({
     declarations: [
@@ -34,7 +33,7 @@ import {HeaderComponent} from "../../components/header/header.component";
         SlickCarouselModule
     ],
     providers: [
-        LoginService
+        AuthService
     ]
 })
 export class PagesModule { }

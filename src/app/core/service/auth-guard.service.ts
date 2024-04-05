@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {LoginService} from "./login.service";
+import {AuthService} from "./auth.service";
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -16,7 +16,7 @@ import {AUTH_REQUEST} from "../../helpers/message";
 })
 export class AuthGuardService implements CanActivate{
 
-  constructor(private loginService: LoginService,
+  constructor(private authService: AuthService,
               private router: Router,
               private toaStr:ToastrService
   ) {}
@@ -24,7 +24,7 @@ export class AuthGuardService implements CanActivate{
   canActivate(
       route: ActivatedRouteSnapshot,
       state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.loginService.isLoggedIn()) {
+    if (this.authService.isLoggedIn()) {
       return true;
     } else {
       this.toaStr.warning(AUTH_REQUEST);

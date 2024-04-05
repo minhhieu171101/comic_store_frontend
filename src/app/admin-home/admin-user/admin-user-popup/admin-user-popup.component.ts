@@ -3,8 +3,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-admin-user-popup',
-  standalone: true,
-  imports: [],
   templateUrl: './admin-user-popup.component.html',
   styleUrl: './admin-user-popup.component.scss'
 })

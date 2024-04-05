@@ -6,11 +6,13 @@ import {LoginModel} from "../../models/LoginModel";
 import {Observable} from "rxjs";
 import {ResponseStringModel} from "../../models/response/ResponseStringModel";
 import {ResponseAuthModel} from "../../models/response/ResponseAuthModel";
+import {UserModel} from "../../models/UserModel";
+import {ResponseUserModel} from "../../models/response/ResponseUserModel";
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class AuthService {
 
   private API: string = "http://localhost:8080/api/";
   private tokenName: string = "comicshop"
@@ -54,5 +56,14 @@ export class LoginService {
     } catch (error) {
       return null;
     }
+  }
+
+  public getCurrentUserUsername(): string {
+    const decodeToken = this.decodeToken();
+    return decodeToken?.sub;
+  }
+
+  public getInfoUser(user: UserModel): Observable<ResponseUserModel> {
+    return this.httpClient.post<ResponseUserModel>(`${this.API}auth/user`, user, this.httpOptions);
   }
 }

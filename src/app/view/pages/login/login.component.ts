@@ -3,7 +3,7 @@ import {RegisterModel} from "../../../models/RegisterModel";
 import {LoginModel} from "../../../models/LoginModel";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ToastrService} from "ngx-toastr";
-import {LoginService} from "../../../core/service/login.service";
+import {AuthService} from "../../../core/service/auth.service";
 import {MailModel} from "../../../models/MailModel";
 import {ResponseStringModel} from "../../../models/response/ResponseStringModel";
 import {RegisterFormValidModel} from "../../../models/validation/RegisterFormValidModel";
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit{
   constructor(
       private toaStr: ToastrService,
       private dialog: MatDialog,
-      private loginService: LoginService,
+      private authService: AuthService,
       private router: Router,
       private cdr: ChangeDetectorRef
   ) {
@@ -55,14 +55,14 @@ export class LoginComponent implements OnInit{
     if (this.validateRegisterForm()) {
       const emailDTO: MailModel = new MailModel();
       emailDTO.mail = this.registerObject.email;
-      this.loginService.sendEmail(emailDTO).subscribe();
+      this.authService.sendEmail(emailDTO).subscribe();
       this.openValidPopup();
     }
   }
 
   onLogin(): void {
     if (this.validateLoginForm()) {
-      this.loginService.login(this.loginObject).subscribe((res: ResponseAuthModel): void => {
+      this.authService.login(this.loginObject).subscribe((res: ResponseAuthModel): void => {
         if (res.status === "OK") {
           this.toaStr.success(res.message);
           localStorage.clear();
@@ -186,7 +186,7 @@ export class LoginComponent implements OnInit{
   // Thực hiện xác thực mã email
   submitCode():void {
     this.registerObject.code = this.code.join("");
-    this.loginService.register(this.registerObject).subscribe((res: ResponseStringModel): void => {
+    this.authService.register(this.registerObject).subscribe((res: ResponseStringModel): void => {
 
       if (res.status === "OK") {
         this.toaStr.success(res.message);

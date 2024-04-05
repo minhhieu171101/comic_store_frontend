@@ -6,27 +6,28 @@ import {ResponseStringModel} from "../../../models/response/ResponseStringModel"
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-admin-comic-popup',
-  templateUrl: './admin-comic-popup.component.html',
-  styleUrl: './admin-comic-popup.component.scss'
+  selector: 'app-admin-delete',
+  templateUrl: './admin-delete.component.html',
+  styleUrl: './admin-delete.component.scss'
 })
-export class AdminComicPopupComponent {
+export class AdminDeleteComponent {
   comic: ComicModel = new ComicModel();
+
   constructor(
-    public dialogRef: MatDialogRef<AdminComicPopupComponent>,
+    public dialogRef: MatDialogRef<AdminDeleteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ComicModel,
     private comicService: ComicService,
     private toaStr: ToastrService
   ) {
-    this.comic = data;
+    this.comic = this.data;
   }
 
-  closePopup() {
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 
-  updateComic() {
-    this.comicService.updateComic(this.comic).subscribe((res: ResponseStringModel) => {
+  deleteComic() {
+    this.comicService.deleteComic(this.comic).subscribe((res: ResponseStringModel) => {
       if (res.status === "OK") {
         this.toaStr.success(res.message);
         this.dialogRef.close();
@@ -34,5 +35,9 @@ export class AdminComicPopupComponent {
         this.toaStr.error(res.message);
       }
     })
+  }
+
+  closePopup() {
+    this.dialogRef.close();
   }
 }

@@ -13,6 +13,7 @@ import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptor} from "./helpers/token.interceptor";
+import {AdminHomeModule} from "./admin-home/admin-home.module";
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import {TokenInterceptor} from "./helpers/token.interceptor";
             positionClass: 'toast-bottom-right',
             timeOut: 4000
         }),
+        AdminHomeModule
     ],
     providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
     bootstrap: [AppComponent]

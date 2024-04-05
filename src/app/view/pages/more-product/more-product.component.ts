@@ -42,7 +42,11 @@ export class MoreProductComponent implements OnInit{
 
   protected readonly calculatePrice = calculatePrice;
 
-  goToDetail(id: number | null) {
-    
+  goToDetail(id: number | null): void {
+    this.router.navigate(["/more-products/detail/" + id], {
+      queryParams: {
+        id
+      }
+    });
   }
 }

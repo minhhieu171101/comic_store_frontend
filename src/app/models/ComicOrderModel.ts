@@ -7,6 +7,7 @@ export class ComicOrderModel {
     quantity: number;
     totalPrice: number;
     typeName: string | null;
+    status: number;
 
     constructor() {
         this.userId = null;
@@ -17,5 +18,6 @@ export class ComicOrderModel {
         this.quantity = 0;
         this.totalPrice = 0;
         this.typeName = null;
+        this.status = 0;
     }
 }

@@ -1,9 +1,12 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserModel} from "../../../models/UserModel";
-import {LoginService} from "../../../core/service/login.service";
+import {AuthService} from "../../../core/service/auth.service";
 import {ComicOrderService} from "../../../core/service/comic-order.service";
 import {ComicOrderModel} from "../../../models/ComicOrderModel";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {ResponseStringModel} from "../../../models/response/ResponseStringModel";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-cart',
@@ -16,18 +19,23 @@ export class CartComponent implements OnInit{
     comicOrders: ComicOrderModel[] | undefined;
     totalPrice: number = 0;
     totalProduct: number = 0;
+    comicOrderDelete: ComicOrderModel = new ComicOrderModel();
+    @ViewChild("deletePopup") deletePopup !: TemplateRef<any>;
+    deleteTemplatePopup: MatDialogRef<TemplateRef<any>> | undefined;
 
     constructor(
         private router: Router,
         private activatedRouter: ActivatedRoute,
-        private loginService: LoginService,
+        private authService: AuthService,
         private comicOrderService: ComicOrderService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private dialog: MatDialog,
+        private toaStr: ToastrService
     ) {
     }
 
     ngOnInit() {
-        const decodeToken = this.loginService.decodeToken()
+        const decodeToken = this.authService.decodeToken()
         this.user.username = decodeToken?.sub;
         this.getListComicOrder();
     }
@@ -37,7 +45,9 @@ export class CartComponent implements OnInit{
     }
 
     getListComicOrder() {
-        this.comicOrderService.getComicOrders(this.user).subscribe((res: ComicOrderModel[]) => {
+        this.comicOrderService
+            .getComicOrders(this.user)
+            .subscribe((res: ComicOrderModel[]) => {
             this.comicOrders = res;
             this.getTotalPriceAndTotalProduct();
             this.cdr.detectChanges();
@@ -52,5 +62,45 @@ export class CartComponent implements OnInit{
             }
         }
         this.cdr.detectChanges();
+    }
+
+    goToDetail(id: number | null): void {
+        this.router.navigate(["/more-products/detail/" + id], {
+            queryParams: {
+                id
+            }
+        });
+    }
+
+    openDeletePopup(comicOrderId: number | null) {
+        if (comicOrderId !== null) {
+            this.comicOrderDelete.comicOrderId = comicOrderId;
+            this.deleteTemplatePopup = this.dialog.open(this.deletePopup, {
+                width: "400px",
+                height: "208px"
+            })
+        }
+    }
+
+    closeDialog() {
+        this.dialog.closeAll();
+    }
+
+    // xóa sản phẩm trong giỏ hàng
+    delete() {
+        this.comicOrderService
+            .deleteComicOrder(this.comicOrderDelete)
+            .subscribe((res: ResponseStringModel) => {
+            if (res.status === "OK") {
+                this.toaStr.success(res.message);
+                this.dialog.closeAll();
+                this.comicOrderDelete.comicOrderId = null;
+                this.totalProduct = 0;
+                this.totalPrice = 0;
+                this.getListComicOrder();
+            } else {
+                this.toaStr.error(res.message);
+            }
+        })
     }
 }

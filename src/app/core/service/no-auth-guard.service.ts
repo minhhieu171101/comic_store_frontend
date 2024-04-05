@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {LoginService} from "./login.service";
+import {AuthService} from "./auth.service";
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {Observable} from "rxjs";
 
@@ -8,14 +8,14 @@ import {Observable} from "rxjs";
 })
 export class NoAuthGuardService implements CanActivate{
 
-  constructor(private loginService: LoginService,
+  constructor(private authService: AuthService,
               private router: Router
   ) {}
 
   canActivate(
       route: ActivatedRouteSnapshot,
       state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.loginService.isLoggedIn()) {
+    if (this.authService.isLoggedIn()) {
       if (this.router.url === "/login") {
         this.router.navigate(["/home"]);
       }

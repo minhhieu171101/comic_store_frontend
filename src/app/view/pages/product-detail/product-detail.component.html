@@ -49,44 +49,58 @@
                 {{ calculatePrice(comicDetail.price, comicDetail.sale) }} đ
             </span>
             <span class="text-sm">
-                Tình trạng: <span class="text-orange-500">Còn hàng</span>
+                Tình trạng:
+                <span class="text-orange-500" *ngIf="comicDetail.status === 1">Còn hàng</span>
+                <span class="text-orange-500" *ngIf="comicDetail.status === 0">Hết hàng</span>
             </span>
             <span class="text-sm block mt-2">
-                Tags: Bảng vẽ XP-Pen Bảng vẽ Màn hình XP-Pen
+                Tác giả: {{ comicDetail.authorName }}
             </span>
             <div class=" mt-3 ">
                 <span class=" inline-block mr-3">Số Lượng:</span>
                 <div class="border inline-block bg-slate-50">
-
-                    <span class=" px-3 py-3"> - </span>
-                    <input type="text" value="1" class="w-[3rem] text-center py-3 text-orange-500">
-                    <span class=" px-3 py-3"> +
+                    <span class=" px-3 py-3 cursor-pointer"
+                          (click)="decrease()">
+                        -
+                    </span>
+                    <input type="text"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                           class="w-[3rem] text-center py-3 text-orange-500"
+                           [(ngModel)]="quantity"
+                           (change)="validQuantity(quantity)">
+                    <span class=" px-3 py-3 cursor-pointer"
+                          (click)="increase()">
+                        +
                     </span>
                 </div>
             </div>
             <div class=" mt-5 ">
-                <button class=" px-3 py-4 border border-orange-500 rounded-md text-orange-500 mr-5">
+                <button class=" px-3 py-4 border border-orange-500
+                        rounded-md text-orange-500 mr-5"
+                        (click)="addToCart(comicDetail, false)"
+                >
                     THÊM VÀO GIỎ HÀNG
                 </button>
-                <button class=" px-3 py-4 bg-orange-500 rounded-md text-white">
+                <button class=" px-3 py-4 bg-orange-500 rounded-md text-white"
+                        (click)="gotoPay()"
+                >
                     MUA NGAY
                 </button>
             </div>
 
             <div class=" my-6">
-
-                Gọi đặt hàng <span class="text-orange-500 font-medium">(028) 3820 7153</span> hoặc <span
-                    class="text-orange-500 font-medium">(028) 3820 7153</span>
+                Gọi đặt hàng
+                <span class="text-orange-500 font-medium">(028) 3820 7153</span>
+                hoặc
+                <span class="text-orange-500 font-medium">(028) 3820 7153</span>
             </div>
+
             <div>
                 <span class="font-medium">
                     Tóm tắt nội dung truyện
                 </span>
                 <p class=" line-clamp-5">
-                    Hội thơ đó là do một ít danh môn công tử trong kinh tổ chức, đơn giản chính là một ít người trẻ tuổi
-                    tụ tập với nhau uống rượu ngâm thơ tìm niềm vui, đến khi rượu đã hơi ngà say, liền có người bắt đầu
-                    trêu chọc Tam công tử Quý Sùng Dịch của An Quốc Công phủ, trong ngôn ngữ có phần ghen tị hắn sắp
-                    được thành hôn với tiểu mỹ nhân nổi danh trong kinh.
+                    {{comicDetail.contents }}
                 </p>
             </div>
         </div>
@@ -94,21 +108,19 @@
             <ul class="border p-4">
                 <li class="py-1.5 text-sm">
                     <span>
-<!--                        <fa-icon [icon]="faHeart" class="text-xl mr-3"></fa-icon>-->
+                        <fa-icon [icon]="faHeart" class="text-xl mr-3"></fa-icon>
                         Thêm vào yêu thích
                     </span>
                 </li>
                 <li class="py-1.5 text-sm">
                     <span>
-<!--                        <fa-icon [icon]="faUserPlus" class="text-xl mr-3"></fa-icon>-->
-
+                        <fa-icon [icon]="faUserPlus" class="text-xl mr-3"></fa-icon>
                         Ưu đãi Khách hàng thân thiết
                     </span>
                 </li>
                 <li class="py-1.5 text-sm">
                     <span>
-<!--                        <fa-icon [icon]="faTruck" class="text-xl mr-3"></fa-icon>-->
-
+                        <fa-icon [icon]="faTruck" class="text-xl mr-3"></fa-icon>
                         Để được miễn phí vận chuyển
                     </span>
                 </li>

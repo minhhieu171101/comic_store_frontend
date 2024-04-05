@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
 import {UserModel} from "../../../models/UserModel";
-import {UserService} from "../../../core/service/user.service";
 import {ResponseUserModel} from "../../../models/response/ResponseUserModel";
-import {LoginService} from "../../../core/service/login.service";
+import {AuthService} from "../../../core/service/auth.service";
 
 @Component({
   selector: 'app-user',
@@ -15,8 +13,7 @@ export class UserComponent implements OnInit{
     user: UserModel = new UserModel();
 
     constructor(
-        private userService: UserService,
-        private loginService: LoginService
+        private authService: AuthService
     ) {
     }
 
@@ -25,9 +22,8 @@ export class UserComponent implements OnInit{
     }
 
     getUserInfo(): void {
-        const decodeTokenValue = this.loginService.decodeToken();
-        this.user.username = decodeTokenValue?.sub;
-        this.userService.getInfoUser(this.user).subscribe((res: ResponseUserModel): void => {
+        this.user.username = this.authService.getCurrentUserUsername();
+        this.authService.getInfoUser(this.user).subscribe((res: ResponseUserModel): void => {
             this.user = res.data;
         })
     }

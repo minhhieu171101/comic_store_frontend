@@ -3,9 +3,8 @@ import {Router} from "@angular/router";
 import {UserModel} from "../../../models/UserModel";
 import {ComicOrderModel} from "../../../models/ComicOrderModel";
 import {UserOrderModel} from "../../../models/UserOrderModel";
-import {LoginService} from "../../../core/service/login.service";
+import {AuthService} from "../../../core/service/auth.service";
 import {ResponseUserModel} from "../../../models/response/ResponseUserModel";
-import {UserService} from "../../../core/service/user.service";
 import {ComicOrderService} from "../../../core/service/comic-order.service";
 import {UserOrderService} from "../../../core/service/user-order.service";
 import {ResponseStringModel} from "../../../models/response/ResponseStringModel";
@@ -26,8 +25,7 @@ export class PayComponent implements OnInit{
 
   constructor(
       private router: Router,
-      private loginService: LoginService,
-      private userService: UserService,
+      private authService: AuthService,
       private cdr: ChangeDetectorRef,
       private comicOrderService: ComicOrderService,
       private userOrderService: UserOrderService,
@@ -36,7 +34,7 @@ export class PayComponent implements OnInit{
   }
 
   ngOnInit() {
-    const decodeToken = this.loginService.decodeToken()
+    const decodeToken = this.authService.decodeToken()
     this.user.username = decodeToken?.sub;
     this.getUserInfo();
     this.getListComicOrder();
@@ -44,9 +42,8 @@ export class PayComponent implements OnInit{
 
   //  lấy thông tin người dùng
   getUserInfo(): void {
-    const decodeTokenValue = this.loginService.decodeToken();
-    this.user.username = decodeTokenValue?.sub;
-    this.userService.getInfoUser(this.user).subscribe((res: ResponseUserModel): void => {
+    this.user.username = this.authService.getCurrentUserUsername();
+    this.authService.getInfoUser(this.user).subscribe((res: ResponseUserModel): void => {
       this.user = res.data;
       this.userOrder.userId = res.data.id;
       this.cdr.detectChanges();

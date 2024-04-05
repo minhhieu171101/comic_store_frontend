@@ -5,9 +5,8 @@ import {
   faCartShopping, IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import {NavigationEnd, Router} from "@angular/router";
-import {LoginService} from "../../core/service/login.service";
+import {AuthService} from "../../core/service/auth.service";
 import {UserModel} from "../../models/UserModel";
-import {UserService} from "../../core/service/user.service";
 import {ResponseUserModel} from "../../models/response/ResponseUserModel";
 @Component({
   selector: 'app-header',
@@ -23,15 +22,14 @@ export class HeaderComponent implements OnInit{
 
   constructor(
       private router: Router,
-      private loginService: LoginService,
-      private userService: UserService,
+      private authService: AuthService,
       private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.isLogin = this.loginService.isLoggedIn();
+        this.isLogin = this.authService.isLoggedIn();
         if (this.isLogin) {
           this.getUserInfo();
         }
@@ -46,9 +44,8 @@ export class HeaderComponent implements OnInit{
   }
 
   getUserInfo(): void {
-    const decodeTokenValue = this.loginService.decodeToken();
-    this.userObject.username = decodeTokenValue?.sub;
-    this.userService.getInfoUser(this.userObject).subscribe((res: ResponseUserModel): void => {
+    this.userObject.username = this.authService.getCurrentUserUsername();
+    this.authService.getInfoUser(this.userObject).subscribe((res: ResponseUserModel): void => {
       this.userObject = res.data;
       this.cdr.detectChanges();
     })

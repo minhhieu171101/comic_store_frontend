@@ -6,43 +6,52 @@
                     Giỏ hàng
                 </span>
             </div>
-            <div class=" grid grid-cols-5 gap-3 py-2 border-b border-dashed"
-                *ngFor="let comicOrder of comicOrders, let index = index">
-                <div>
-                    <img [src]="comicOrder.imgComic" alt="">
-                </div>
-                <div class="col-span-2">
+            <div class="cart-body-container"
+                 *ngIf="comicOrders !== undefined">
+                <div class=" grid grid-cols-5 gap-3 py-2 border-b border-dashed"
+                     *ngFor="let comicOrder of comicOrders, let index = index">
+                    <div (click)="goToDetail(comicOrder.comicId)"
+                         class="cursor-pointer">
+                        <img [src]="comicOrder.imgComic" alt="">
+                    </div>
+                    <div class="col-span-2">
                     <span class="line-clamp-1">
                         {{index + 1}}. {{ comicOrder.comicName }}
                     </span>
-                    <span class="block text-slate-400 text-sm">
+                        <span class="block text-slate-400 text-sm">
                         Loại: {{ comicOrder.typeName }}
                     </span>
-                    <span class="text-sm">
+                        <span class="text-sm">
                         <span class="text-blue-500 hover:underline"
-                                style="cursor: pointer">
+                              style="cursor: pointer"
+                              (click)="openDeletePopup(comicOrder.comicOrderId)">
                             Xóa
                         </span>
                         |
                         <span
-                            class="text-blue-500 hover:underline"
-                            style="cursor: pointer">Thêm vào yêu thích </span>
+                                class="text-blue-500 hover:underline"
+                                style="cursor: pointer">Thêm vào yêu thích </span>
                     </span>
-                </div>
-                <div>
+                    </div>
+                    <div>
                     <span class="font-bold">
                         {{comicOrder.totalPrice}} đ
                     </span>
-                </div>
-                <div>
-                    <div class="border inline-block bg-slate-50">
+                    </div>
+                    <div>
+                        <div class="border inline-block bg-slate-50">
 
-                        <span class=" px-3 py-2"> - </span> <input type="text" value="1"
-                            class="w-[3rem] text-center py-2 text-orange-500">
-                        <span class=" px-3 py-2"> +
+                            <span class=" px-3 py-2"> - </span> <input type="text" value="1"
+                                                                       class="w-[3rem] text-center py-2 text-orange-500">
+                            <span class=" px-3 py-2"> +
                         </span>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="cart-body-no-content"
+                 *ngIf="comicOrders?.length === 0 || comicOrders === undefined">
+                <p>Hiện chưa có sản phẩm nào</p>
             </div>
         </div>
         <div class="  p-3">
@@ -56,10 +65,30 @@
                 <p>(Chưa có cước vận chuyển)</p>
 
                 <div class=" mt-5 bg-orange-500">
-                    <button class="py-5 text-white text-xl"
-                            (click)="gotoPay()">Tiến hành đặt hàng</button>
+                    <button class="doOrderBtn py-5 text-white text-xl"
+                            (click)="gotoPay()"
+                            [disabled]="comicOrders?.length === 0 || comicOrders === undefined">
+                        Tiến hành đặt hàng
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #deletePopup class="delete-cart-popup">
+    <div class="delete-cart-popup-container">
+        <div class="popup-header">
+            <h2 class="popup-title">
+                Xóa sản phẩm
+            </h2>
+        </div>
+        <div class="popup-body">
+            <p class="body-title">Bạn có chắc chắn muốn xóa?</p>
+        </div>
+        <div class="popup-footer">
+            <button class="btn-cancel" (click)="closeDialog()">Hủy</button>
+            <button class="btn-confirm" (click)="delete()">Xác nhận</button>
+        </div>
+    </div>
+</ng-template>

@@ -1,32 +1,45 @@
-import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {Component, OnInit} from '@angular/core';
+import {MatDialog} from "@angular/material/dialog";
 import {AdminComicPopupComponent} from "./admin-comic-popup/admin-comic-popup.component";
-import {NgClass} from "@angular/common";
-import {AdminDeleteComponent} from "../admin-delete/admin-delete.component";
+import {AdminDeleteComponent} from "./admin-delete/admin-delete.component";
 import {Router} from "@angular/router";
+import {ComicService} from "../../core/service/comic.service";
+import {ComicModel} from "../../models/ComicModel";
+import {PageComic} from "../../models/PageComic";
 
 @Component({
   selector: 'app-admin-comic',
-  standalone: true,
-  imports: [
-    NgClass
-  ],
   templateUrl: './admin-comic.component.html',
   styleUrl: './admin-comic.component.scss'
 })
-export class AdminComicComponent {
+export class AdminComicComponent  implements OnInit{
 
   isDialogOpen: boolean = false;
+  comic: ComicModel = new ComicModel();
+  pageComic: PageComic = new PageComic();
 
   constructor(
     public dialog: MatDialog,
-    private router: Router,) {}
+    private router: Router,
+    private comicService: ComicService
+  ) {}
 
-  openDialog(): void {
+  ngOnInit() {
+    this.getComicAdminPage();
+  }
+
+  getComicAdminPage() {
+    this.comic.pageSize = 10;
+    this.comicService.getComicPageAdmin(this.comic).subscribe((res: PageComic) => {
+      this.pageComic = res;
+    })
+  }
+
+  openDialog(comic: ComicModel): void {
     this.isDialogOpen = true;
     const dialogRef = this.dialog.open(AdminComicPopupComponent, {
       width: '500px',
-      data: { /* Dữ liệu bạn muốn truyền vào pop-up */ }
+      data: comic
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -35,15 +48,15 @@ export class AdminComicComponent {
     });
   }
 
-  openDialogDelete(): void {
+  openDialogDelete(comic: ComicModel): void {
     this.isDialogOpen = true;
     const dialogRef = this.dialog.open(AdminDeleteComponent, {
-      data: { /* Dữ liệu bạn muốn truyền vào pop-up */ }
+      data: comic
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.isDialogOpen = false;
-      console.log('The dialog was closed');
+      this.getComicAdminPage();
     });
   }
 
@@ -52,18 +65,18 @@ export class AdminComicComponent {
   }
 
   routerComicAdmin(): void {
-    this.router.navigate(["/admin-home"]);
+    this.router.navigate(["/admin-comic"]);
   }
 
   routerUserAdmin(): void {
-    this.router.navigate(["/admin-home"]);
+    this.router.navigate(["/admin-user"]);
   }
 
   routerCommentAdmin(): void {
-    this.router.navigate(["/admin-home"]);
+    this.router.navigate(["/admin-comment"]);
   }
 
   routerShopAdmin(): void {
-    this.router.navigate(["/admin-home"]);
+    this.router.navigate(["/admin-shop"]);
   }
 }
