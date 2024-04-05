@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserModel} from "../../../models/UserModel";
-import {ResponseUserModel} from "../../../models/response/ResponseUserModel";
+import {ResponseModel} from "../../../models/response/ResponseModel";
 import {AuthService} from "../../../core/service/auth.service";
 
 @Component({
@@ -23,8 +23,10 @@ export class UserComponent implements OnInit{
 
     getUserInfo(): void {
         this.user.username = this.authService.getCurrentUserUsername();
-        this.authService.getInfoUser(this.user).subscribe((res: ResponseUserModel): void => {
-            this.user = res.data;
+        this.authService.getInfoUser(this.user).subscribe((res: ResponseModel<UserModel>): void => {
+            if (res.data !== null) {
+                this.user = res.data;
+            }
         })
     }
 

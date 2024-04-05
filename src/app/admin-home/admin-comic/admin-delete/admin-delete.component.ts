@@ -2,8 +2,8 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ComicModel} from "../../../models/ComicModel";
 import {ComicService} from "../../../core/service/comic.service";
-import {ResponseStringModel} from "../../../models/response/ResponseStringModel";
 import {ToastrService} from "ngx-toastr";
+import {ResponseModel} from "../../../models/response/ResponseModel";
 
 @Component({
   selector: 'app-admin-delete',
@@ -22,12 +22,8 @@ export class AdminDeleteComponent {
     this.comic = this.data;
   }
 
-  onCancelClick(): void {
-    this.dialogRef.close();
-  }
-
   deleteComic() {
-    this.comicService.deleteComic(this.comic).subscribe((res: ResponseStringModel) => {
+    this.comicService.deleteComic(this.comic).subscribe((res: ResponseModel<String>) => {
       if (res.status === "OK") {
         this.toaStr.success(res.message);
         this.dialogRef.close();

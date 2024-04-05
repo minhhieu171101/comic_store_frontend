@@ -5,6 +5,7 @@ export class UserOrderModel {
     totalPrice: number;
     note: string | null;
     orderDate: Date | null;
+    status: number | null;
 
 
     constructor() {
@@ -14,5 +15,6 @@ export class UserOrderModel {
         this.totalPrice = 0;
         this.note = null;
         this.orderDate = null;
+        this.status = null;
     }
 }

@@ -1,55 +1,48 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {AdminUserPopupComponent} from "./admin-user-popup/admin-user-popup.component";
 import {Router} from "@angular/router";
 import {ComicService} from "../../core/service/comic.service";
+import {AuthService} from "../../core/service/auth.service";
+import {UserModel} from "../../models/UserModel";
+import {Page} from "../../models/Page";
 
 @Component({
   selector: 'app-admin-user',
   templateUrl: './admin-user.component.html',
   styleUrl: './admin-user.component.scss'
 })
-export class AdminUserComponent {
+export class AdminUserComponent implements OnInit{
 
-  isDialogOpen: boolean = false;
+  user: UserModel = new UserModel();
+  pageUser: Page<UserModel> = new Page<UserModel>();
+  currentPage: number = 0;
+  numberUser: number = 0;
+  pageSize: number = 0;
 
   constructor(
       public dialog: MatDialog,
       private router: Router,
-      private comicService: ComicService
+      private authService: AuthService
   ) {}
 
-  openDialog(): void {
-    this.isDialogOpen = true;
-    const dialogRef = this.dialog.open(AdminUserPopupComponent, {
-      width: '500px',
-      data: { /* Dữ liệu bạn muốn truyền vào pop-up */ }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.isDialogOpen = false;
-      console.log('The dialog was closed');
-    });
+  ngOnInit() {
+    this.user.pageSize = 10;
+    this.pageSize = 10;
+    this.getPageUserInfo();
   }
 
-  routerHomeAdmin(): void {
-    this.router.navigate(["/admin-home"]);
+  getPageUserInfo() {
+    this.authService.getPageUserInfo(this.user).subscribe((res: Page<UserModel>) => {
+      this.pageUser = res;
+      if (res.content) {
+        this.numberUser = res.content.length;
+      }
+    })
   }
 
-  routerComicAdmin(): void {
-    this.router.navigate(["/admin-comic"]);
+  handlePageChange(event: number) {
+    this.user.page = event;
+    this.currentPage = event;
+    this.getPageUserInfo();
   }
-
-  routerUserAdmin(): void {
-    this.router.navigate(["/admin-user"]);
-  }
-
-  routerCommentAdmin(): void {
-    this.router.navigate(["/admin-comment"]);
-  }
-
-  routerShopAdmin(): void {
-    this.router.navigate(["/admin-shop"]);
-  }
-
 }

@@ -8,6 +8,9 @@ export class UserModel {
     email: string | null;
     password: string | null;
     imgUser: string | null;
+    page: number;
+    pageSize: number;
+    gender: number | null;
 
     constructor() {
         this.id = null;
@@ -19,5 +22,8 @@ export class UserModel {
         this.email = null;
         this.password = null;
         this.imgUser = null;
+        this.page = 0;
+        this.pageSize = 0;
+        this.gender = null;
     }
 }

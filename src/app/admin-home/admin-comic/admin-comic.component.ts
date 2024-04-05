@@ -5,7 +5,7 @@ import {AdminDeleteComponent} from "./admin-delete/admin-delete.component";
 import {Router} from "@angular/router";
 import {ComicService} from "../../core/service/comic.service";
 import {ComicModel} from "../../models/ComicModel";
-import {PageComic} from "../../models/PageComic";
+import {Page} from "../../models/Page";
 
 @Component({
   selector: 'app-admin-comic',
@@ -16,7 +16,10 @@ export class AdminComicComponent  implements OnInit{
 
   isDialogOpen: boolean = false;
   comic: ComicModel = new ComicModel();
-  pageComic: PageComic = new PageComic();
+  pageComic: Page<ComicModel> = new Page<ComicModel>();
+  currentPage: number = 0;
+  numberComic: number = 0;
+  pageSize: number = 0;
 
   constructor(
     public dialog: MatDialog,
@@ -25,13 +28,17 @@ export class AdminComicComponent  implements OnInit{
   ) {}
 
   ngOnInit() {
+    this.comic.pageSize = 1;
+    this.pageSize = 1;
     this.getComicAdminPage();
   }
 
   getComicAdminPage() {
-    this.comic.pageSize = 10;
-    this.comicService.getComicPageAdmin(this.comic).subscribe((res: PageComic) => {
+    this.comicService.getComicPageAdmin(this.comic).subscribe((res: Page<ComicModel>) => {
       this.pageComic = res;
+      if (res.content) {
+        this.numberComic = res.content.length;
+      }
     })
   }
 
@@ -60,23 +67,8 @@ export class AdminComicComponent  implements OnInit{
     });
   }
 
-  routerHomeAdmin(): void {
-    this.router.navigate(["/admin-home"]);
-  }
-
-  routerComicAdmin(): void {
-    this.router.navigate(["/admin-comic"]);
-  }
-
-  routerUserAdmin(): void {
-    this.router.navigate(["/admin-user"]);
-  }
-
-  routerCommentAdmin(): void {
-    this.router.navigate(["/admin-comment"]);
-  }
-
-  routerShopAdmin(): void {
-    this.router.navigate(["/admin-shop"]);
+  handlePageChange(event: any) {
+    this.comic.page = event;
+    this.getComicAdminPage();
   }
 }

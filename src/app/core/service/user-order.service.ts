@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {ResponseStringModel} from "../../models/response/ResponseStringModel";
 import {UserOrderModel} from "../../models/UserOrderModel";
+import {ResponseModel} from "../../models/response/ResponseModel";
+import {PurchaseOrderModel} from "../../models/PurchaseOrderModel";
+import {Page} from "../../models/Page";
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,11 @@ export class UserOrderService {
       private httpClient: HttpClient
   ) { }
 
-  public order(userOrder: UserOrderModel): Observable<ResponseStringModel> {
-    return this.httpClient.post<ResponseStringModel>(`${this.API}user-order/order`, userOrder, this.httpOptions);
+  public order(userOrder: UserOrderModel): Observable<ResponseModel<String>> {
+    return this.httpClient.post<ResponseModel<String>>(`${this.API}user-order/order`, userOrder, this.httpOptions);
+  }
+
+  public getPurchaseOrderPage(purchaseOrder: PurchaseOrderModel): Observable<Page<PurchaseOrderModel>> {
+    return this.httpClient.post<Page<PurchaseOrderModel>>(`${this.API}user-order/purchase-order`, purchaseOrder, this.httpOptions);
   }
 }

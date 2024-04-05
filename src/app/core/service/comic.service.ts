@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ComicModel} from "../../models/ComicModel";
 import {ComicDetailModel} from "../../models/ComicDetailModel";
-import {PageComic} from "../../models/PageComic";
-import {ResponseStringModel} from "../../models/response/ResponseStringModel";
+import {Page} from "../../models/Page";
+import {ResponseModel} from "../../models/response/ResponseModel";
 
 @Injectable({
   providedIn: 'root'
@@ -33,19 +33,19 @@ export class ComicService {
     return this.httpClient.get<ComicDetailModel>(`${this.API}comic/detail/${id}`);
   }
 
-  getListComicByType(comic: ComicModel): Observable<PageComic> {
-    return this.httpClient.post<PageComic>(`${this.API}comic/page-comic`, comic, this.httpOptions);
+  getListComicByType(comic: ComicModel): Observable<Page<ComicModel>> {
+    return this.httpClient.post<Page<ComicModel>>(`${this.API}comic/page-comic`, comic, this.httpOptions);
   }
 
-  getComicPageAdmin(comic: ComicModel): Observable<PageComic> {
-    return this.httpClient.post<PageComic>(`${this.API}comic/comic-management-admin`, comic, this.httpOptions);
+  getComicPageAdmin(comic: ComicModel): Observable<Page<ComicModel>> {
+    return this.httpClient.post<Page<ComicModel>>(`${this.API}comic/comic-management-admin`, comic, this.httpOptions);
   }
 
-  updateComic(comic: ComicModel): Observable<ResponseStringModel> {
-    return this.httpClient.post<ResponseStringModel>(`${this.API}comic/update-comic`, comic, this.httpOptions)
+  updateComic(comic: ComicModel): Observable<ResponseModel<String>> {
+    return this.httpClient.post<ResponseModel<String>>(`${this.API}comic/update-comic`, comic, this.httpOptions)
   }
 
-  deleteComic(comic: ComicModel): Observable<ResponseStringModel> {
-    return this.httpClient.post<ResponseStringModel>(`${this.API}comic/delete-comic`, comic, this.httpOptions)
+  deleteComic(comic: ComicModel): Observable<ResponseModel<String>> {
+    return this.httpClient.post<ResponseModel<String>>(`${this.API}comic/delete-comic`, comic, this.httpOptions)
   }
 }

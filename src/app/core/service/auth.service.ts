@@ -4,10 +4,10 @@ import {MailModel} from "../../models/MailModel";
 import {RegisterModel} from "../../models/RegisterModel";
 import {LoginModel} from "../../models/LoginModel";
 import {Observable} from "rxjs";
-import {ResponseStringModel} from "../../models/response/ResponseStringModel";
-import {ResponseAuthModel} from "../../models/response/ResponseAuthModel";
 import {UserModel} from "../../models/UserModel";
-import {ResponseUserModel} from "../../models/response/ResponseUserModel";
+import {ResponseModel} from "../../models/response/ResponseModel";
+import {AuthModel} from "../../models/AuthModel";
+import {Page} from "../../models/Page";
 
 @Injectable({
   providedIn: 'root'
@@ -29,16 +29,16 @@ export class AuthService {
      private httpClient: HttpClient
   ) { }
 
-  sendEmail(mailModel: MailModel): Observable<ResponseStringModel>  {
-    return this.httpClient.post<ResponseStringModel>(`${this.API}auth/send`, mailModel, this.httpOptions);
+  sendEmail(mailModel: MailModel): Observable<ResponseModel<String>>  {
+    return this.httpClient.post<ResponseModel<String>>(`${this.API}auth/send`, mailModel, this.httpOptions);
   }
 
-  register(registerObject: RegisterModel): Observable<ResponseStringModel>  {
-    return this.httpClient.post<ResponseStringModel>(`${this.API}auth/register`, registerObject, this.httpOptions);
+  register(registerObject: RegisterModel): Observable<ResponseModel<String>>  {
+    return this.httpClient.post<ResponseModel<String>>(`${this.API}auth/register`, registerObject, this.httpOptions);
   }
 
-  login(loginObject: LoginModel): Observable<ResponseAuthModel>  {
-    return this.httpClient.post<ResponseAuthModel>(`${this.API}auth/login`, loginObject, this.httpOptions);
+  login(loginObject: LoginModel): Observable<ResponseModel<AuthModel>>  {
+    return this.httpClient.post<ResponseModel<AuthModel>>(`${this.API}auth/login`, loginObject, this.httpOptions);
   }
 
   public isLoggedIn(): boolean {
@@ -63,7 +63,11 @@ export class AuthService {
     return decodeToken?.sub;
   }
 
-  public getInfoUser(user: UserModel): Observable<ResponseUserModel> {
-    return this.httpClient.post<ResponseUserModel>(`${this.API}auth/user`, user, this.httpOptions);
+  public getInfoUser(user: UserModel): Observable<ResponseModel<UserModel>> {
+    return this.httpClient.post<ResponseModel<UserModel>>(`${this.API}auth/user`, user, this.httpOptions);
+  }
+
+  public getPageUserInfo(user: UserModel): Observable<Page<UserModel>> {
+    return this.httpClient.post<Page<UserModel>>(`${this.API}auth/page-user`, user, this.httpOptions);
   }
 }

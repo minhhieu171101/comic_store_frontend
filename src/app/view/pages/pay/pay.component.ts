@@ -4,11 +4,11 @@ import {UserModel} from "../../../models/UserModel";
 import {ComicOrderModel} from "../../../models/ComicOrderModel";
 import {UserOrderModel} from "../../../models/UserOrderModel";
 import {AuthService} from "../../../core/service/auth.service";
-import {ResponseUserModel} from "../../../models/response/ResponseUserModel";
+import {ResponseModel} from "../../../models/response/ResponseModel";
 import {ComicOrderService} from "../../../core/service/comic-order.service";
 import {UserOrderService} from "../../../core/service/user-order.service";
-import {ResponseStringModel} from "../../../models/response/ResponseStringModel";
 import {ToastrService} from "ngx-toastr";
+import {AuthModel} from "../../../models/AuthModel";
 
 @Component({
   selector: 'app-pay',
@@ -43,9 +43,11 @@ export class PayComponent implements OnInit{
   //  lấy thông tin người dùng
   getUserInfo(): void {
     this.user.username = this.authService.getCurrentUserUsername();
-    this.authService.getInfoUser(this.user).subscribe((res: ResponseUserModel): void => {
-      this.user = res.data;
-      this.userOrder.userId = res.data.id;
+    this.authService.getInfoUser(this.user).subscribe((res: ResponseModel<UserModel>): void => {
+      if (res.data !== null) {
+        this.user = res.data;
+        this.userOrder.userId = res.data.id;
+      }
       this.cdr.detectChanges();
     })
   }
@@ -84,7 +86,7 @@ export class PayComponent implements OnInit{
 
   order() {
     console.log(this.userOrder)
-    this.userOrderService.order(this.userOrder).subscribe((res: ResponseStringModel) => {
+    this.userOrderService.order(this.userOrder).subscribe((res: ResponseModel<String>) => {
       if (res.status === "OK") {
         this.toaStr.success(res.message);
         this.router.navigate(["/home"]);

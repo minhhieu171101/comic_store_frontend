@@ -1,7 +1,5 @@
-import {ComicModel} from "./ComicModel";
-
-export class PageComic {
-    content: ComicModel[] | undefined;
+export class Page<T> {
+    content: T[] | undefined;
     totalPages: number;
     totalElements: number;
     numberElements: number;

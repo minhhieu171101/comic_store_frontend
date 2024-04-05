@@ -108,7 +108,9 @@
             <ul class="border p-4">
                 <li class="py-1.5 text-sm">
                     <span>
-                        <fa-icon [icon]="faHeart" class="text-xl mr-3"></fa-icon>
+                        <fa-icon [icon]="faHeart"
+                                 class="text-xl mr-3 cursor-pointer"
+                                 (click)="addToWishlist()"></fa-icon>
                         Thêm vào yêu thích
                     </span>
                 </li>
@@ -130,14 +132,20 @@
     <div class=" grid grid-cols-2 gap-4 mt-3 bg-white">
         <div class=" flex w-full p-5">
             <span class="mr-3">
-                <img src="../../../../assets/images/img-pr.jpg" alt="" class="rounded-full w-[50px] h-[50px]">
+                <img [src]="user.imgUser" alt="" class="rounded-full w-[50px] h-[50px]">
             </span>
             <div class=" flex-1">
                 <form action="" class="border w-full">
                     <textarea name="" id="" cols="20" rows="4" class="w-full p-2"
-                              placeholder="Viết bình luận..."></textarea>
+                              placeholder="Viết bình luận..."
+                              [(ngModel)]="comment.content"
+                              [ngModelOptions]="{standalone: true}"
+                    ></textarea>
                     <div class="bg-slate-100 py-3 px-2 text-right">
-                        <button class="bg-blue-500 px-4 py-1.5 text-white rounded-md">Đăng</button>
+                        <button class="bg-blue-500 px-4 py-1.5 text-white rounded-md"
+                                (click)="createComment()">
+                            Đăng
+                        </button>
                     </div>
                 </form>
             </div>

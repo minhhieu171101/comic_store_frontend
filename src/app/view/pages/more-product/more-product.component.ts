@@ -1,9 +1,9 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Navigation, Params, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {ComicModel} from "../../../models/ComicModel";
 import {ComicService} from "../../../core/service/comic.service";
 import {calculatePrice} from "../../../helpers/constants";
-import {PageComic} from "../../../models/PageComic";
+import {Page} from "../../../models/Page";
 
 @Component({
   selector: 'app-more-product',
@@ -23,10 +23,14 @@ export class MoreProductComponent implements OnInit{
     })
   }
 
-  comics: ComicModel[] | undefined;
+  comicsPage: Page<ComicModel> = new Page<ComicModel>();
   comicObject: ComicModel = new ComicModel();
+  currentPage: number = 0;
+  numberComic: number = 0;
+  pageSize: number = 9;
 
   ngOnInit(): void {
+    this.comicObject.pageSize = 9
     this.activatedRouter.queryParams.subscribe((param: Params): void => {
       this.comicObject.typeComicId = param["typeComicId"];
       this.getComics();
@@ -34,8 +38,11 @@ export class MoreProductComponent implements OnInit{
   }
 
   getComics() {
-    this.comicService.getListComicByType(this.comicObject).subscribe((res: PageComic) => {
-      this.comics = res.content;
+    this.comicService.getListComicByType(this.comicObject).subscribe((res: Page<ComicModel>) => {
+      this.comicsPage = res;
+      if (res.content) {
+        this.numberComic = res.content.length;
+      }
       this.cdr.detectChanges();
     })
   }
@@ -48,5 +55,11 @@ export class MoreProductComponent implements OnInit{
         id
       }
     });
+  }
+
+  handlePageChange(event: number) {
+    this.comicObject.page = event;
+    this.currentPage = event;
+    this.getComics();
   }
 }

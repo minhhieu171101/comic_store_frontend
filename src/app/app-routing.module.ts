@@ -14,6 +14,7 @@ import {AdminCommentComponent} from "./admin-home/admin-comment/admin-comment.co
 import {AdminShopComponent} from "./admin-home/admin-shop/admin-shop.component";
 import {AuthGuardService} from "./core/service/auth-guard.service";
 import {NoAuthGuardService} from "./core/service/no-auth-guard.service";
+import {WishlistComponent} from "./view/pages/wishlist/wishlist.component";
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -32,6 +33,7 @@ export const routes: Routes = [
   {path: 'user', component: UserComponent, canActivate: [AuthGuardService]},
   {path: 'pay', component: PayComponent, canActivate: [AuthGuardService]},
   {path: 'cart', component: CartComponent, canActivate: [AuthGuardService]},
+  {path: 'wishlist', component: WishlistComponent},
 
   {path: 'admin-user', component: AdminUserComponent},
   {path: 'admin-comic', component: AdminComicComponent},

@@ -5,8 +5,8 @@ import {AuthService} from "../../../core/service/auth.service";
 import {ComicOrderService} from "../../../core/service/comic-order.service";
 import {ComicOrderModel} from "../../../models/ComicOrderModel";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {ResponseStringModel} from "../../../models/response/ResponseStringModel";
 import {ToastrService} from "ngx-toastr";
+import {ResponseModel} from "../../../models/response/ResponseModel";
 
 @Component({
   selector: 'app-cart',
@@ -90,7 +90,7 @@ export class CartComponent implements OnInit{
     delete() {
         this.comicOrderService
             .deleteComicOrder(this.comicOrderDelete)
-            .subscribe((res: ResponseStringModel) => {
+            .subscribe((res: ResponseModel<String>) => {
             if (res.status === "OK") {
                 this.toaStr.success(res.message);
                 this.dialog.closeAll();

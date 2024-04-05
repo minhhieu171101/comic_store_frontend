@@ -6,11 +6,11 @@ import {AdminDeleteComponent} from "./admin-comic/admin-delete/admin-delete.comp
 import {AdminCommentComponent} from "./admin-comment/admin-comment.component";
 import {AdminComicComponent} from "./admin-comic/admin-comic.component";
 import {AdminComicPopupComponent} from "./admin-comic/admin-comic-popup/admin-comic-popup.component";
-import {AdminUserPopupComponent} from "./admin-user/admin-user-popup/admin-user-popup.component";
 import {AdminHomeComponent} from "./admin-home.component";
 import {FormsModule} from "@angular/forms";
-
-
+import {SidebarComponent} from "../components/sidebar/sidebar.component";
+import {DeleteCommentComponent} from "./admin-comment/delete-comment/delete-comment.component";
+import {PagesModule} from "../view/pages/pages.module";
 
 @NgModule({
   declarations: [
@@ -20,12 +20,14 @@ import {FormsModule} from "@angular/forms";
       AdminCommentComponent,
       AdminComicComponent,
       AdminComicPopupComponent,
-      AdminUserPopupComponent,
-      AdminHomeComponent
+      AdminHomeComponent,
+      SidebarComponent,
+      DeleteCommentComponent
   ],
-  imports: [
-      CommonModule,
-      FormsModule
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        PagesModule,
+    ]
 })
 export class AdminHomeModule { }

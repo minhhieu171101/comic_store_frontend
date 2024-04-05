@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ComicOrderModel} from "../../models/ComicOrderModel";
 import {UserModel} from "../../models/UserModel";
-import {ResponseStringModel} from "../../models/response/ResponseStringModel";
 import {StatisticComicModel} from "../../models/StatisticComicModel";
+import {ResponseModel} from "../../models/response/ResponseModel";
 
 @Injectable({
   providedIn: 'root'
@@ -29,12 +29,12 @@ export class ComicOrderService {
     return this.httpClient.post<ComicOrderModel[]>(`${this.API}comic-order/order-list`, user, this.httpOptions);
   }
 
-  createComicOrder(comicOrder: ComicOrderModel): Observable<ResponseStringModel> {
-    return this.httpClient.post<ResponseStringModel>(`${this.API}comic-order/create-order`, comicOrder, this.httpOptions)
+  createComicOrder(comicOrder: ComicOrderModel): Observable<ResponseModel<String>> {
+    return this.httpClient.post<ResponseModel<String>>(`${this.API}comic-order/create-order`, comicOrder, this.httpOptions)
   }
 
-  deleteComicOrder(comicOrder: ComicOrderModel): Observable<ResponseStringModel> {
-    return this.httpClient.post<ResponseStringModel>(`${this.API}comic-order/delete`, comicOrder, this.httpOptions)
+  deleteComicOrder(comicOrder: ComicOrderModel): Observable<ResponseModel<String>> {
+    return this.httpClient.post<ResponseModel<String>>(`${this.API}comic-order/delete`, comicOrder, this.httpOptions)
   }
 
   getStatisticComic(): Observable<StatisticComicModel[]> {

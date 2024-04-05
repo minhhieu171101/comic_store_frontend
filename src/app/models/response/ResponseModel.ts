@@ -1,13 +1,11 @@
-import {AuthModel} from "../AuthModel";
-
-export class ResponseAuthModel {
+export class ResponseModel<T> {
     status: string | null;
-    data: AuthModel;
+    data: T | null;
     message: string | undefined;
 
     constructor() {
         this.status = null;
-        this.data = new AuthModel();
+        this.data = null;
         this.message = undefined;
     }
 }

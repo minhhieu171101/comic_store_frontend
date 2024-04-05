@@ -5,12 +5,11 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ToastrService} from "ngx-toastr";
 import {AuthService} from "../../../core/service/auth.service";
 import {MailModel} from "../../../models/MailModel";
-import {ResponseStringModel} from "../../../models/response/ResponseStringModel";
 import {RegisterFormValidModel} from "../../../models/validation/RegisterFormValidModel";
 import {LoginFormValidModel} from "../../../models/validation/LoginFormValidModel";
 import {Router} from "@angular/router";
-import {ResponseAuthModel} from "../../../models/response/ResponseAuthModel";
-import {HeaderComponent} from "../../../components/header/header.component";
+import {ResponseModel} from "../../../models/response/ResponseModel";
+import {AuthModel} from "../../../models/AuthModel";
 
 @Component({
   selector: 'app-login',
@@ -62,11 +61,13 @@ export class LoginComponent implements OnInit{
 
   onLogin(): void {
     if (this.validateLoginForm()) {
-      this.authService.login(this.loginObject).subscribe((res: ResponseAuthModel): void => {
+      this.authService.login(this.loginObject).subscribe((res: ResponseModel<AuthModel>): void => {
         if (res.status === "OK") {
           this.toaStr.success(res.message);
           localStorage.clear();
-          localStorage.setItem(res.data.tokenName, res.data.accessToken);
+          if (res.data !== null) {
+            localStorage.setItem(res.data.tokenName, res.data.accessToken);
+          }
           this.cdr.detectChanges();
           this.router.navigateByUrl("/home");
         }
@@ -186,7 +187,7 @@ export class LoginComponent implements OnInit{
   // Thực hiện xác thực mã email
   submitCode():void {
     this.registerObject.code = this.code.join("");
-    this.authService.register(this.registerObject).subscribe((res: ResponseStringModel): void => {
+    this.authService.register(this.registerObject).subscribe((res: ResponseModel<String>): void => {
 
       if (res.status === "OK") {
         this.toaStr.success(res.message);

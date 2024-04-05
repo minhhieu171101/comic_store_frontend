@@ -13,6 +13,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AuthService} from "../../core/service/auth.service";
 import {NavbarComponent} from "../../components/navbar/navbar.component";
 import {SlickCarouselModule} from "ngx-slick-carousel";
+import {WishlistComponent} from "./wishlist/wishlist.component";
+import {PaginationComponent} from "../../components/pagination/pagination.component";
 
 @NgModule({
     declarations: [
@@ -25,12 +27,17 @@ import {SlickCarouselModule} from "ngx-slick-carousel";
         MoreProductComponent,
         LoginComponent,
         NavbarComponent,
-  ],
+        WishlistComponent,
+        PaginationComponent
+    ],
     imports: [
         CommonModule,
         FormsModule,
         FontAwesomeModule,
         SlickCarouselModule
+    ],
+    exports: [
+        PaginationComponent
     ],
     providers: [
         AuthService

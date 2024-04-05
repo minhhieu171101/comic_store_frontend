@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   templateUrl: './admin-home.component.html',
   styleUrl: './admin-home.component.css'
 })
-export class AdminHomeComponent implements OnInit{
+export class AdminHomeComponent implements OnInit {
 
   protected readonly faMagnifyingGlass = faMagnifyingGlass;
   protected readonly faHeadset = faHeadset;
@@ -34,29 +34,5 @@ export class AdminHomeComponent implements OnInit{
         this.totalMonthIncome += comic.totalIncome;
       }
     })
-  }
-
-  toProductManagement() {
-    this.router.navigate(["/admin-comic"])
-  }
-
-  routerHomeAdmin(): void {
-    this.router.navigate(["/admin-home"]);
-  }
-
-  routerComicAdmin(): void {
-    this.router.navigate(["/admin-comic"]);
-  }
-
-  routerUserAdmin(): void {
-    this.router.navigate(["/admin-user"]);
-  }
-
-  routerCommentAdmin(): void {
-    this.router.navigate(["/admin-comment"]);
-  }
-
-  routerShopAdmin(): void {
-    this.router.navigate(["/admin-shop"]);
   }
 }
