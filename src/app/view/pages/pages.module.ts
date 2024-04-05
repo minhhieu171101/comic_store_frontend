@@ -13,6 +13,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {LoginService} from "../../core/service/login.service";
 import {NavbarComponent} from "../../components/navbar/navbar.component";
 import {SlickCarouselModule} from "ngx-slick-carousel";
+import {HeaderComponent} from "../../components/header/header.component";
 
 @NgModule({
     declarations: [

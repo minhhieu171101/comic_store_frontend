@@ -12,11 +12,6 @@
                             Bảng vẽ điện tử
                         </span>
                     </li>
-                    <li class=" py-2">
-                        <span>
-                            Phụ kiện công nghệ
-                        </span>
-                    </li>
                 </ul>
             </div>
             <div class=" pb-5">
@@ -44,154 +39,32 @@
                     <option value="">20 sản phẩm</option>
                 </select>
             </div>
-            <div class=" grid grid-cols-3 gap-4">
-                <div class=" p-3 rounded-md bg-white">
-                    <div class="flex gap-4 pb-4 border-b">
-                        <img src="../../../../assets/images/img-pr.jpg" alt="" class="mt-[-20px]">
+            <div class="list-product-container grid grid-cols-3 gap-4">
+                <div class="item-container p-3 rounded-md bg-white" *ngFor="let comic of comics, let index = index">
+                    <div class="top-item-container flex gap-4 pb-4 border-b">
+                        <div class="image-container" (click)="goToDetail(comic.id)">
+                            <img [src]="comic.imgComic" alt="">
+                        </div>
                         <div>
-<!--                            <h2 class=" line-clamp-1 font-medium text-[18px] hover:underline"-->
-<!--                                [routerLink]="['detail/1']"> Hippi - Những Kẻ Lãng Du</h2>-->
-                            <span>Paulo Coelho</span>
+                            <h2 class=" line-clamp-1 font-medium text-[18px] hover:underline">
+                                {{ comic.comicName }}
+                            </h2>
+                            <span>{{ comic.authorName }}</span>
                             <p class=" line-clamp-3">
-                                Hippie – Những kẻ lãng du đưa ta đến với những con người hoàn toàn xa lạ, với...
+                                {{ comic.contents }}
                             </p>
                         </div>
                     </div>
                     <div class=" mt-4 flex justify-between items-center">
                         <span class=" p-2 rounded-md bg-red-500 text-white font-medium">
-                            Còn lại 20
+                            Còn lại {{ comic.residualQuantity }}
                         </span>
                         <span>
                             <span class="line-through mr-4">
-                                99.000 đ
+                                {{ comic.price }} đ
                             </span>
                             <span class="text-red-500 text-lg font-medium">
-                                120.000 đ
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <div class=" p-3 rounded-md bg-white">
-                    <div class="flex gap-4 pb-4 border-b">
-                        <img src="../../../../assets/images/img-pr.jpg" alt="" class="mt-[-20px]">
-                        <div>
-                            <h2 class=" line-clamp-1 font-medium text-[18px]"> Hippi - Những Kẻ Lãng Du</h2>
-                            <span>Paulo Coelho</span>
-                            <p class="line-clamp-3">
-                                Hippie – Những kẻ lãng du đưa ta đến với những con người hoàn toàn xa lạ, với...
-                            </p>
-                        </div>
-                    </div>
-                    <div class=" mt-4 flex justify-between items-center">
-                        <span class=" p-2 rounded-md bg-red-500 text-white font-medium">
-                            Còn lại 20
-                        </span>
-                        <span>
-                            <span class="line-through mr-4">
-                                99.000 đ
-                            </span>
-                            <span class="text-red-500 text-lg font-medium">
-                                120.000 đ
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <div class=" p-3 rounded-md bg-white">
-                    <div class="flex gap-4 pb-4 border-b">
-                        <img src="../../../../assets/images/img-pr.jpg" alt="" class="mt-[-20px]">
-                        <div>
-                            <h2 class=" line-clamp-1 font-medium text-[18px]"> Hippi - Những Kẻ Lãng Du</h2>
-                            <span>Paulo Coelho</span>
-                            <p class="line-clamp-3">
-                                Hippie – Những kẻ lãng du đưa ta đến với những con người hoàn toàn xa lạ, với...
-                            </p>
-                        </div>
-                    </div>
-                    <div class=" mt-4 flex justify-between items-center">
-                        <span class=" p-2 rounded-md bg-red-500 text-white font-medium">
-                            Còn lại 20
-                        </span>
-                        <span>
-                            <span class="line-through mr-4">
-                                99.000 đ
-                            </span>
-                            <span class="text-red-500 text-lg font-medium">
-                                120.000 đ
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <div class=" p-3 rounded-md bg-white">
-                    <div class="flex gap-4 pb-4 border-b">
-                        <img src="../../../../assets/images/img-pr.jpg" alt="" class="mt-[-20px]">
-                        <div>
-                            <h2 class=" line-clamp-1 font-medium text-[18px]"> Hippi - Những Kẻ Lãng Du</h2>
-                            <span>Paulo Coelho</span>
-                            <p class="line-clamp-3">
-                                Hippie – Những kẻ lãng du đưa ta đến với những con người hoàn toàn xa lạ, với...
-                            </p>
-                        </div>
-                    </div>
-                    <div class=" mt-4 flex justify-between items-center">
-                        <span class=" p-2 rounded-md bg-red-500 text-white font-medium">
-                            Còn lại 20
-                        </span>
-                        <span>
-                            <span class="line-through mr-4">
-                                99.000 đ
-                            </span>
-                            <span class="text-red-500 text-lg font-medium">
-                                120.000 đ
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <div class=" p-3 rounded-md bg-white">
-                    <div class="flex gap-4 pb-4 border-b">
-                        <img src="../../../../assets/images/img-pr.jpg" alt="" class="mt-[-20px]">
-                        <div>
-                            <h2 class=" line-clamp-1 font-medium text-[18px]"> Hippi - Những Kẻ Lãng Du</h2>
-                            <span>Paulo Coelho</span>
-                            <p class="line-clamp-3">
-                                Hippie – Những kẻ lãng du đưa ta đến với những con người hoàn toàn xa lạ, với...
-                            </p>
-                        </div>
-                    </div>
-                    <div class=" mt-4 flex justify-between items-center">
-                        <span class=" p-2 rounded-md bg-red-500 text-white font-medium">
-                            Còn lại 20
-                        </span>
-                        <span>
-                            <span class="line-through mr-4">
-                                99.000 đ
-                            </span>
-                            <span class="text-red-500 text-lg font-medium">
-                                120.000 đ
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <div class=" p-3 rounded-md bg-white">
-                    <div class="flex gap-4 pb-4 border-b">
-                        <img src="../../../../assets/images/img-pr.jpg" alt="" class="mt-[-20px]">
-                        <div>
-                            <h2 class=" line-clamp-1 font-medium text-[18px]"> Hippi - Những Kẻ Lãng Du</h2>
-                            <span>Paulo Coelho</span>
-                            <p class="line-clamp-3">
-                                Hippie – Những kẻ lãng du đưa ta đến với những con người hoàn toàn xa lạ, với...
-                            </p>
-                        </div>
-                    </div>
-                    <div class=" mt-4 flex justify-between items-center">
-                        <span class=" p-2 rounded-md bg-red-500 text-white font-medium">
-                            Còn lại 20
-                        </span>
-                        <span>
-                            <span class="line-through mr-4">
-                                99.000 đ
-                            </span>
-                            <span class="text-red-500 text-lg font-medium">
-                                120.000 đ
+                                {{ calculatePrice(comic.price, comic.sale) }} đ
                             </span>
                         </span>
                     </div>

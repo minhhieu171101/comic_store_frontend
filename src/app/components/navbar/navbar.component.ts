@@ -3,10 +3,11 @@ import {
   faBars,
   faCaretDown,
   faBookOpen,
-  faAngleRight, IconDefinition,
+  IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import {NavbarService} from "../../core/service/navbar.service";
 import {TypeComic} from "../../models/TypeComic";
+import {NavigationExtras, Router} from "@angular/router";
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -40,13 +41,14 @@ export class NavbarComponent implements OnInit{
   ]
 
   ngOnInit(): void {
-    this.navbarService.getListTypeComic().subscribe((res: TypeComic[]) => {
+    this.navbarService.getListTypeComic().subscribe((res: TypeComic[]): void => {
       this.typeComics = res;
     })
   }
 
   constructor(
-      private navbarService: NavbarService
+      private navbarService: NavbarService,
+      private router: Router
   ) {
   }
 
@@ -62,5 +64,13 @@ export class NavbarComponent implements OnInit{
   }
   beforeChange(event: any) {
     console.log('Slick initialized');
+  }
+
+  findForType(id: number | null): void {
+    this.router.navigate(["/more-products/"], {
+      queryParams: {
+        typeComicId: id
+      }
+    });
   }
 }

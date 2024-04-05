@@ -1,5 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Navigation, Router} from "@angular/router";
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Navigation, Params, Router} from "@angular/router";
+import {ComicModel} from "../../../models/ComicModel";
+import {ComicService} from "../../../core/service/comic.service";
+import {calculatePrice} from "../../../helpers/constants";
+import {PageComic} from "../../../models/PageComic";
 
 @Component({
   selector: 'app-more-product',
@@ -9,11 +13,36 @@ import {Navigation, Router} from "@angular/router";
 export class MoreProductComponent implements OnInit{
 
   constructor(
-      private router: Router
-  ) {}
+      private router: Router,
+      private comicService: ComicService,
+      private activatedRouter: ActivatedRoute,
+      private cdr: ChangeDetectorRef
+  ) {
+    this.activatedRouter.queryParams.subscribe((param: Params): void => {
+      this.comicObject.typeComicId = param["typeComicId"];
+    })
+  }
+
+  comics: ComicModel[] | undefined;
+  comicObject: ComicModel = new ComicModel();
 
   ngOnInit(): void {
-    const currentState: Navigation | null = this.router.lastSuccessfulNavigation;
-    console.log(currentState?.extras)
+    this.activatedRouter.queryParams.subscribe((param: Params): void => {
+      this.comicObject.typeComicId = param["typeComicId"];
+      this.getComics();
+    })
+  }
+
+  getComics() {
+    this.comicService.getListComicByType(this.comicObject).subscribe((res: PageComic) => {
+      this.comics = res.content;
+      this.cdr.detectChanges();
+    })
+  }
+
+  protected readonly calculatePrice = calculatePrice;
+
+  goToDetail(id: number | null) {
+    
   }
 }

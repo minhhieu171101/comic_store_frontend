@@ -12,10 +12,12 @@ import {AdminUserComponent} from "./admin-home/admin-user/admin-user.component";
 import {AdminComicComponent} from "./admin-home/admin-comic/admin-comic.component";
 import {AdminCommentComponent} from "./admin-home/admin-comment/admin-comment.component";
 import {AdminShopComponent} from "./admin-home/admin-shop/admin-shop.component";
+import {AuthGuardService} from "./core/service/auth-guard.service";
+import {NoAuthGuardService} from "./core/service/no-auth-guard.service";
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [NoAuthGuardService]},
   {
     path: 'more-products',
     children: [
@@ -27,9 +29,9 @@ export const routes: Routes = [
     ],
   },
   {path: 'admin-home', component: AdminHomeComponent},
-  {path: 'user', component: UserComponent},
-  {path: 'pay', component: PayComponent},
-  {path: 'cart', component: CartComponent},
+  {path: 'user', component: UserComponent, canActivate: [AuthGuardService]},
+  {path: 'pay', component: PayComponent, canActivate: [AuthGuardService]},
+  {path: 'cart', component: CartComponent, canActivate: [AuthGuardService]},
 
   {path: 'admin-user', component: AdminUserComponent},
   {path: 'admin-comic', component: AdminComicComponent},
@@ -39,6 +41,7 @@ export const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuardService, NoAuthGuardService]
 })
 export class AppRoutingModule { }

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {ComicModel} from "../../models/ComicModel";
+import {ResponseStringModel} from "../../models/response/ResponseStringModel";
+import {UserOrderModel} from "../../models/UserOrderModel";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ListProductService {
+export class UserOrderService {
 
   private API: string = "http://localhost:8080/api/";
 
@@ -21,8 +22,8 @@ export class ListProductService {
   constructor(
       private httpClient: HttpClient
   ) { }
-  
-  getListComicLandingPage(page: number, pageSize: number): Observable<ComicModel[]> {
-    return this.httpClient.get<ComicModel[]>(`${this.API}comic/list-comic/${page}/${pageSize}`);
+
+  public order(userOrder: UserOrderModel): Observable<ResponseStringModel> {
+    return this.httpClient.post<ResponseStringModel>(`${this.API}user-order/order`, userOrder, this.httpOptions);
   }
 }

@@ -16,19 +16,18 @@
                 <span>Yêu thích
                 </span>
             </div>
-            <div class="py-4 pl-2 flex items-center">
-                <span>Đăng nhập</span>
-            </div>
         </div>
     </div>
 
 </div>
 <div class=" container mx-auto">
-
     <div class="grid grid-cols-4 gap-4 bg-white">
         <div class="">
             <ul>
-                <li class="py-3 px-2" *ngFor="let typeComic of typeComics, let index = index">
+                <li class="py-3 px-2"
+                    style="cursor: pointer"
+                    *ngFor="let typeComic of typeComics, let index = index"
+                    (click)="findForType(typeComic.id)">
                     <fa-icon [icon]="faBookOpen" class="text-xl mr-3"></fa-icon>
                     <span>{{typeComic.typeName}}</span>
                 </li>

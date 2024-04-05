@@ -1,24 +1,37 @@
-<div class=" container mx-auto">
-
-
+<div class="product-detail-container mx-auto">
     <!-- Breadcrumb -->
     <nav class="flex justify-between" aria-label="Breadcrumb">
         <ol class="inline-flex items-center mb-3 sm:mb-0">
             <li>
                 <div class="flex items-center">
                     <button
-                        class="inline-flex items-center px-3 py-2 text-sm font-normal text-center text-gray-900  rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-white dark:focus:ring-gray-700">
-                        Trang chủ</button>
-
+                            class="inline-flex items-center
+                        px-3 py-2 text-sm font-normal
+                        text-center text-gray-900
+                        rounded-lg hover:bg-gray-100
+                        focus:ring-4 focus:outline-none
+                        focus:ring-gray-100 dark:bg-gray-900
+                        dark:hover:bg-gray-800 dark:text-white
+                        dark:focus:ring-gray-700">
+                        Trang chủ
+                    </button>
                 </div>
             </li>
             <span class="mx-2 text-gray-400">/</span>
             <li aria-current="page">
                 <div class="flex items-center">
-                    <button id="dropdownDatabase" data-dropdown-toggle="dropdown-database"
-                        class="inline-flex items-center px-3 py-2 text-sm font-normal text-center text-gray-900  rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-white dark:focus:ring-gray-700">
-                        Tên sản phẩm</button>
-
+                    <button id="dropdownDatabase"
+                            data-dropdown-toggle="dropdown-database"
+                            class="inline-flex items-center
+                            px-3 py-2 text-sm font-normal
+                            text-center text-gray-900
+                            rounded-lg hover:bg-gray-100
+                            focus:ring-4 focus:outline-none
+                            focus:ring-gray-100 dark:bg-gray-900
+                            dark:hover:bg-gray-800 dark:text-white
+                            dark:focus:ring-gray-700">
+                        Tên sản phẩm
+                    </button>
                 </div>
             </li>
         </ol>
@@ -26,14 +39,14 @@
 
     <div class=" grid grid-cols-4 gap-3 bg-white p-8 rounded-md shadow-md">
         <div class="col-span-1">
-            <img src="../../../../assets/images/san-pham.jpg" alt="" style="width: 100%;">
+            <img [src]="comicDetail.imgComic" alt="" style="width: 100%;">
         </div>
         <div class="col-span-2">
             <span class="uppercase text-2xl font-medium block mb-2">
-                BẢNG VẼ MÀN HÌNH XPPEN ARTIST PRO 16 GEN 2 – 16K
+                {{ comicDetail.comicName }}
             </span>
             <span class="block font-bold text-2xl text-orange-500 mb-2">
-                16,900,000 đ
+                {{ calculatePrice(comicDetail.price, comicDetail.sale) }} đ
             </span>
             <span class="text-sm">
                 Tình trạng: <span class="text-orange-500">Còn hàng</span>
@@ -45,8 +58,8 @@
                 <span class=" inline-block mr-3">Số Lượng:</span>
                 <div class="border inline-block bg-slate-50">
 
-                    <span class=" px-3 py-3"> - </span> <input type="text" value="1"
-                        class="w-[3rem] text-center py-3 text-orange-500">
+                    <span class=" px-3 py-3"> - </span>
+                    <input type="text" value="1" class="w-[3rem] text-center py-3 text-orange-500">
                     <span class=" px-3 py-3"> +
                     </span>
                 </div>
@@ -110,7 +123,7 @@
             <div class=" flex-1">
                 <form action="" class="border w-full">
                     <textarea name="" id="" cols="20" rows="4" class="w-full p-2"
-                        placeholder="Viết bình luận..."></textarea>
+                              placeholder="Viết bình luận..."></textarea>
                     <div class="bg-slate-100 py-3 px-2 text-right">
                         <button class="bg-blue-500 px-4 py-1.5 text-white rounded-md">Đăng</button>
                     </div>
