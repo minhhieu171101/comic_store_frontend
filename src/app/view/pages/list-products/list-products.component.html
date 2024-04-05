@@ -1,22 +1,22 @@
 <div class="list-product-container grid grid-cols-3 gap-4">
     <div class="item-container p-3 rounded-md bg-white" *ngFor="let comic of comics, let index = index">
         <div class="top-item-container flex gap-4 pb-4 border-b">
-           <div class="image-container" (click)="goToDetail(comic.id)">
-               <img [src]="comic.imgComic" alt="">
-           </div>
+            <div class="image-container" (click)="goToDetail(comic.id)">
+                <img [src]="comic.imgComic" alt="">
+            </div>
             <div class="info-container">
-                <h2 class=" line-clamp-1 font-medium text-[18px] hover:underline" >
-                    {{comic.comicName}}
+                <h2 class=" line-clamp-1 font-medium text-[18px] hover:underline">
+                    {{ comic.comicName }}
                 </h2>
-                <span>{{comic.authorName}}</span>
+                <span>{{ comic.authorName }}</span>
                 <p class=" line-clamp-3">
-                    {{comic.contents}}
+                    {{ comic.contents }}
                 </p>
             </div>
         </div>
         <div class=" mt-4 flex justify-between items-center">
             <span class=" p-2 rounded-md bg-red-500 text-white font-medium">
-                Còn lại {{comic.residualQuantity}}
+                Còn lại {{ comic.residualQuantity }}
             </span>
             <span>
                 <span class="line-through mr-4">
@@ -32,10 +32,10 @@
 
 <div class="mt-3 mb-5 text-center">
     <button
-        class="px-4 py-2 border rounded-sm
+            class="px-4 py-2 border rounded-sm
         bg-white text-blue-400 border-blue-400
         hover:underline"
-        (click)="viewMore()">
+            (click)="viewMore()">
         <a>Xem Thêm
             <fa-icon [icon]="faAnglesRight" class="text-base"></fa-icon>
         </a>

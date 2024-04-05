@@ -3,7 +3,7 @@
         <div class="form-container max-w-[600px] shadow-xl mx-auto">
             <div class="navbar-container flex items-center justify-center gap-3">
 
-<!--                Thanh điều khiển -->
+                <!--                Thanh điều khiển -->
                 <span class="nav-button py-3 px-5 border border-x-0 border-t-0"
                       (click)="toLoginForm(true)"
                       [class.border-b-red-400]="isLoginForm">
@@ -17,7 +17,7 @@
                 </span>
             </div>
 
-<!--            Màn hình đăng nhập-->
+            <!--            Màn hình đăng nhập-->
             <form class="login-form max-w-sm mx-auto" *ngIf="isLoginForm">
                 <div class="mb-5">
                     <label for="username"
@@ -68,7 +68,7 @@
                     </span>
                 </div>
 
-                <div class="text-center" >
+                <div class="text-center">
                     <button type="submit"
                             class="text-white bg-stone-300
                             hover:bg-stone-200 focus:ring-0
@@ -81,7 +81,7 @@
                 </div>
             </form>
 
-<!--            Màn hình đăng ký-->
+            <!--            Màn hình đăng ký-->
             <form class="register-form max-w-sm mx-auto" *ngIf="!isLoginForm">
                 <div class="mb-5">
                     <label for="username"

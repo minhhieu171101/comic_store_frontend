@@ -1,6 +1,7 @@
 export class UserModel {
+    id: number | null;
     username: string | null;
-    fullname: string | null;
+    fullName: string | null;
     phone: string | null;
     birthday: Date | null;
     address: string | null;
@@ -9,8 +10,9 @@ export class UserModel {
     imgUser: string | null;
 
     constructor() {
+        this.id = null;
         this.username = null;
-        this.fullname = null;
+        this.fullName = null;
         this.phone = null;
         this.birthday = null;
         this.address = null;

@@ -46,25 +46,25 @@
                             <img [src]="comic.imgComic" alt="">
                         </div>
                         <div>
-                            <h2 class=" line-clamp-1 font-medium text-[18px] hover:underline" >
-                                {{comic.comicName}}
+                            <h2 class=" line-clamp-1 font-medium text-[18px] hover:underline">
+                                {{ comic.comicName }}
                             </h2>
                             <span>{{ comic.authorName }}</span>
                             <p class=" line-clamp-3">
-                                {{comic.contents}}
+                                {{ comic.contents }}
                             </p>
                         </div>
                     </div>
                     <div class=" mt-4 flex justify-between items-center">
                         <span class=" p-2 rounded-md bg-red-500 text-white font-medium">
-                            Còn lại {{comic.residualQuantity}}
+                            Còn lại {{ comic.residualQuantity }}
                         </span>
                         <span>
                             <span class="line-through mr-4">
                                 {{ comic.price }} đ
                             </span>
                             <span class="text-red-500 text-lg font-medium">
-                                {{calculatePrice(comic.price, comic.sale)}} đ
+                                {{ calculatePrice(comic.price, comic.sale) }} đ
                             </span>
                         </span>
                     </div>
