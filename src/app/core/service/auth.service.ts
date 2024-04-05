@@ -63,6 +63,11 @@ export class AuthService {
     return decodeToken?.sub;
   }
 
+  public getCurrentUserRole(): string {
+    const decodeToken = this.decodeToken();
+    return decodeToken?.role;
+  }
+
   public getInfoUser(user: UserModel): Observable<ResponseModel<UserModel>> {
     return this.httpClient.post<ResponseModel<UserModel>>(`${this.API}auth/user`, user, this.httpOptions);
   }

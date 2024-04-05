@@ -15,8 +15,10 @@ import {AdminShopComponent} from "./admin-home/admin-shop/admin-shop.component";
 import {AuthGuardService} from "./core/service/auth-guard.service";
 import {NoAuthGuardService} from "./core/service/no-auth-guard.service";
 import {WishlistComponent} from "./view/pages/wishlist/wishlist.component";
+import {AdminAuthGuardService} from "./core/service/admin-auth-guard.service";
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuardService]},
   {
@@ -33,17 +35,17 @@ export const routes: Routes = [
   {path: 'user', component: UserComponent, canActivate: [AuthGuardService]},
   {path: 'pay', component: PayComponent, canActivate: [AuthGuardService]},
   {path: 'cart', component: CartComponent, canActivate: [AuthGuardService]},
-  {path: 'wishlist', component: WishlistComponent},
+  {path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuardService]},
 
-  {path: 'admin-user', component: AdminUserComponent},
-  {path: 'admin-comic', component: AdminComicComponent},
-  {path: 'admin-comment', component: AdminCommentComponent},
-  {path: 'admin-shop', component: AdminShopComponent},
+  {path: 'admin-user', component: AdminUserComponent, canActivate: [AdminAuthGuardService]},
+  {path: 'admin-comic', component: AdminComicComponent, canActivate: [AdminAuthGuardService]},
+  {path: 'admin-comment', component: AdminCommentComponent, canActivate: [AdminAuthGuardService]},
+  {path: 'admin-shop', component: AdminShopComponent, canActivate: [AdminAuthGuardService]},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuardService, NoAuthGuardService]
+  providers: [AuthGuardService, NoAuthGuardService, AdminAuthGuardService]
 })
 export class AppRoutingModule { }
