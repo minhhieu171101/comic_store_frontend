@@ -75,4 +75,8 @@ export class AuthService {
   public getPageUserInfo(user: UserModel): Observable<Page<UserModel>> {
     return this.httpClient.post<Page<UserModel>>(`${this.API}auth/page-user`, user, this.httpOptions);
   }
+
+  public updateUserInfo(user: UserModel): Observable<ResponseModel<String>> {
+    return this.httpClient.post<ResponseModel<String>>(`${this.API}auth/update-user`, user, this.httpOptions);
+  }
 }
