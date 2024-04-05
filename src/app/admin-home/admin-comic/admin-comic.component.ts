@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog
 import {AdminComicPopupComponent} from "./admin-comic-popup/admin-comic-popup.component";
 import {NgClass} from "@angular/common";
 import {AdminDeleteComponent} from "../admin-delete/admin-delete.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-comic',
@@ -17,7 +18,9 @@ export class AdminComicComponent {
 
   isDialogOpen: boolean = false;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,) {}
 
   openDialog(): void {
     this.isDialogOpen = true;
@@ -42,5 +45,25 @@ export class AdminComicComponent {
       this.isDialogOpen = false;
       console.log('The dialog was closed');
     });
+  }
+
+  routerHomeAdmin(): void {
+    this.router.navigate(["/admin-home"]);
+  }
+
+  routerComicAdmin(): void {
+    this.router.navigate(["/admin-home"]);
+  }
+
+  routerUserAdmin(): void {
+    this.router.navigate(["/admin-home"]);
+  }
+
+  routerCommentAdmin(): void {
+    this.router.navigate(["/admin-home"]);
+  }
+
+  routerShopAdmin(): void {
+    this.router.navigate(["/admin-home"]);
   }
 }
