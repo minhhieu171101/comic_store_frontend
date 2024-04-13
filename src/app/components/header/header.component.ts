@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit{
   }
 
   routerLogin(): void {
-    if (this.isLogin) {
+    if (this.authService.isLoggedIn()) {
       this.router.navigate(["/user"]);
     } else {
       this.router.navigate(["/login"])
