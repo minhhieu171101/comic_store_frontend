@@ -4,6 +4,7 @@ import {ComicService} from "../../../core/service/comic.service";
 import {ComicModel} from "../../../models/ComicModel";
 import {NavigationExtras, Router} from "@angular/router";
 import {calculatePrice} from "../../../helpers/constants";
+import {AuthService} from "../../../core/service/auth.service";
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
@@ -19,10 +20,13 @@ export class ListProductsComponent implements OnInit{
   constructor(
       private listProductService: ComicService,
       private router: Router,
-      private cdr: ChangeDetectorRef
+      private cdr: ChangeDetectorRef,
+      private authservice: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.authservice.getCurrentUserRole();
+    console.log(this.authservice.getCurrentUserRole());
     this.getListComic();
   }
 

@@ -16,6 +16,7 @@ import {AuthGuardService} from "./core/service/auth-guard.service";
 import {NoAuthGuardService} from "./core/service/no-auth-guard.service";
 import {WishlistComponent} from "./view/pages/wishlist/wishlist.component";
 import {AdminAuthGuardService} from "./core/service/admin-auth-guard.service";
+import {UserShopComponent} from "./view/pages/user-shop/user-shop.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -41,6 +42,8 @@ export const routes: Routes = [
   {path: 'admin-comic', component: AdminComicComponent, canActivate: [AdminAuthGuardService]},
   {path: 'admin-comment', component: AdminCommentComponent, canActivate: [AdminAuthGuardService]},
   {path: 'admin-shop', component: AdminShopComponent, canActivate: [AdminAuthGuardService]},
+
+  {path: 'user-shop', component: UserShopComponent, canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

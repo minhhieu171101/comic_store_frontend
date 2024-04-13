@@ -26,8 +26,8 @@ export class AdminUserComponent implements OnInit{
   ) {}
 
   ngOnInit() {
-    this.user.pageSize = 10;
-    this.pageSize = 10;
+    this.user.pageSize = 1;
+    this.pageSize = 1;
     this.getPageUserInfo();
   }
 

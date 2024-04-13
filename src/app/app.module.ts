@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {AppComponent} from "./app.component";
 import {FormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
@@ -40,7 +40,10 @@ import {AdminHomeModule} from "./admin-home/admin-home.module";
         }),
         AdminHomeModule
     ],
-    providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
+    providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+        DatePipe,
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

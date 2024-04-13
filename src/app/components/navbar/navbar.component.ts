@@ -73,4 +73,8 @@ export class NavbarComponent implements OnInit{
       }
     });
   }
+
+  toWishlist() {
+    this.router.navigate(["/wishlist"])
+  }
 }
