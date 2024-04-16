@@ -17,6 +17,7 @@ import {CommentModel} from "../../../models/CommentModel";
 import {CommentService} from "../../../core/service/comment.service";
 import {WishlistService} from "../../../core/service/wishlist.service";
 import {WishlistModel} from "../../../models/WishlistModel";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'app-product-detail',
@@ -35,6 +36,8 @@ export class ProductDetailComponent implements OnInit {
     user: UserModel = new UserModel();
     comment: CommentModel = new CommentModel();
     wishModel: WishlistModel = new WishlistModel();
+    listPath: string[] = [];
+    LINK_IMAGE: string = `${environment.FILE_COMIC_URL}`
 
     constructor(
         private comicService: ComicService,
@@ -55,6 +58,7 @@ export class ProductDetailComponent implements OnInit {
     ngOnInit(): void {
         this.getDetailComic();
         this.getUserInfo();
+        this.listPath = [...this.listPath, "trang chủ", "các sản phẩm"];
     }
 
 
@@ -62,6 +66,9 @@ export class ProductDetailComponent implements OnInit {
         if (this.idComic) {
             this.comicService.getDetailComic(this.idComic).subscribe((res: ComicDetailModel): void => {
                 this.comicDetail = res;
+                if (this.comicDetail.comicName !== null) {
+                    this.listPath = [...this.listPath, this.comicDetail.comicName]
+                }
                 this.cdr.detectChanges();
             })
         }

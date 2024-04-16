@@ -5,13 +5,14 @@ import {ComicModel} from "../../models/ComicModel";
 import {ComicDetailModel} from "../../models/ComicDetailModel";
 import {Page} from "../../models/Page";
 import {ResponseModel} from "../../models/response/ResponseModel";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComicService {
 
-  private API: string = "http://localhost:8080/api/";
+  private API: string = `${environment.API}`;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -42,7 +43,15 @@ export class ComicService {
   }
 
   updateComic(comic: ComicModel): Observable<ResponseModel<String>> {
-    return this.httpClient.post<ResponseModel<String>>(`${this.API}comic/update-comic`, comic, this.httpOptions)
+    const formData = new FormData();
+    if (comic.releaseDate instanceof Date) {
+      comic.releaseDate = comic.releaseDate?.toISOString();
+    }
+    formData.append("comic", new Blob([JSON.stringify(comic)], {type: 'application/json'}));
+    if (comic.file !== null) {
+      formData.append("file", comic.file)
+    }
+    return this.httpClient.post<ResponseModel<String>>(`${this.API}comic/update-comic`, formData, this.httpOptions)
   }
 
   deleteComic(comic: ComicModel): Observable<ResponseModel<String>> {

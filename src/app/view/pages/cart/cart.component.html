@@ -1,4 +1,5 @@
 <div class="cart-container mx-auto my-4">
+    <app-breadcrumb [listPath]="listPath"></app-breadcrumb>
     <div class=" grid grid-cols-5 gap-5">
         <div class="bg-white rounded-md p-3 col-span-4">
             <div class="py-3 border-b">
@@ -28,9 +29,12 @@
                             Xóa
                         </span>
                         |
-                        <span
-                                class="text-blue-500 hover:underline"
-                                style="cursor: pointer">Thêm vào yêu thích </span>
+                        <span class="text-blue-500 hover:underline"
+                                style="cursor: pointer"
+                              (click)="addToWishList(comicOrder.comicId)"
+                        >
+                            Thêm vào yêu thích
+                        </span>
                     </span>
                     </div>
                     <div>
@@ -40,11 +44,9 @@
                     </div>
                     <div>
                         <div class="border inline-block bg-slate-50">
-
-                            <span class=" px-3 py-2"> - </span> <input type="text" value="1"
-                                                                       class="w-[3rem] text-center py-2 text-orange-500">
-                            <span class=" px-3 py-2"> +
-                        </span>
+                            <div type="text" class="w-[3rem] text-center py-2 text-orange-500">
+                                {{comicOrder.quantity}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,10 +69,14 @@
                 <div class=" mt-5 bg-orange-500">
                     <button class="doOrderBtn py-5 text-white text-xl"
                             (click)="gotoPay()"
-                            [disabled]="comicOrders?.length === 0 || comicOrders === undefined">
+                            [disabled]="comicOrders.length === 0">
                         Tiến hành đặt hàng
                     </button>
                 </div>
+                <button class="detail-order-info"
+                        (click)="gotoDetailInfoOrder()">
+                    Thông tin mua hàng
+                </button>
             </div>
         </div>
     </div>

@@ -4,13 +4,14 @@ import {CommentModel} from "../../models/CommentModel";
 import {Observable} from "rxjs";
 import {Page} from "../../models/Page";
 import {ResponseModel} from "../../models/response/ResponseModel";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
 
-  private API: string = "http://localhost:8080/api/";
+  private API: string = `${environment.API}`;
 
   private httpOptions = {
     headers: new HttpHeaders({

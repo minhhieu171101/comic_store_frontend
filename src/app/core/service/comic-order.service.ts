@@ -5,13 +5,14 @@ import {ComicOrderModel} from "../../models/ComicOrderModel";
 import {UserModel} from "../../models/UserModel";
 import {StatisticComicModel} from "../../models/StatisticComicModel";
 import {ResponseModel} from "../../models/response/ResponseModel";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComicOrderService {
 
-  private API: string = "http://localhost:8080/api/";
+  private API: string = `${environment.API}`;
 
   private httpOptions = {
     headers: new HttpHeaders({

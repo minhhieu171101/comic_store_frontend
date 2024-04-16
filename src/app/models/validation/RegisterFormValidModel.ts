@@ -6,6 +6,7 @@ export class RegisterFormValidModel {
     validPassFormat: boolean;
     validPassLength: boolean;
     validRePassFormat: boolean;
+    validUsernameExist: boolean;
     
     constructor() {
         this.validUsernameLength = true;
@@ -15,5 +16,6 @@ export class RegisterFormValidModel {
         this.validPassFormat = true;
         this.validPassLength = true;
         this.validRePassFormat = true;
+        this.validUsernameExist = true;
     }
 }

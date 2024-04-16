@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {AdminShopPopupComponent} from "./admin-shop-popup/admin-shop-popup.component";
-import {NgClass} from "@angular/common";
 import {Router} from "@angular/router";
-import {ComicService} from "../../core/service/comic.service";
 import {UserOrderService} from "../../core/service/user-order.service";
 import {PurchaseOrderModel} from "../../models/PurchaseOrderModel";
 import {Page} from "../../models/Page";
@@ -46,7 +44,8 @@ export class AdminShopComponent implements OnInit{
     this.isDialogShopOpen = true;
     const dialogRef = this.dialog.open(AdminShopPopupComponent, {
       width: '500px',
-      data: { /* Dữ liệu bạn muốn truyền vào pop-up */ }
+      height: '224px',
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {

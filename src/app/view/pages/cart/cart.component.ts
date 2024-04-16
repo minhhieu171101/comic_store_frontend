@@ -7,6 +7,8 @@ import {ComicOrderModel} from "../../../models/ComicOrderModel";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ToastrService} from "ngx-toastr";
 import {ResponseModel} from "../../../models/response/ResponseModel";
+import {WishlistModel} from "../../../models/WishlistModel";
+import {WishlistService} from "../../../core/service/wishlist.service";
 
 @Component({
   selector: 'app-cart',
@@ -16,12 +18,14 @@ import {ResponseModel} from "../../../models/response/ResponseModel";
 export class CartComponent implements OnInit{
 
     user: UserModel = new UserModel();
-    comicOrders: ComicOrderModel[] | undefined;
+    comicOrders: ComicOrderModel[] = [];
     totalPrice: number = 0;
     totalProduct: number = 0;
     comicOrderDelete: ComicOrderModel = new ComicOrderModel();
     @ViewChild("deletePopup") deletePopup !: TemplateRef<any>;
     deleteTemplatePopup: MatDialogRef<TemplateRef<any>> | undefined;
+    wishModel: WishlistModel = new WishlistModel();
+    listPath: string[] = [];
 
     constructor(
         private router: Router,
@@ -30,18 +34,31 @@ export class CartComponent implements OnInit{
         private comicOrderService: ComicOrderService,
         private cdr: ChangeDetectorRef,
         private dialog: MatDialog,
-        private toaStr: ToastrService
+        private toaStr: ToastrService,
+        private wishlistService: WishlistService
     ) {
+        this.listPath = ["Trang chủ", "Giỏ hàng"]
     }
 
     ngOnInit() {
         const decodeToken = this.authService.decodeToken()
         this.user.username = decodeToken?.sub;
+        this.getUserInfo();
         this.getListComicOrder();
     }
 
     gotoPay() {
         this.router.navigate(["/pay"]);
+    }
+
+    getUserInfo() {
+        this.authService.getInfoUser(this.user).subscribe((res: ResponseModel<UserModel>) => {
+            if (res.status === "OK") {
+                if (res.data !== null) {
+                    this.user = res.data;
+                }
+            }
+        })
     }
 
     getListComicOrder() {
@@ -102,5 +119,24 @@ export class CartComponent implements OnInit{
                 this.toaStr.error(res.message);
             }
         })
+    }
+
+    addToWishList(comicId: number | null): void {
+        this.wishModel.comicId = comicId;
+        this.wishModel.createdBy = this.user.id;
+        this.wishlistService
+            .addToWishlist(this.wishModel)
+            .subscribe((res: ResponseModel<String>) => {
+
+            if (res.status === "OK") {
+                this.toaStr.success(res.message);
+            } else {
+                this.toaStr.error(res.message);
+            }
+        })
+    }
+
+    gotoDetailInfoOrder() {
+        this.router.navigate(["/user-shop"])
     }
 }

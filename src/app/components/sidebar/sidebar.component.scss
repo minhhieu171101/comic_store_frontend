@@ -1,0 +1,9 @@
+.side-bar-container {
+
+  .sidebar-content {
+    min-height: calc(100vh - 300px);
+  }
+  .active {
+    background: #cfcfcf;
+  }
+}

@@ -8,9 +8,10 @@ import {AdminComicComponent} from "./admin-comic/admin-comic.component";
 import {AdminComicPopupComponent} from "./admin-comic/admin-comic-popup/admin-comic-popup.component";
 import {AdminHomeComponent} from "./admin-home.component";
 import {FormsModule} from "@angular/forms";
-import {SidebarComponent} from "../components/sidebar/sidebar.component";
 import {DeleteCommentComponent} from "./admin-comment/delete-comment/delete-comment.component";
-import {PagesModule} from "../view/pages/pages.module";
+import {ComponentsModule} from "../components/components.module";
+import {AdminShopPopupComponent} from "./admin-shop/admin-shop-popup/admin-shop-popup.component";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [
@@ -21,13 +22,14 @@ import {PagesModule} from "../view/pages/pages.module";
       AdminComicComponent,
       AdminComicPopupComponent,
       AdminHomeComponent,
-      SidebarComponent,
-      DeleteCommentComponent
+      DeleteCommentComponent,
+      AdminShopPopupComponent
   ],
     imports: [
         CommonModule,
         FormsModule,
-        PagesModule,
+        ComponentsModule,
+        FaIconComponent
     ]
 })
 export class AdminHomeModule { }

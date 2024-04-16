@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -6,11 +6,17 @@ import {Router} from "@angular/router";
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent {
+export class SidebarComponent{
+  currentUrl: string = ''
 
   constructor(
-      private router: Router
+      private router: Router,
+      private cdr: ChangeDetectorRef
   ) {
+  }
+
+  ngOnInit() {
+    this.getCurrentPage();
   }
 
   routerHomeAdmin(): void {
@@ -31,5 +37,10 @@ export class SidebarComponent {
 
   routerShopAdmin(): void {
     this.router.navigate(["/admin-shop"]);
+  }
+
+  getCurrentPage() {
+    this.currentUrl = this.router.url.split("/")[1];
+    this.cdr.detectChanges()
   }
 }

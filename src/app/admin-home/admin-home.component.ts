@@ -14,7 +14,7 @@ export class AdminHomeComponent implements OnInit {
   protected readonly faMagnifyingGlass = faMagnifyingGlass;
   protected readonly faHeadset = faHeadset;
   protected readonly faCartShopping = faCartShopping;
-  statisticComics: StatisticComicModel[] | undefined;
+  statisticComics: StatisticComicModel[] = [];
   totalMonthIncome: number = 0;
 
   constructor(

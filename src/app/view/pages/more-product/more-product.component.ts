@@ -4,6 +4,7 @@ import {ComicModel} from "../../../models/ComicModel";
 import {ComicService} from "../../../core/service/comic.service";
 import {calculatePrice} from "../../../helpers/constants";
 import {Page} from "../../../models/Page";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-more-product',
@@ -11,6 +12,9 @@ import {Page} from "../../../models/Page";
   styleUrl: './more-product.component.css',
 })
 export class MoreProductComponent implements OnInit{
+
+  listPath: string[];
+  LINK_IMAGE: string = `${environment.FILE_COMIC_URL}`
 
   constructor(
       private router: Router,
@@ -21,6 +25,7 @@ export class MoreProductComponent implements OnInit{
     this.activatedRouter.queryParams.subscribe((param: Params): void => {
       this.comicObject.typeComicId = param["typeComicId"];
     })
+    this.listPath = ["Trang chủ"];
   }
 
   comicsPage: Page<ComicModel> = new Page<ComicModel>();
@@ -42,6 +47,7 @@ export class MoreProductComponent implements OnInit{
       this.comicsPage = res;
       if (res.content) {
         this.numberComic = res.content.length;
+        this.listPath = [...this.listPath, "Các sản phẩm"]
       }
       this.cdr.detectChanges();
     })

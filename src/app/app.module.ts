@@ -14,12 +14,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptor} from "./helpers/token.interceptor";
 import {AdminHomeModule} from "./admin-home/admin-home.module";
+import {ComponentsModule} from "./components/components.module";
 
 
 @NgModule({
     declarations: [
-        HeaderComponent,
-        FooterComponent,
         AppComponent,
     ],
     imports: [
@@ -38,7 +37,8 @@ import {AdminHomeModule} from "./admin-home/admin-home.module";
             positionClass: 'toast-bottom-right',
             timeOut: 4000
         }),
-        AdminHomeModule
+        AdminHomeModule,
+        ComponentsModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},

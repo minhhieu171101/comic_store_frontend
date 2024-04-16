@@ -18,7 +18,6 @@ export class AdminAuthGuardService implements CanActivate{
   canActivate(
       route: ActivatedRouteSnapshot,
       state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log(this.authService.getCurrentUserRole())
     if (this.authService.isLoggedIn() && this.authService.getCurrentUserRole() === "ROLE_ADMIN") {
       return true;
     } else {

@@ -1,1 +1,19 @@
+.admin-home-container {
+    min-height: calc(100vh - 300px);
+    max-height: calc(100vh - 300px);
+    padding: 16px 16px;
 
+    .admin-home-content {
+        overflow-y: scroll;
+        .table-content {
+            min-height: calc(100% - 80px);
+        }
+
+        .no-content {
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

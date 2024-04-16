@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {
   faBars,
   faCaretDown,
@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {NavbarService} from "../../core/service/navbar.service";
 import {TypeComic} from "../../models/TypeComic";
-import {NavigationExtras, Router} from "@angular/router";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -27,6 +27,7 @@ export class NavbarComponent implements OnInit{
   };
 
   typeComics: TypeComic[] | undefined;
+  currentType: number | undefined
 
   listImageSlide: string[] = [
     "../../assets/images/slide-1.jpg",
@@ -41,14 +42,18 @@ export class NavbarComponent implements OnInit{
   ]
 
   ngOnInit(): void {
-    this.navbarService.getListTypeComic().subscribe((res: TypeComic[]): void => {
+    this.navbarService
+        .getListTypeComic()
+        .subscribe((res: TypeComic[]): void => {
       this.typeComics = res;
+      this.itemActive();
     })
   }
 
   constructor(
       private navbarService: NavbarService,
-      private router: Router
+      private router: Router,
+      private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -76,5 +81,10 @@ export class NavbarComponent implements OnInit{
 
   toWishlist() {
     this.router.navigate(["/wishlist"])
+  }
+
+  itemActive(): number {
+    this.currentType = Number(this.router.url.split("=")[1]);
+    return this.currentType;
   }
 }

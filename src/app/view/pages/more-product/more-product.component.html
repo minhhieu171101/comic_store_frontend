@@ -1,4 +1,5 @@
 <div class="container-more-products mx-auto p-7">
+    <app-breadcrumb [listPath]="listPath"></app-breadcrumb>
     <div class="nav-container">
         <app-navbar></app-navbar>
     </div>
@@ -31,7 +32,7 @@
             </div>
         </div>
         <div class=" col-span-4">
-            <div class="text-right my-5">
+            <div class="text-right my-5" *ngIf="comicsPage.totalElements !== 0">
                 <select name="" id="" class="py-3 mr-3 px-3 border">
                     <option value="">Sản phẩm mới</option>
                 </select>
@@ -39,11 +40,14 @@
                     <option value="">20 sản phẩm</option>
                 </select>
             </div>
-            <div class="list-product-container grid grid-cols-3 gap-4">
-                <div class="item-container p-3 rounded-md bg-white" *ngFor="let comic of comicsPage.content, let index = index">
-                    <div class="top-item-container flex gap-4 pb-4 border-b cursor-pointer">
-                        <div class="image-container" (click)="goToDetail(comic.id)">
-                            <img [src]="comic.imgComic" alt="">
+            <div class="list-product-container grid grid-cols-3 gap-4"
+                 *ngIf="comicsPage.totalElements !== 0">
+                <div class="item-container p-3 rounded-md bg-white"
+                     *ngFor="let comic of comicsPage.content, let index = index"
+                     (click)="goToDetail(comic.id)">
+                    <div class="top-item-container flex gap-4 pb-4 border-b">
+                        <div class="image-container">
+                            <img [src]="LINK_IMAGE + comic.imgComic" alt="">
                         </div>
                         <div>
                             <h2 class=" line-clamp-1 font-medium text-[18px] hover:underline">
@@ -70,12 +74,17 @@
                     </div>
                 </div>
             </div>
+            <div class="no-content"
+                 *ngIf="comicsPage.totalElements === 0">
+                Không có sản phẩm nào
+            </div>
             <app-pagination [currentPage]="currentPage"
                             [totalElement]="comicsPage.totalElements"
                             [totalPage]="comicsPage.totalPages"
                             [pageSize]="pageSize"
                             [elementInCurrentPage]="numberComic"
                             (pageChange)="handlePageChange($event)"
+                            *ngIf="comicsPage.totalElements !== 0"
             >
             </app-pagination>
         </div>

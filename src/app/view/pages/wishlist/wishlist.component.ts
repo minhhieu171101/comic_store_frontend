@@ -20,6 +20,7 @@ export class WishlistComponent implements OnInit{
   currentPage: number = 0;
   numberWish: number = 0;
   pageSize: number = 0;
+  listPath: string[] = ["Trang chủ", "Danh sách yêu thích"]
 
   constructor(
       private wishlistService: WishlistService,

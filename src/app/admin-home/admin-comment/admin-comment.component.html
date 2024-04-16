@@ -1,8 +1,8 @@
-<div class="p-4 w-full">
+<div class="p-4 w-full admin-comment-container">
   <div class="flex">
       <app-sidebar></app-sidebar>
 
-    <div class="relative shadow-md sm:rounded-lg container mx-auto">
+    <div class="admin-comment-content relative shadow-md sm:rounded-lg container mx-auto">
       <div>
         <form class="max-w-md mx-auto">
           <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -18,8 +18,11 @@
         </form>
       </div>
       <br>
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table class="w-full text-sm text-left
+                rtl:text-right text-gray-500 dark:text-gray-400"
+                *ngIf="commentPage.totalElements > 0">
+        <thead class="text-xs text-gray-700 uppercase
+                bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
           <th scope="col" class="px-6 py-3">
             STT
@@ -70,6 +73,10 @@
         </tr>
         </tbody>
       </table>
+        <div class="no-content"
+             *ngIf="commentPage.totalElements === 0">
+            Chưa có thông tin gì
+        </div>
         <app-pagination [currentPage]="currentPage"
                         [totalElement]="commentPage.totalElements"
                         [totalPage]="commentPage.totalPages"

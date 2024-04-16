@@ -2,9 +2,10 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {faAnglesRight, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 import {ComicService} from "../../../core/service/comic.service";
 import {ComicModel} from "../../../models/ComicModel";
-import {NavigationExtras, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {calculatePrice} from "../../../helpers/constants";
 import {AuthService} from "../../../core/service/auth.service";
+import {environment} from "../../../../environments/environment";
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
@@ -14,15 +15,18 @@ export class ListProductsComponent implements OnInit{
   faAnglesRight: IconDefinition = faAnglesRight;
   page: number = 0;
   pageSize: number = 9;
-  comics: ComicModel[] | undefined;
+  comics: ComicModel[];
   comic: ComicModel = new ComicModel();
+  LINK_IMAGE: string = `${environment.FILE_COMIC_URL}`
 
   constructor(
       private listProductService: ComicService,
       private router: Router,
       private cdr: ChangeDetectorRef,
       private authservice: AuthService
-  ) {}
+  ) {
+    this.comics = [];
+  }
 
   ngOnInit(): void {
     this.authservice.getCurrentUserRole();

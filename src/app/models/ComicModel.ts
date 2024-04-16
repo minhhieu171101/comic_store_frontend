@@ -11,7 +11,8 @@ export class ComicModel {
     pageSize: number;
     typeComicId: number | null;
     typeName: string | null;
-    releaseDate: Date | null;
+    releaseDate: Date | null| string;
+    file: File | null;
     
     constructor() {
         this.id = null;
@@ -27,5 +28,6 @@ export class ComicModel {
         this.typeComicId = null;
         this.typeName = null;
         this.releaseDate = null;
+        this.file = null;
     }
 }

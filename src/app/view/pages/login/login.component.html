@@ -103,6 +103,9 @@
                     <span class="err" *ngIf="!registerFormValid.validUsernameFormat">
                         Tên tài khoản chỉ chứa ký tự chữ!
                     </span>
+                    <span class="err" *ngIf="!registerFormValid.validUsernameExist">
+                        Tên tài khoản đã tồn tại!
+                    </span>
                 </div>
 
                 <div class="mb-5">

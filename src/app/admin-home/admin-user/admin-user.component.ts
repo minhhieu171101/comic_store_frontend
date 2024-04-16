@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
-import {ComicService} from "../../core/service/comic.service";
 import {AuthService} from "../../core/service/auth.service";
 import {UserModel} from "../../models/UserModel";
 import {Page} from "../../models/Page";

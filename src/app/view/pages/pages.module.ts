@@ -15,6 +15,7 @@ import {NavbarComponent} from "../../components/navbar/navbar.component";
 import {SlickCarouselModule} from "ngx-slick-carousel";
 import {WishlistComponent} from "./wishlist/wishlist.component";
 import {PaginationComponent} from "../../components/pagination/pagination.component";
+import {ComponentsModule} from "../../components/components.module";
 
 @NgModule({
     declarations: [
@@ -26,18 +27,14 @@ import {PaginationComponent} from "../../components/pagination/pagination.compon
         UserComponent,
         MoreProductComponent,
         LoginComponent,
-        NavbarComponent,
         WishlistComponent,
-        PaginationComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
         FontAwesomeModule,
-        SlickCarouselModule
-    ],
-    exports: [
-        PaginationComponent
+        SlickCarouselModule,
+        ComponentsModule
     ],
     providers: [
         AuthService
