@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit{
   faCartShopping: IconDefinition = faCartShopping;
   isLogin: boolean | undefined;
   userObject: UserModel = new UserModel();
+  searchKey: string | null = null;
 
   constructor(
       private router: Router,
@@ -74,5 +75,13 @@ export class HeaderComponent implements OnInit{
   setLogin(isLogin: boolean): void {
     this.isLogin = isLogin;
     this.cdr.detectChanges();
+  }
+
+  search() {
+    this.router.navigate(["/more-products"], {
+      queryParams: {
+        searchKey: this.searchKey
+      }
+    })
   }
 }

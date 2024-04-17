@@ -77,4 +77,12 @@ export class ComicService {
         this.httpOptions
     );
   }
+
+  searchComic(comic: ComicModel): Observable<Page<ComicModel>> {
+    return this.httpClient.post<Page<ComicModel>>(
+        `${this.API}comic/comic-search`,
+        comic,
+        this.httpOptions
+    );
+  }
 }

@@ -38,6 +38,7 @@ export class ProductDetailComponent implements OnInit {
     wishModel: WishlistModel = new WishlistModel();
     listPath: string[] = [];
     LINK_IMAGE: string = `${environment.FILE_COMIC_URL}`
+    LINK_AVATAR: string = `${environment.FILE_AVATAR_URL}`
 
     constructor(
         private comicService: ComicService,

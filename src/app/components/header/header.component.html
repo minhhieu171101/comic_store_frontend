@@ -11,8 +11,10 @@
                            id="search-input"
                            class="py-3 px-3 outline-none min-w-[600px]"
                            placeholder="Nhập truyện cần tìm"
-                    >
-                    <button class="p-3 px-4 hover:bg-slate-200">
+                           [(ngModel)]="searchKey"
+                           [ngModelOptions]="{standalone: true}">
+                    <button class="p-3 px-4 hover:bg-slate-200"
+                            (click)="search()">
                         <fa-icon [icon]="faMagnifyingGlass" class="text-[#f15c22]"></fa-icon>
                     </button>
                 </div>
