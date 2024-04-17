@@ -12,10 +12,14 @@
             <span class="block font-bold text-2xl text-orange-500 mb-2">
                 {{ calculatePrice(comicDetail.price, comicDetail.sale) }} đ
             </span>
+            <span class="flex-row block">
+                Thể loại:
+                {{comicDetail.typeName}}
+            </span>
             <span class="text-sm">
                 Tình trạng:
-                <span class="text-orange-500" *ngIf="comicDetail.status === 1">Còn hàng</span>
-                <span class="text-orange-500" *ngIf="comicDetail.status === 0">Hết hàng</span>
+                <span class="text-orange-500" *ngIf="comicDetail.residualQuantity > 0">Còn hàng</span>
+                <span class="text-orange-500" *ngIf="comicDetail.residualQuantity === 0">Hết hàng</span>
             </span>
             <span class="text-sm block mt-2">
                 Tác giả: {{ comicDetail.authorName }}

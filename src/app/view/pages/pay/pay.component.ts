@@ -9,6 +9,7 @@ import {ComicOrderService} from "../../../core/service/comic-order.service";
 import {UserOrderService} from "../../../core/service/user-order.service";
 import {ToastrService} from "ngx-toastr";
 import {AuthModel} from "../../../models/AuthModel";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-pay',
@@ -22,6 +23,7 @@ export class PayComponent implements OnInit{
   userOrder: UserOrderModel = new UserOrderModel();
   totalPrice: number = 0;
   totalProduct: number = 0;
+  URL_FILE: string = `${environment.FILE_COMIC_URL}`;
 
   constructor(
       private router: Router,
@@ -34,8 +36,7 @@ export class PayComponent implements OnInit{
   }
 
   ngOnInit() {
-    const decodeToken = this.authService.decodeToken()
-    this.user.username = decodeToken?.sub;
+    this.user.username = this.authService.getCurrentUserUsername();
     this.getUserInfo();
     this.getListComicOrder();
   }
@@ -80,17 +81,36 @@ export class PayComponent implements OnInit{
         this.totalProduct += comicOrder.quantity;
         this.totalPrice += comicOrder.totalPrice;
       }
+      this.userOrder.totalPrice = this.totalPrice;
     }
     this.cdr.detectChanges();
   }
 
   order() {
-    console.log(this.userOrder)
-    this.userOrderService.order(this.userOrder).subscribe((res: ResponseModel<String>) => {
-      if (res.status === "OK") {
-        this.toaStr.success(res.message);
-        this.router.navigate(["/home"]);
-      }
-    })
+    if (this.validateUser()) {
+      this.userOrder.status = 0;
+      this.userOrderService.order(this.userOrder).subscribe((res: ResponseModel<String>) => {
+        if (res.status === "OK") {
+          this.toaStr.success(res.message);
+          this.router.navigate(["/home"]);
+        }
+      })
+    } else {
+      this.toaStr.warning("Bạn cần điền đầy đủ thông tin để thực hiện thanh toán!")
+      this.router.navigate(["/user"]);
+    }
+  }
+
+  validateUser(): boolean {
+    if (this.user.fullName === null || this.user.fullName.trim() === '') {
+      return false;
+    }
+    if (this.user.address === null || this.user.address.trim() === '') {
+      return false;
+    }
+    if (this.user.phone === null || this.user.phone.trim() === '') {
+      return false;
+    }
+    return true;
   }
 }

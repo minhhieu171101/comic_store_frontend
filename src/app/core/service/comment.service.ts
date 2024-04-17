@@ -26,14 +26,25 @@ export class CommentService {
   ) { }
 
   public getCommentPage(comment: CommentModel): Observable<Page<CommentModel>> {
-    return this.httpClient.post<Page<CommentModel>>(`${this.API}comment/page-comment`, comment, this.httpOptions);
+    return this.httpClient.post<Page<CommentModel>>(
+        `${this.API}comment/page-comment`,
+        comment,
+        this.httpOptions
+    );
   }
 
   public deleteComment(comment: CommentModel): Observable<ResponseModel<String>> {
-    return this.httpClient.post<ResponseModel<String>>(`${this.API}comment/delete-comment`, comment, this.httpOptions);
+    return this.httpClient.post<ResponseModel<String>>(
+        `${this.API}comment/delete-comment`,
+        comment,
+        this.httpOptions
+    );
   }
 
   public createComment(comment: CommentModel): Observable<ResponseModel<String>> {
-    return this.httpClient.post<ResponseModel<String>>(`${this.API}comment/update-comment`, comment, this.httpOptions);
+    return this.httpClient.post<ResponseModel<String>>(
+        `${this.API}comment/update-comment`,
+        comment, this.httpOptions
+    );
   }
 }

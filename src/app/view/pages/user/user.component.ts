@@ -18,6 +18,7 @@ export class UserComponent implements OnInit{
     URL_FILE: string = `${environment.FILE_AVATAR_URL}`;
     tempUserImgUpload: string | ArrayBuffer | null | undefined;
     faCamera: IconDefinition = faCamera;
+    gender: string | undefined;
 
     constructor(
         private authService: AuthService,
@@ -36,12 +37,14 @@ export class UserComponent implements OnInit{
         this.authService.getInfoUser(this.user).subscribe((res: ResponseModel<UserModel>): void => {
             if (res.data !== null) {
                 this.user = res.data;
+                this.gender = res.data.gender?.toString();
                 this.cdr.detectChanges();
             }
         })
     }
 
     updateUserInfo() {
+        this.user.gender = Number(this.gender);
         this.authService.updateUserInfo(this.user).subscribe((res: ResponseModel<String>) => {
             if (res.status === "OK") {
                 this.toaStr.success(res.message);

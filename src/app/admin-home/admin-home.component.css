@@ -1,10 +1,9 @@
 .admin-home-container {
     min-height: calc(100vh - 300px);
-    max-height: calc(100vh - 300px);
     padding: 16px 16px;
 
     .admin-home-content {
-        overflow-y: scroll;
+        margin-left: 258px;
         .table-content {
             min-height: calc(100% - 80px);
         }

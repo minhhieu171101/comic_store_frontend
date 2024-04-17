@@ -115,6 +115,29 @@
                             required/>
                 </div>
             </div>
+            <div class="gender-container flex-row flex items-center mb-4">
+                <span class="font-bold me-4">Giới tính:</span>
+                <div class="male-container flex items-center">
+                    <label for="male">Nam</label>
+                    <input type="radio"
+                           id="male"
+                           value="1"
+                           name="gender"
+                           class="me-4 ms-2 mt-1"
+                            [(ngModel)]="gender"
+                           [checked]="gender === '1'">
+                </div>
+                <div class="male-container flex items-center">
+                    <label for="female">Nữ</label>
+                    <input type="radio"
+                           id="female"
+                           value="0"
+                           name="gender"
+                           class="ms-2 mt-1"
+                           [(ngModel)]="gender"
+                            [checked]="gender === '0'">
+                </div>
+            </div>
             <div class="mb-6">
                 <label for="address"
                         class="block mb-2 text-sm

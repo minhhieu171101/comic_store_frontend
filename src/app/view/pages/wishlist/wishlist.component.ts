@@ -6,6 +6,7 @@ import {Page} from "../../../models/Page";
 import {UserModel} from "../../../models/UserModel";
 import {AuthService} from "../../../core/service/auth.service";
 import {Router} from "@angular/router";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-wishlist',
@@ -21,6 +22,7 @@ export class WishlistComponent implements OnInit{
   numberWish: number = 0;
   pageSize: number = 0;
   listPath: string[] = ["Trang chủ", "Danh sách yêu thích"]
+  URL_FILE: string = `${environment.FILE_COMIC_URL}`;
 
   constructor(
       private wishlistService: WishlistService,

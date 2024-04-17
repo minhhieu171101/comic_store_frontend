@@ -9,6 +9,7 @@ import {ToastrService} from "ngx-toastr";
 import {ResponseModel} from "../../../models/response/ResponseModel";
 import {WishlistModel} from "../../../models/WishlistModel";
 import {WishlistService} from "../../../core/service/wishlist.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-cart',
@@ -26,6 +27,7 @@ export class CartComponent implements OnInit{
     deleteTemplatePopup: MatDialogRef<TemplateRef<any>> | undefined;
     wishModel: WishlistModel = new WishlistModel();
     listPath: string[] = [];
+    URL_FILE: string = `${environment.FILE_COMIC_URL}`;
 
     constructor(
         private router: Router,

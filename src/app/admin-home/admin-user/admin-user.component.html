@@ -21,8 +21,11 @@
                                dark:bg-gray-700 dark:border-gray-600
                                dark:placeholder-gray-400 dark:text-white
                                dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               [(ngModel)]="user.searchKey"
+                               [ngModelOptions]="{standalone: true}"
                                placeholder="Nhập từ khóa" required/>
                         <button type="submit"
+                                (click)="searchUser(0)"
                                 class="text-white absolute end-2.5 bottom-2.5
                                 bg-blue-700 hover:bg-blue-800 focus:ring-4
                                 focus:outline-none focus:ring-blue-300
@@ -78,7 +81,7 @@
                         {{ index + 1 }}
                     </th>
                     <td class="px-6 py-4">
-                        <img [src]="user.imgUser" alt="">
+                        <img [src]="URL_FILE + user.imgUser" alt="">
                     </td>
                     <td class="px-6 py-4">
                         {{ user.username }}
@@ -87,7 +90,7 @@
                         {{ user.fullName }}
                     </td>
                     <td class="px-6 py-4">
-                        {{ user.birthday }}
+                        {{ user.birthday | date: 'dd/MM/yyyy'}}
                     </td>
                     <td class="px-6 py-4" *ngIf="user.gender === 1">
                         Nam

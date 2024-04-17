@@ -13,7 +13,7 @@
                      *ngFor="let comicOrder of comicOrders, let index = index">
                     <div (click)="goToDetail(comicOrder.comicId)"
                          class="cursor-pointer">
-                        <img [src]="comicOrder.imgComic" alt="">
+                        <img [src]="URL_FILE + comicOrder.imgComic" alt="">
                     </div>
                     <div class="col-span-2">
                     <span class="line-clamp-1">

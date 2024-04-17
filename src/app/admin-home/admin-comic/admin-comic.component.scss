@@ -1,10 +1,9 @@
 .admin-comic-container {
   min-height: calc(100vh - 300px);
-  max-height: calc(100vh - 300px);
   padding: 16px;
 
   .admin-comic-content {
-    overflow-y: scroll;
+    margin-left: 258px;
   }
 
   .item-image {

@@ -13,6 +13,7 @@ export class ComicModel {
     typeName: string | null;
     releaseDate: Date | null| string;
     file: File | null;
+    searchKey: string | null;
     
     constructor() {
         this.id = null;
@@ -29,5 +30,6 @@ export class ComicModel {
         this.typeName = null;
         this.releaseDate = null;
         this.file = null;
+        this.searchKey = null;
     }
 }

@@ -27,15 +27,27 @@ export class ComicOrderService {
   ) { }
 
   getComicOrders(user: UserModel): Observable<ComicOrderModel[]> {
-    return this.httpClient.post<ComicOrderModel[]>(`${this.API}comic-order/order-list`, user, this.httpOptions);
+    return this.httpClient.post<ComicOrderModel[]>(
+        `${this.API}comic-order/order-list`,
+        user,
+        this.httpOptions
+    );
   }
 
   createComicOrder(comicOrder: ComicOrderModel): Observable<ResponseModel<String>> {
-    return this.httpClient.post<ResponseModel<String>>(`${this.API}comic-order/create-order`, comicOrder, this.httpOptions)
+    return this.httpClient.post<ResponseModel<String>>(
+        `${this.API}comic-order/create-order`,
+        comicOrder,
+        this.httpOptions
+    )
   }
 
   deleteComicOrder(comicOrder: ComicOrderModel): Observable<ResponseModel<String>> {
-    return this.httpClient.post<ResponseModel<String>>(`${this.API}comic-order/delete`, comicOrder, this.httpOptions)
+    return this.httpClient.post<ResponseModel<String>>(
+        `${this.API}comic-order/delete`,
+        comicOrder,
+        this.httpOptions
+    )
   }
 
   getStatisticComic(): Observable<StatisticComicModel[]> {
