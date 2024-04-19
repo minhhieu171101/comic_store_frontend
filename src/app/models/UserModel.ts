@@ -11,6 +11,8 @@ export class UserModel {
     page: number;
     pageSize: number;
     gender: number | null;
+    file: File | null;
+    searchKey: string | null;
 
     constructor() {
         this.id = null;
@@ -25,5 +27,7 @@ export class UserModel {
         this.page = 0;
         this.pageSize = 0;
         this.gender = null;
+        this.file = null;
+        this.searchKey = null;
     }
 }

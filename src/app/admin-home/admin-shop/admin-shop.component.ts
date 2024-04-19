@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {AdminShopPopupComponent} from "./admin-shop-popup/admin-shop-popup.component";
-import {NgClass} from "@angular/common";
 import {Router} from "@angular/router";
-import {ComicService} from "../../core/service/comic.service";
 import {UserOrderService} from "../../core/service/user-order.service";
 import {PurchaseOrderModel} from "../../models/PurchaseOrderModel";
 import {Page} from "../../models/Page";
+import {ComicModel} from "../../models/ComicModel";
 
 @Component({
   selector: 'app-admin-shop',
@@ -14,7 +13,6 @@ import {Page} from "../../models/Page";
   styleUrl: './admin-shop.component.scss'
 })
 export class AdminShopComponent implements OnInit{
-  isDialogShopOpen: boolean = false;
   purchaseOrder: PurchaseOrderModel = new PurchaseOrderModel();
   purchasePage: Page<PurchaseOrderModel> = new Page<PurchaseOrderModel>();
   currentPage: number = 0;
@@ -24,40 +22,53 @@ export class AdminShopComponent implements OnInit{
   constructor(
       public dialog: MatDialog,
       private router: Router,
-      private userOrderService: UserOrderService
+      private userOrderService: UserOrderService,
+      private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.purchaseOrder.pageSize = 10;
     this.pageSize = 10;
-    this.getPurchaseOrderPage();
+    this.searchOrder(0);
   }
 
-  getPurchaseOrderPage() {
-    this.userOrderService.getPurchaseOrderPage(this.purchaseOrder).subscribe((res: Page<PurchaseOrderModel>) => {
+  getPurchaseOrderPage(purchaseOrder: PurchaseOrderModel) {
+    this.userOrderService.getPurchaseOrderPage(purchaseOrder).subscribe((res: Page<PurchaseOrderModel>) => {
       this.purchasePage = res;
       if (res.content) {
         this.numberPurchase = res.content.length;
       }
+      this.cdr.detectChanges();
     })
   }
 
-  openDialogShop(): void {
-    this.isDialogShopOpen = true;
+  openDialogShop(purchase: PurchaseOrderModel): void {
     const dialogRef = this.dialog.open(AdminShopPopupComponent, {
       width: '500px',
-      data: { /* Dữ liệu bạn muốn truyền vào pop-up */ }
+      height: '180px',
+      data: {
+        userOrderId: purchase.userOrderId,
+        status: purchase.status
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.isDialogShopOpen = false;
-      console.log('The dialog was closed');
+      this.searchOrder(0);
     });
   }
 
   handlePageChange(event: number) {
     this.currentPage =  event;
     this.purchaseOrder.page = event;
-    this.getPurchaseOrderPage();
+    this.searchOrder(event);
+  }
+
+  searchOrder(page: number) {
+    const orderSearch: PurchaseOrderModel = this.purchaseOrder;
+    orderSearch.page = page;
+    if (this.purchaseOrder.searchKey !== null) {
+      orderSearch.searchKey = this.purchaseOrder.searchKey.trim();
+    }
+    this.getPurchaseOrderPage(orderSearch);
   }
 }

@@ -1,25 +1,24 @@
 import {Component, Inject} from '@angular/core';
+import {PurchaseOrderModel} from "../../../../models/PurchaseOrderModel";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {PurchaseOrderModel} from "../../../models/PurchaseOrderModel";
-import {UserOrderService} from "../../../core/service/user-order.service";
-import {ResponseModel} from "../../../models/response/ResponseModel";
+import {UserOrderService} from "../../../../core/service/user-order.service";
 import {ToastrService} from "ngx-toastr";
+import {ResponseModel} from "../../../../models/response/ResponseModel";
 
 @Component({
-  selector: 'app-admin-shop-popup',
-  templateUrl: './admin-shop-popup.component.html',
-  styleUrl: './admin-shop-popup.component.scss'
+  selector: 'app-user-shop-popup',
+  templateUrl: './user-shop-popup.component.html',
+  styleUrl: './user-shop-popup.component.scss'
 })
-export class AdminShopPopupComponent {
-
+export class UserShopPopupComponent {
   userOrder: PurchaseOrderModel = new PurchaseOrderModel();
   status: string | undefined = this.userOrder.status?.toString();
 
   constructor(
-    public dialogRef: MatDialogRef<AdminShopPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private userOrderService: UserOrderService,
-    private toaStr: ToastrService
+      public dialogRef: MatDialogRef<UserShopPopupComponent>,
+      @Inject(MAT_DIALOG_DATA) public data: any,
+      private userOrderService: UserOrderService,
+      private toaStr: ToastrService
   ) {
     this.userOrder.userOrderId = this.data?.userOrderId;
     this.status = this.data?.status.toString();

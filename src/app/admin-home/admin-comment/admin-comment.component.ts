@@ -6,6 +6,7 @@ import {CommentModel} from "../../models/CommentModel";
 import {Page} from "../../models/Page";
 import {ToastrService} from "ngx-toastr";
 import {DeleteCommentComponent} from "./delete-comment/delete-comment.component";
+import {ComicModel} from "../../models/ComicModel";
 
 @Component({
   selector: 'app-admin-comment',
@@ -22,20 +23,18 @@ export class AdminCommentComponent implements OnInit{
 
   constructor(
       public dialog: MatDialog,
-      private router: Router,
       private commentService: CommentService,
-      private toaStr: ToastrService,
       private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.pageSize = 10;
     this.comment.pageSize = 10;
-    this.getPageCommentModel();
+    this.searchComment(0);
   }
 
-  getPageCommentModel() {
-    this.commentService.getCommentPage(this.comment).subscribe((res: Page<CommentModel>) => {
+  getPageCommentModel(comment: CommentModel) {
+    this.commentService.getCommentPage(comment).subscribe((res: Page<CommentModel>) => {
       this.commentPage = res;
       if (res.content) {
         this.numberComment = res.content.length;
@@ -50,7 +49,7 @@ export class AdminCommentComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.getPageCommentModel();
+      this.searchComment(0);
       this.cdr.detectChanges();
     });
   }
@@ -58,6 +57,16 @@ export class AdminCommentComponent implements OnInit{
   handlePageChange(event: any) {
     this.comment.page = event;
     this.currentPage = event;
-    this.getPageCommentModel();
+    this.searchComment(event);
+  }
+
+  searchComment(page: number) {
+    const commentSearch: CommentModel = this.comment;
+    commentSearch.page = page;
+    if (this.comment.searchKey !== null) {
+      commentSearch.searchKey = this.comment.searchKey.trim();
+    }
+
+    this.getPageCommentModel(commentSearch);
   }
 }

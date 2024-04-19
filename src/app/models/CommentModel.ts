@@ -9,6 +9,7 @@ export class CommentModel {
       imgComment: string | null;
       page : number;
       pageSize: number;
+      searchKey: string | null;
 
       constructor() {
           this.id = null;
@@ -21,5 +22,6 @@ export class CommentModel {
           this.imgComment = null;
           this.page = 0;
           this.pageSize= 0;
+          this.searchKey = null;
       }
 }

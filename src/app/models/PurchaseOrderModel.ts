@@ -9,6 +9,8 @@ export class PurchaseOrderModel {
     status: number | null;
     page: number;
     pageSize: number
+    username: string | null;
+    searchKey: string | null;
 
     constructor() {
         this.userId = null;
@@ -21,5 +23,7 @@ export class PurchaseOrderModel {
         this.status = null;
         this.page = 0;
         this.pageSize = 0;
+        this.username = null;
+        this.searchKey = null;
     }
 }

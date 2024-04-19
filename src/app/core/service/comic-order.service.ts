@@ -5,13 +5,14 @@ import {ComicOrderModel} from "../../models/ComicOrderModel";
 import {UserModel} from "../../models/UserModel";
 import {StatisticComicModel} from "../../models/StatisticComicModel";
 import {ResponseModel} from "../../models/response/ResponseModel";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComicOrderService {
 
-  private API: string = "http://localhost:8080/api/";
+  private API: string = `${environment.API}`;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -26,15 +27,27 @@ export class ComicOrderService {
   ) { }
 
   getComicOrders(user: UserModel): Observable<ComicOrderModel[]> {
-    return this.httpClient.post<ComicOrderModel[]>(`${this.API}comic-order/order-list`, user, this.httpOptions);
+    return this.httpClient.post<ComicOrderModel[]>(
+        `${this.API}comic-order/order-list`,
+        user,
+        this.httpOptions
+    );
   }
 
   createComicOrder(comicOrder: ComicOrderModel): Observable<ResponseModel<String>> {
-    return this.httpClient.post<ResponseModel<String>>(`${this.API}comic-order/create-order`, comicOrder, this.httpOptions)
+    return this.httpClient.post<ResponseModel<String>>(
+        `${this.API}comic-order/create-order`,
+        comicOrder,
+        this.httpOptions
+    )
   }
 
   deleteComicOrder(comicOrder: ComicOrderModel): Observable<ResponseModel<String>> {
-    return this.httpClient.post<ResponseModel<String>>(`${this.API}comic-order/delete`, comicOrder, this.httpOptions)
+    return this.httpClient.post<ResponseModel<String>>(
+        `${this.API}comic-order/delete`,
+        comicOrder,
+        this.httpOptions
+    )
   }
 
   getStatisticComic(): Observable<StatisticComicModel[]> {

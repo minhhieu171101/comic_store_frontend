@@ -9,6 +9,8 @@ export class ComicDetailModel {
     imgComic: string | null;
     status: number | null;
     typeComicId: number | null;
+    typeComicIds: string | null;
+    typeName: string | null;
 
     constructor() {
         this.id = null;
@@ -21,5 +23,7 @@ export class ComicDetailModel {
         this.imgComic = null;
         this.status = null;
         this.typeComicId = null;
+        this.typeComicIds = null;
+        this.typeName = null;
     }
 }

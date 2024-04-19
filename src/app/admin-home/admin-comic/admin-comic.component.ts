@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {AdminComicPopupComponent} from "./admin-comic-popup/admin-comic-popup.component";
 import {AdminDeleteComponent} from "./admin-delete/admin-delete.component";
@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {ComicService} from "../../core/service/comic.service";
 import {ComicModel} from "../../models/ComicModel";
 import {Page} from "../../models/Page";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-admin-comic',
@@ -20,25 +21,28 @@ export class AdminComicComponent  implements OnInit{
   currentPage: number = 0;
   numberComic: number = 0;
   pageSize: number = 0;
+  URL_FILE: string = `${environment.FILE_COMIC_URL}`;
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private comicService: ComicService
+    private comicService: ComicService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.comic.pageSize = 1;
-    this.pageSize = 1;
-    this.getComicAdminPage();
+    this.comic.pageSize = 10;
+    this.pageSize = 10;
+    this.searchComic(0);
   }
 
-  getComicAdminPage() {
-    this.comicService.getComicPageAdmin(this.comic).subscribe((res: Page<ComicModel>) => {
+  getComicAdminPage(comic: ComicModel) {
+    this.comicService.getComicPageAdmin(comic).subscribe((res: Page<ComicModel>) => {
       this.pageComic = res;
       if (res.content) {
         this.numberComic = res.content.length;
       }
+      this.cdr.detectChanges();
     })
   }
 
@@ -63,12 +67,22 @@ export class AdminComicComponent  implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       this.isDialogOpen = false;
-      this.getComicAdminPage();
+      this.searchComic(0);
     });
   }
 
   handlePageChange(event: any) {
     this.comic.page = event;
-    this.getComicAdminPage();
+    this.searchComic(event);
+  }
+
+  searchComic(page: number) {
+    const comicSearch: ComicModel = this.comic;
+    comicSearch.page = page;
+    if (this.comic.searchKey !== null) {
+      comicSearch.searchKey = this.comic.searchKey.trim();
+    }
+
+    this.getComicAdminPage(comicSearch);
   }
 }

@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
-import {ComicService} from "../../core/service/comic.service";
 import {AuthService} from "../../core/service/auth.service";
 import {UserModel} from "../../models/UserModel";
 import {Page} from "../../models/Page";
+import {environment} from "../../../environments/environment";
+import {PurchaseOrderModel} from "../../models/PurchaseOrderModel";
 
 @Component({
   selector: 'app-admin-user',
@@ -18,31 +19,43 @@ export class AdminUserComponent implements OnInit{
   currentPage: number = 0;
   numberUser: number = 0;
   pageSize: number = 0;
+  URL_FILE: string = `${environment.FILE_AVATAR_URL}`;
 
   constructor(
       public dialog: MatDialog,
       private router: Router,
-      private authService: AuthService
+      private authService: AuthService,
+      private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.user.pageSize = 1;
-    this.pageSize = 1;
-    this.getPageUserInfo();
+    this.user.pageSize = 10;
+    this.pageSize = 10;
+    this.searchUser(0);
   }
 
-  getPageUserInfo() {
-    this.authService.getPageUserInfo(this.user).subscribe((res: Page<UserModel>) => {
+  getPageUserInfo(user: UserModel) {
+    this.authService.getPageUserInfo(user).subscribe((res: Page<UserModel>) => {
       this.pageUser = res;
       if (res.content) {
         this.numberUser = res.content.length;
       }
+      this.cdr.detectChanges();
     })
   }
 
   handlePageChange(event: number) {
     this.user.page = event;
     this.currentPage = event;
-    this.getPageUserInfo();
+    this.searchUser(event);
+  }
+
+  searchUser(page: number) {
+    const userSearch: UserModel = this.user;
+    userSearch.page = page;
+    if (this.user.searchKey !== null) {
+      userSearch.searchKey = this.user.searchKey.trim();
+    }
+    this.getPageUserInfo(userSearch);
   }
 }

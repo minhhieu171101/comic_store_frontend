@@ -1,4 +1,4 @@
-<div class="container mx-auto">
+<div class="container mx-auto admin-comic-popup-container">
     <div class="px-20 py-8 bg-white">
         <h1 style="text-align: center"><b> Quản Lý Sản Phẩm </b></h1><br>
         <form class="max-w-md mx-auto">
@@ -16,6 +16,7 @@
                        [(ngModel)]="comic.comicName"
                        [ngModelOptions]="{standalone: true}"
                        required/>
+
                 <label for="floating_name_comic"
                        class="peer-focus:font-medium absolute
                         text-sm text-gray-500 dark:text-gray-400
@@ -108,6 +109,31 @@
                         Ngày phát hành
                     </label>
                 </div>
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="number"
+                           name="quantity"
+                           id="quantity"
+                           class="block py-2.5 px-0 w-full text-sm text-gray-900
+                            bg-transparent border-0 border-b-2 border-gray-300
+                            appearance-none dark:text-white dark:border-gray-600
+                            dark:focus:border-blue-500 focus:outline-none
+                            focus:ring-0 focus:border-blue-600 peer"
+                           placeholder=" "
+                           [(ngModel)]="comic.residualQuantity"
+                           [ngModelOptions]="{standalone: true}"
+                           required/>
+                    <label for="floating_day"
+                           class="peer-focus:font-medium absolute text-sm
+                            text-gray-500 dark:text-gray-400 duration-300
+                            transform -translate-y-6 scale-75 top-3 -z-10
+                            origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4
+                            peer-focus:text-blue-600 peer-focus:dark:text-blue-500
+                            peer-placeholder-shown:scale-100
+                            peer-placeholder-shown:translate-y-0 peer-focus:scale-75
+                            peer-focus:-translate-y-6">
+                        Số lượng
+                    </label>
+                </div>
             </div>
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div class="relative z-0 w-full mb-5 group">
@@ -163,6 +189,27 @@
                         Giảm giá
                     </label>
                 </div>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <div class="block mb-2 text-sm font-medium
+                        text-gray-900 dark:text-white">
+                    Ảnh truyện
+                </div>
+                <input type="file"
+                       accept="/image/*"
+                       class="hidden"
+                       id="image-input"
+                       #comicImage
+                       (change)="uploadImage(comicImage.files)">
+                <label for="image-input" class="cursor-pointer label-input-image">
+                    Chọn ảnh
+                    <fa-icon [icon]="faCamera"></fa-icon>
+                    <span *ngIf="comic.file !== null && comic.file"
+                          class="image-name">
+                    {{comic.file.name}}
+                </span>
+                </label>
+
             </div>
             <div class="relative z-0 w-full mb-5 group">
                 <label for="message"

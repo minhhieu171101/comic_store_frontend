@@ -1,7 +1,7 @@
 .list-product-container {
     .item-container {
+        cursor: pointer;
         .top-item-container {
-            cursor: pointer;
             .image-container {
                 width: 200px;
                 height: 180px;
@@ -19,4 +19,16 @@
             }
         }
     }
+    .item-container:hover {
+        background: #cfcece;
+    }
+}
+
+.no-content-home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    height: 200px;
 }

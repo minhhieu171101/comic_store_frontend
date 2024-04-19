@@ -1,9 +1,10 @@
 <div class="wishlist-container ">
+    <app-breadcrumb [listPath]="listPath"></app-breadcrumb>
     <div class="list-item-container grid grid-cols-3 gap-4">
         <div class="item-container p-3 rounded-md bg-white" *ngFor="let wishModel of wishPage.content, let index = index">
             <div class="top-item-container flex gap-4 pb-4 border-b">
                 <div class="image-container" (click)="goToDetail(wishModel.comicId)">
-                    <img [src]="wishModel.comicImg" alt="">
+                    <img [src]="URL_FILE + wishModel.comicImg" alt="">
                 </div>
                 <div class="info-container">
                     <h2 class=" line-clamp-1 font-medium text-[18px] hover:underline">

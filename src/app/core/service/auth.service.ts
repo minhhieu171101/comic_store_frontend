@@ -8,14 +8,15 @@ import {UserModel} from "../../models/UserModel";
 import {ResponseModel} from "../../models/response/ResponseModel";
 import {AuthModel} from "../../models/AuthModel";
 import {Page} from "../../models/Page";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private API: string = "http://localhost:8080/api/";
-  private tokenName: string = "comicshop"
+  private API: string = `${environment.API}`;
+  private tokenName: string = `${environment.TOKEN_NAME}`
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -30,15 +31,27 @@ export class AuthService {
   ) { }
 
   sendEmail(mailModel: MailModel): Observable<ResponseModel<String>>  {
-    return this.httpClient.post<ResponseModel<String>>(`${this.API}auth/send`, mailModel, this.httpOptions);
+    return this.httpClient.post<ResponseModel<String>>(
+        `${this.API}auth/send`,
+        mailModel,
+        this.httpOptions
+    );
   }
 
   register(registerObject: RegisterModel): Observable<ResponseModel<String>>  {
-    return this.httpClient.post<ResponseModel<String>>(`${this.API}auth/register`, registerObject, this.httpOptions);
+    return this.httpClient.post<ResponseModel<String>>(
+        `${this.API}auth/register`,
+        registerObject,
+        this.httpOptions
+    );
   }
 
   login(loginObject: LoginModel): Observable<ResponseModel<AuthModel>>  {
-    return this.httpClient.post<ResponseModel<AuthModel>>(`${this.API}auth/login`, loginObject, this.httpOptions);
+    return this.httpClient.post<ResponseModel<AuthModel>>(
+        `${this.API}auth/login`,
+        loginObject,
+        this.httpOptions
+    );
   }
 
   public isLoggedIn(): boolean {
@@ -69,14 +82,39 @@ export class AuthService {
   }
 
   public getInfoUser(user: UserModel): Observable<ResponseModel<UserModel>> {
-    return this.httpClient.post<ResponseModel<UserModel>>(`${this.API}auth/user`, user, this.httpOptions);
+    return this.httpClient.post<ResponseModel<UserModel>>(
+        `${this.API}auth/user`,
+        user,
+        this.httpOptions
+    );
   }
 
   public getPageUserInfo(user: UserModel): Observable<Page<UserModel>> {
-    return this.httpClient.post<Page<UserModel>>(`${this.API}auth/page-user`, user, this.httpOptions);
+    return this.httpClient.post<Page<UserModel>>(
+        `${this.API}auth/page-user`,
+        user,
+        this.httpOptions
+    );
   }
 
   public updateUserInfo(user: UserModel): Observable<ResponseModel<String>> {
-    return this.httpClient.post<ResponseModel<String>>(`${this.API}auth/update-user`, user, this.httpOptions);
+    const formData = new FormData();
+    formData.append("user", new Blob([JSON.stringify(user)], {type: 'application/json'}));
+    if (user.file !== null) {
+      formData.append("file", user.file)
+    }
+    return this.httpClient.post<ResponseModel<String>>(
+        `${this.API}auth/update-user`,
+        formData,
+        this.httpOptions
+    );
+  }
+
+  public verifyUsername(user: RegisterModel): Observable<ResponseModel<boolean>> {
+    return this.httpClient.post<ResponseModel<boolean>>(
+        `${this.API}auth/verify_username`,
+        user,
+        this.httpOptions
+    );
   }
 }

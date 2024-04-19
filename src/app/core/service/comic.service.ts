@@ -5,13 +5,14 @@ import {ComicModel} from "../../models/ComicModel";
 import {ComicDetailModel} from "../../models/ComicDetailModel";
 import {Page} from "../../models/Page";
 import {ResponseModel} from "../../models/response/ResponseModel";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComicService {
 
-  private API: string = "http://localhost:8080/api/";
+  private API: string = `${environment.API}`;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -26,7 +27,11 @@ export class ComicService {
   ) { }
   
   getListComicLandingPage(comic: ComicModel): Observable<ComicModel[]> {
-    return this.httpClient.post<ComicModel[]>(`${this.API}comic/list-comic`, comic, this.httpOptions);
+    return this.httpClient.post<ComicModel[]>(
+        `${this.API}comic/list-comic`,
+        comic,
+        this.httpOptions
+    );
   }
   
   getDetailComic(id: number): Observable<ComicDetailModel> {
@@ -34,18 +39,50 @@ export class ComicService {
   }
 
   getListComicByType(comic: ComicModel): Observable<Page<ComicModel>> {
-    return this.httpClient.post<Page<ComicModel>>(`${this.API}comic/page-comic`, comic, this.httpOptions);
+    return this.httpClient.post<Page<ComicModel>>(
+        `${this.API}comic/page-comic`,
+        comic,
+        this.httpOptions
+    );
   }
 
   getComicPageAdmin(comic: ComicModel): Observable<Page<ComicModel>> {
-    return this.httpClient.post<Page<ComicModel>>(`${this.API}comic/comic-management-admin`, comic, this.httpOptions);
+    return this.httpClient.post<Page<ComicModel>>(
+        `${this.API}comic/comic-management-admin`,
+        comic,
+        this.httpOptions
+    );
   }
 
   updateComic(comic: ComicModel): Observable<ResponseModel<String>> {
-    return this.httpClient.post<ResponseModel<String>>(`${this.API}comic/update-comic`, comic, this.httpOptions)
+    const formData = new FormData();
+    if (comic.releaseDate instanceof Date) {
+      comic.releaseDate = comic.releaseDate?.toISOString();
+    }
+    formData.append("comic", new Blob([JSON.stringify(comic)], {type: 'application/json'}));
+    if (comic.file !== null) {
+      formData.append("file", comic.file)
+    }
+    return this.httpClient.post<ResponseModel<String>>(
+        `${this.API}comic/update-comic`,
+        formData,
+        this.httpOptions
+    );
   }
 
   deleteComic(comic: ComicModel): Observable<ResponseModel<String>> {
-    return this.httpClient.post<ResponseModel<String>>(`${this.API}comic/delete-comic`, comic, this.httpOptions)
+    return this.httpClient.post<ResponseModel<String>>(
+        `${this.API}comic/delete-comic`,
+        comic,
+        this.httpOptions
+    );
+  }
+
+  searchComic(comic: ComicModel): Observable<Page<ComicModel>> {
+    return this.httpClient.post<Page<ComicModel>>(
+        `${this.API}comic/comic-search`,
+        comic,
+        this.httpOptions
+    );
   }
 }

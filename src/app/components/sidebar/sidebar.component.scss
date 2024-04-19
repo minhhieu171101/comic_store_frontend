@@ -1,0 +1,10 @@
+.side-bar-container {
+  position: fixed;
+  z-index: 10;
+  .sidebar-content {
+    min-height: calc(100vh - 324px);
+  }
+  .active {
+    background: #cfcfcf;
+  }
+}
