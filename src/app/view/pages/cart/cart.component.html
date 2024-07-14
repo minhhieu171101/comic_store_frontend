@@ -13,13 +13,13 @@
                      *ngFor="let comicOrder of comicOrders, let index = index">
                     <div (click)="goToDetail(comicOrder.comicId)"
                          class="cursor-pointer">
-                        <img [src]="URL_FILE + comicOrder.imgComic" alt="">
+                        <img style="width: 140px; height: 180px" [src]="URL_FILE + comicOrder.imgComic" alt="">
                     </div>
                     <div class="col-span-2">
                     <span class="line-clamp-1">
                         {{index + 1}}. {{ comicOrder.comicName }}
                     </span>
-                        <span class="block text-slate-400 text-sm">
+                        <span class="block text-slate-400 text-sm" style="text-transform: capitalize">
                         Loại: {{ comicOrder.typeName }}
                     </span>
                         <span class="text-sm">
@@ -39,15 +39,15 @@
                     </div>
                     <div>
                     <span class="font-bold">
-                        {{comicOrder.totalPrice}} đ
+                        Giá: {{comicOrder.totalPrice * comicOrder.quantity}} đ
                     </span>
                     </div>
-                    <div>
-                        <div class="border inline-block bg-slate-50">
-                            <div type="text" class="w-[3rem] text-center py-2 text-orange-500">
-                                {{comicOrder.quantity}}
-                            </div>
+                    <div class="font-bold"> Số lượng:
+                      <div class="border inline-block bg-slate-50">
+                        <div type="text" class="w-[3rem] text-center py-2 text-orange-500">
+                          {{comicOrder.quantity}}
                         </div>
+                      </div>
                     </div>
                 </div>
             </div>

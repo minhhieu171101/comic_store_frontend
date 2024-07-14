@@ -9,6 +9,7 @@ import {ResponseModel} from "../../models/response/ResponseModel";
 import {AuthModel} from "../../models/AuthModel";
 import {Page} from "../../models/Page";
 import {environment} from "../../../environments/environment";
+import {CommentModel} from "../../models/CommentModel";
 
 @Injectable({
   providedIn: 'root'
@@ -117,4 +118,13 @@ export class AuthService {
         this.httpOptions
     );
   }
+
+  public deleteUser(user: UserModel): Observable<ResponseModel<String>> {
+    return this.httpClient.post<ResponseModel<String>>(
+      `${this.API}auth/delete-user`,
+      user,
+      this.httpOptions
+    );
+  }
+
 }

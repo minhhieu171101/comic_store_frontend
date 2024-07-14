@@ -31,14 +31,14 @@ export class NavbarComponent implements OnInit{
 
   listImageSlide: string[] = [
     "../../assets/images/slide-1.jpg",
-    "../../assets/images/slide-1.jpg",
-    "../../assets/images/slide-1.jpg"
+    "../../assets/images/slide-2.jpg",
+    "../../assets/images/slide-3.jpg"
   ]
 
   listImageQC: string[] = [
     "../../assets/images/qc-1.jpg",
-    "../../assets/images/qc-1.jpg",
-    "../../assets/images/qc-1.jpg"
+    "../../assets/images/qc-2.jpg",
+    "../../assets/images/qc-3.jpg"
   ]
 
   ngOnInit(): void {
@@ -86,5 +86,13 @@ export class NavbarComponent implements OnInit{
   itemActive(): number {
     this.currentType = Number(this.router.url.split("=")[1]);
     return this.currentType;
+  }
+
+  viewMore(): void {
+    this.router.navigate(["/more-products"], {
+      queryParams: {
+        typeComicId: null
+      }
+    });
   }
 }

@@ -72,6 +72,9 @@ export class LoginComponent implements OnInit {
                     this.cdr.detectChanges();
                     this.router.navigateByUrl("/home");
                 }
+                else if (res.status === "BAD_REQUEST"){
+                  this.toaStr.error(res.message)
+              }
             })
         }
     }

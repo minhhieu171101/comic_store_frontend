@@ -194,6 +194,8 @@
                         dark:placeholder-gray-400 dark:text-white
                         dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="•••••••••"
+                       [(ngModel)]="user.password"
+                       [ngModelOptions]="{standalone: true}"
                         required/>
             </div>
             <div class="mb-6">
@@ -212,6 +214,8 @@
                         dark:text-white dark:focus:ring-blue-500
                         dark:focus:border-blue-500"
                         placeholder="•••••••••"
+                       [(ngModel)]="user.rePassword"
+                       [ngModelOptions]="{standalone: true}"
                         required/>
             </div>
             <button type="submit"

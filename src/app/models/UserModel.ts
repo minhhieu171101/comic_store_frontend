@@ -13,6 +13,7 @@ export class UserModel {
     gender: number | null;
     file: File | null;
     searchKey: string | null;
+    rePassword: string | null;
 
     constructor() {
         this.id = null;
@@ -29,5 +30,6 @@ export class UserModel {
         this.gender = null;
         this.file = null;
         this.searchKey = null;
+        this.rePassword = null;
     }
 }

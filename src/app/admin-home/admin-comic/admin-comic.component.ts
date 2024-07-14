@@ -55,7 +55,7 @@ export class AdminComicComponent  implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       this.isDialogOpen = false;
-      console.log('The dialog was closed');
+      this.searchComic(0);
     });
   }
 

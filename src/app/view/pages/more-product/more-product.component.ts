@@ -85,7 +85,6 @@ export class MoreProductComponent implements OnInit{
     if (this.comicObject.searchKey) {
       comicSearch.searchKey = this.comicObject.searchKey.trim();
     }
-
     this.getComics(comicSearch);
   }
 }

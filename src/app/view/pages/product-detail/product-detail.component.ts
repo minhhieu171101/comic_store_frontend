@@ -11,7 +11,7 @@ import {AuthService} from "../../../core/service/auth.service";
 import {ResponseModel} from "../../../models/response/ResponseModel";
 import {ComicOrderService} from "../../../core/service/comic-order.service";
 import {ToastrService} from "ngx-toastr";
-import {faUserPlus} from "@fortawesome/free-solid-svg-icons/faUserPlus";
+import {faCartShopping} from '@fortawesome/free-solid-svg-icons';
 import {faTruck} from "@fortawesome/free-solid-svg-icons/faTruck";
 import {CommentModel} from "../../../models/CommentModel";
 import {CommentService} from "../../../core/service/comment.service";
@@ -26,7 +26,7 @@ import {environment} from "../../../../environments/environment";
 })
 export class ProductDetailComponent implements OnInit {
     faHeart: IconDefinition = faHeart;
-    faUserPlus: IconDefinition = faUserPlus;
+    faCartShopping: IconDefinition = faCartShopping;
     faTruck: IconDefinition = faTruck;
     idComic: number | undefined;
     comicDetail: ComicDetailModel = new ComicDetailModel();
@@ -59,7 +59,7 @@ export class ProductDetailComponent implements OnInit {
     ngOnInit(): void {
         this.getDetailComic();
         this.getUserInfo();
-        this.listPath = [...this.listPath, "trang chủ", "các sản phẩm"];
+        this.listPath = [...this.listPath, "Trang chủ", "Các sản phẩm"];
     }
 
 
@@ -153,4 +153,12 @@ export class ProductDetailComponent implements OnInit {
             }
         })
     }
+
+  gotoDetailInfoOrder() {
+    this.router.navigate(["/user-shop"])
+  }
+
+  routerCart(): void {
+    this.router.navigate(["/cart"]);
+  }
 }

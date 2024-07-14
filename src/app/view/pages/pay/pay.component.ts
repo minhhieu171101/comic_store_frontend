@@ -79,7 +79,7 @@ export class PayComponent implements OnInit{
     if (this.comicOrders) {
       for (const comicOrder of this.comicOrders) {
         this.totalProduct += comicOrder.quantity;
-        this.totalPrice += comicOrder.totalPrice;
+        this.totalPrice += comicOrder.totalPrice * comicOrder.quantity;
       }
       this.userOrder.totalPrice = this.totalPrice;
     }

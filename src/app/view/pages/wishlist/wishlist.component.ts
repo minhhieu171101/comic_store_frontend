@@ -7,6 +7,7 @@ import {UserModel} from "../../../models/UserModel";
 import {AuthService} from "../../../core/service/auth.service";
 import {Router} from "@angular/router";
 import {environment} from "../../../../environments/environment";
+import {ResponseModel} from "../../../models/response/ResponseModel";
 
 @Component({
   selector: 'app-wishlist',
@@ -62,4 +63,18 @@ export class WishlistComponent implements OnInit{
     this.currentPage = event;
     this.getWishlistPage();
   }
+
+  deleteWishlist(id: number | null) {
+    const wishlist = new WishlistModel();
+    wishlist.id = id;
+    this.wishlistService.deleteWishlist(wishlist).subscribe((res: ResponseModel<String>) => {
+      if (res.status === "OK") {
+        this.toaStr.success(res.message);
+        this.getWishlistPage();
+      } else {
+        this.toaStr.error(res.message);
+      }
+    })
+  }
+
 }

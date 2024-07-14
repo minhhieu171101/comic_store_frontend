@@ -6,14 +6,22 @@
                 <div class="image-container" (click)="goToDetail(wishModel.comicId)">
                     <img [src]="URL_FILE + wishModel.comicImg" alt="">
                 </div>
-                <div class="info-container">
+                <div class="info-container flex flex-col justify-between">
+                  <div>
                     <h2 class=" line-clamp-1 font-medium text-[18px] hover:underline">
-                        {{ wishModel.comicName }}
+                      <b>{{ wishModel.comicName }}</b>
                     </h2>
-                    <span>{{ wishModel.authorName }}</span>
+                    <span><i>{{ wishModel.authorName }}</i></span>
                     <p class=" line-clamp-3">
                         {{ wishModel.contents }}
                     </p>
+                  </div>
+
+                  <div class="text-end ">
+                    <button class=" p-2 rounded-md bg-gray-500 text-white font-medium">
+                      <a (click)="deleteWishlist(wishModel.id)"> Bỏ thích</a>
+                    </button>
+                  </div>
                 </div>
             </div>
         </div>

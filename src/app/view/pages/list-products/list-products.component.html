@@ -8,9 +8,9 @@
             </div>
             <div class="info-container">
                 <h2 class=" line-clamp-1 font-medium text-[18px] hover:underline">
-                    {{ comic.comicName }}
+                    <b> {{ comic.comicName }} </b>
                 </h2>
-                <span>{{ comic.authorName }}</span>
+                <span><i>{{ comic.authorName }}</i></span>
                 <p class=" line-clamp-3">
                     {{ comic.contents }}
                 </p>
@@ -20,12 +20,15 @@
             <span class=" p-2 rounded-md bg-red-500 text-white font-medium">
                 Còn lại {{ comic.residualQuantity }}
             </span>
+            <span class="text-red-500 text-lg font-medium">
+                    <i>-{{ comic.sale }} %</i>
+            </span>
             <span>
                 <span class="line-through mr-4">
-                    {{ comic.price }}
+                    {{ comic.price }}đ
                 </span>
                 <span class="text-red-500 text-lg font-medium">
-                    {{ calculatePrice(comic.price, comic.sale) }}
+                    {{ calculatePrice(comic.price, comic.sale) }}đ
                 </span>
             </span>
         </div>

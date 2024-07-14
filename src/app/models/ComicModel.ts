@@ -14,7 +14,7 @@ export class ComicModel {
     releaseDate: Date | null| string;
     file: File | null;
     searchKey: string | null;
-    
+
     constructor() {
         this.id = null;
         this.comicName = null;

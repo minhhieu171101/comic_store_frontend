@@ -51,6 +51,9 @@
                     <th scope="col" class="px-6 py-3">
                         Id
                     </th>
+                  <th scope="col" class="px-6 py-3">
+                        Mã đơn hàng
+                  </th>
                     <th scope="col" class="px-6 py-3">
                         Tên khách hàng
                     </th>
@@ -81,6 +84,9 @@
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ index + 1 }}
                     </th>
+                  <td class="px-6 py-4">
+                    {{ purchase.userOrderId }}
+                  </td>
                     <td class="px-6 py-4">
                         {{ purchase.fullName }}
                     </td>
@@ -114,7 +120,7 @@
                             cursor-pointer"
                             mat-button
                             (click)="openDialogShop(purchase)"
-                            *ngIf="purchase.status !== 3">
+                            *ngIf="purchase.status !== null && purchase.status < 2">
                             Cập nhật trạng thái
                         </a>
                     </td>

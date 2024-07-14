@@ -5,6 +5,7 @@ import {Page} from "../../models/Page";
 import {ResponseModel} from "../../models/response/ResponseModel";
 import {WishlistModel} from "../../models/WishlistModel";
 import {environment} from "../../../environments/environment";
+import {CommentModel} from "../../models/CommentModel";
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,14 @@ export class WishlistService {
         `${this.API}wishlist/add-wishlist`,
         wishlistModel,
         this.httpOptions
+    );
+  }
+
+  public deleteWishlist(wishlistModel: WishlistModel): Observable<ResponseModel<String>> {
+    return this.httpClient.post<ResponseModel<String>>(
+      `${this.API}wishlist/delete-wishlist`,
+      wishlistModel,
+      this.httpOptions
     );
   }
 

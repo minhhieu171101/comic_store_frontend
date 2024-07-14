@@ -50,7 +50,7 @@ export class ComicOrderService {
     )
   }
 
-  getStatisticComic(): Observable<StatisticComicModel[]> {
-    return this.httpClient.get<StatisticComicModel[]>(`${this.API}comic-order/statistic`)
+  getStatisticComic(statisticComic: StatisticComicModel): Observable<StatisticComicModel[]> {
+    return this.httpClient.post<StatisticComicModel[]>(`${this.API}comic-order/statistic`, statisticComic, this.httpOptions)
   }
 }

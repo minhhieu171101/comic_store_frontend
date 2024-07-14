@@ -63,13 +63,13 @@
                         Giới tính
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Địa chỉ
-                    </th>
-                    <th scope="col" class="px-6 py-3">
                         Số điện thoại
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Gmail
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+
                     </th>
                 </tr>
                 </thead>
@@ -81,7 +81,7 @@
                         {{ index + 1 }}
                     </th>
                     <td class="px-6 py-4">
-                        <img [src]="URL_FILE + user.imgUser" alt="">
+                        <img style="max-width: 140px; max-height: 160px" [src]="URL_FILE + user.imgUser" alt="">
                     </td>
                     <td class="px-6 py-4">
                         {{ user.username }}
@@ -102,13 +102,19 @@
 
                     </td>
                     <td class="px-6 py-4">
-                        {{ user.address }}
-                    </td>
-                    <td class="px-6 py-4">
                         {{ user.phone }}
                     </td>
                     <td class="px-6 py-4">
                         {{ user.email }}
+                    </td>
+                    <td class="px-6 py-4">
+                      <a mat-button
+                         (click)="openDialogDelete(user)"
+                         class="font-medium text-red-600
+                            dark:text-blue-500 hover:underline
+                            cursor-pointer">
+                        Xóa
+                      </a>
                     </td>
                 </tr>
                 </tbody>

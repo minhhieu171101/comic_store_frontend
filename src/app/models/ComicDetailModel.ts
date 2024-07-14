@@ -6,6 +6,7 @@ export class ComicDetailModel {
     price: number;
     sale: number;
     residualQuantity: number;
+    releaseDate: Date | null;
     imgComic: string | null;
     status: number | null;
     typeComicId: number | null;
@@ -20,6 +21,7 @@ export class ComicDetailModel {
         this.price = 0;
         this.sale = 0;
         this.residualQuantity = 0;
+        this.releaseDate = null;
         this.imgComic = null;
         this.status = null;
         this.typeComicId = null;

@@ -6,6 +6,9 @@ import {UserModel} from "../../models/UserModel";
 import {Page} from "../../models/Page";
 import {environment} from "../../../environments/environment";
 import {PurchaseOrderModel} from "../../models/PurchaseOrderModel";
+import {CommentModel} from "../../models/CommentModel";
+import {DeleteCommentComponent} from "../admin-comment/delete-comment/delete-comment.component";
+import {DeleteUserComponent} from "./delete-user/delete-user.component";
 
 @Component({
   selector: 'app-admin-user',
@@ -57,5 +60,16 @@ export class AdminUserComponent implements OnInit{
       userSearch.searchKey = this.user.searchKey.trim();
     }
     this.getPageUserInfo(userSearch);
+  }
+
+  openDialogDelete(user: UserModel): void {
+    const dialogRef = this.dialog.open(DeleteUserComponent, {
+      data: user
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.searchUser(0);
+      this.cdr.detectChanges();
+    });
   }
 }

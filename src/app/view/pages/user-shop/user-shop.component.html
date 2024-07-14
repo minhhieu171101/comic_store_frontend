@@ -95,6 +95,7 @@
                         <a class="font-medium text-blue-600
                             dark:text-blue-500 hover:underline
                             cursor-pointer"
+                           *ngIf="purchase.status !== null && purchase.status < 2"
                            (click)="openDialogShop(purchase)">
                             Cập nhật trạng thái
                         </a>
